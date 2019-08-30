@@ -9,8 +9,8 @@ get_sites() {
 
 if [[ ! -d "certificates/ca" ]]; then
     mkdir -p "certificates/ca"
-    openssl genrsa -out "certificates/ca/ca.key" 4096
-    openssl req -x509 -new -nodes -key "certificates/ca/ca.key" -sha256 -days 365 -out "certificates/ca/ca.crt" -subj "/CN=Sandbox Internal CA"
+    openssl genrsa -out "certificates/ca/ca.key" 4096 &> /dev/null
+    openssl req -x509 -new -nodes -key "certificates/ca/ca.key" -sha256 -days 365 -out "certificates/ca/ca.crt" -subj "/CN=Sandbox Internal CA" &> /dev/null
 fi
 
 for domain in `get_sites`; do
@@ -20,8 +20,8 @@ for domain in `get_sites`; do
         sed -i -e "s/{{DOMAIN}}/${domain}/g" "certificates/${domain}/${domain}.ext"
         rm -rf "certificates/${domain}/${domain}.ext-e"
 
-        openssl genrsa -out "certificates/${domain}/${domain}.key" 4096
-        openssl req -new -key "certificates/${domain}/${domain}.key" -out "certificates/${domain}/${domain}.csr" -subj "/CN=*.${domain}.test"
-        openssl x509 -req -in "certificates/${domain}/${domain}.csr" -CA "certificates/ca/ca.crt" -CAkey "certificates/ca/ca.key" -CAcreateserial -out "certificates/${domain}/${domain}.crt" -days 3650 -sha256 -extfile "certificates/${domain}/${domain}.ext"
+        openssl genrsa -out "certificates/${domain}/${domain}.key" 4096 &> /dev/null
+        openssl req -new -key "certificates/${domain}/${domain}.key" -out "certificates/${domain}/${domain}.csr" -subj "/CN=*.${domain}.test" &> /dev/null
+        openssl x509 -req -in "certificates/${domain}/${domain}.csr" -CA "certificates/ca/ca.crt" -CAkey "certificates/ca/ca.key" -CAcreateserial -out "certificates/${domain}/${domain}.crt" -days 3650 -sha256 -extfile "certificates/${domain}/${domain}.ext" &> /dev/null
     fi
 done
