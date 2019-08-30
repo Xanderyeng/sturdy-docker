@@ -1,5 +1,7 @@
 /config/nginx/*
 !/config/nginx/nginx.tmpl
 
+/config/docker-custom.yml
+
 .DS_Store
 /config/.DS_Store
