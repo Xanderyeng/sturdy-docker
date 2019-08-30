@@ -1,4 +1,4 @@
-upstream {{DOMAIN}} {
+upstream {{HOST}} {
     server {{IP_ADDRESS}}:9000;
 }
 
@@ -6,19 +6,19 @@ server {
     listen 80;
     listen [::]:80;
 
-    server_name {{DOMAIN}};
+    server_name {{HOST}};
 
-    return 301 https://{{DOMAIN}}$request_uri;
+    return 301 https://{{HOST}}$request_uri;
 }
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name {{DOMAIN}};
+    server_name {{HOST}};
 
-    ssl_certificate 		/etc/nginx/certs/{{DOMAIN}}.crt;
-    ssl_certificate_key		/etc/nginx/certs/{{DOMAIN}}.key;
+    ssl_certificate 		/etc/nginx/certs/{{DOMAIN}}/{{DOMAIN}}.crt;
+    ssl_certificate_key		/etc/nginx/certs/{{DOMAIN}}/{{DOMAIN}}.key;
 
     root /var/www/html;
 
