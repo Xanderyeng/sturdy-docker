@@ -1,0 +1,68 @@
+version: '3.5'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: docker-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/sandbox.conf:/etc/nginx/conf.d/sandbox.conf
+      - ./certificates/sandbox:/etc/nginx/certs/sandbox
+      - ./wordpress/sandbox:/var/www/html
+    networks:
+      default:
+        ipv4_address: 172.141.145.100
+  
+  sandbox:
+    image: wordpress:php7.3-fpm
+    container_name: docker-sandbox
+    restart: always
+    ports:
+      - "9000:9000"
+    depends_on:
+      - mysql
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_NAME: sandbox
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+    volumes:
+      - ./wordpress/sandbox:/var/www/html
+    networks:
+      default:
+        ipv4_address: 172.141.145.101
+
+  mysql:
+    image: mysql:5.7
+    container_name: docker-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: sandbox
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    volumes:
+       - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: docker-phpmyadmin
+    restart: always
+    ports:
+     - "8081:80"
+    environment:
+     - PMA_ARBITRARY=1
+    volumes:
+     - /sessions
+
+volumes:
+  db_data:
+
+networks:
+  default:
+    external:
+      name: frontend
