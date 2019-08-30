@@ -10,7 +10,7 @@ get_sites() {
 if [[ ! -d "certificates/ca" ]]; then
     mkdir -p "certificates/ca"
     openssl genrsa -out "certificates/ca/ca.key" 4096 &> /dev/null
-    openssl req -x509 -new -nodes -key "certificates/ca/ca.key" -sha256 -days 365 -out "certificates/ca/ca.crt" -subj "/CN=Sandbox Internal CA" &> /dev/null
+    openssl req -x509 -new -nodes -key "certificates/ca/ca.key" -sha256 -days 365 -out "certificates/ca/ca.crt" -subj "/CN=Docker for WordPress" &> /dev/null
 fi
 
 for domain in `get_sites`; do
