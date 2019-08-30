@@ -1,6 +1,9 @@
 /config/nginx/*
 !/config/nginx/nginx.tmpl
 
+/certificates/*
+!/certificates/readmd.md
+
 /config/docker-custom.yml
 
 .DS_Store
