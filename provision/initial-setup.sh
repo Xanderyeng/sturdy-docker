@@ -1,7 +1,7 @@
 
 #!/bin/bash
 
-config="config/docker-setup.yml"
+config="config/docker-custom.yml"
 
 get_sites() {
     local value=`cat ${config} | shyaml keys sites 2> /dev/null`
