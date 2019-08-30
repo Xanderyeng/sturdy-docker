@@ -12,6 +12,10 @@ for domain in `get_sites`; do
 
     if [[ ! -f "config/nginx/${domain}" ]]; then
         cp "config/nginx/nginx.tmpl" "config/nginx/${domain}.conf"
+        if grep -q "{{DOMAIN}}" "config/nginx/${domain}.conf"; then
+            sed -i -e "s/{{DOMAIN}}/${domain}/g" "config/nginx/${domain}.conf"
+            rm -rf "config/nginx/${domain}.conf-e"
+        fi
     fi
 
     get_hosts() {
@@ -25,8 +29,8 @@ for domain in `get_sites`; do
     }
 
     for host in `get_hosts`; do 
-        if grep -q "{{DOMAIN}}" "config/nginx/${domain}.conf"; then
-            sed -i -e "s/{{DOMAIN}}/${host}/g" "config/nginx/${domain}.conf"
+        if grep -q "{{HOST}}" "config/nginx/${domain}.conf"; then
+            sed -i -e "s/{{HOST}}/${host}/g" "config/nginx/${domain}.conf"
             rm -rf "config/nginx/${domain}.conf-e"
         fi
     done
