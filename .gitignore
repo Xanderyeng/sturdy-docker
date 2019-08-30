@@ -1,2 +1,5 @@
 /config/nginx/*
 !/config/nginx/nginx.tmpl
+
+.DS_Store
+/config/.DS_Store
