@@ -4,6 +4,8 @@
 /certificates/*
 !/certificates/readmd.md
 
+/wordpress
+
 /config/docker-custom.yml
 
 .DS_Store
