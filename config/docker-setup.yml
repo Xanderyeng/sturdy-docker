@@ -11,7 +11,3 @@ sites:
   sandbox:
     address: 172.141.145.100
     host: sandbox.test
-
-  themereview:
-    address: 172.141.145.101
-    host: themereview.test
