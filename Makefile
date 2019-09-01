@@ -1,7 +1,4 @@
-.PHONY: create-network initial-setup create-certificates
-
-create-network:
-	docker network create --driver=bridge --subnet=172.141.0.0/16 --ip-range=172.141.145.0/24 frontend
+.PHONY: initial-setup create-certificates
 
 initial-setup: provision/initial-setup.sh
 	/bin/bash provision/initial-setup.sh
