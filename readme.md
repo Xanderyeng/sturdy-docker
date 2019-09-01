@@ -31,7 +31,13 @@ make initial-setup
 </pre>
 
 ## Create Certificates
-This certs and keys should not be used for production, these are meant for only local and development only. 
+This certs and keys should not be used for production, these are meant for only local and development only. Please install after generating the certs because, by default, https is used. 
 <pre>
 make create-certificates
+</pre>
+
+After you have done all this above, is done to docker-compose up -d, this will then pull down all necesary iamges and deploy them. Please note that  it is using localhost of 127.0.0.1, therefore, using a custom domain will work fine, just go to the hosts file and type the following 
+<pre>
+127.0.0.1 sandbox.test
+127.0.0.1 example.test
 </pre>
