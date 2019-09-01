@@ -9,5 +9,4 @@
 # You wil then need to run when you use make create-sites. 
 sites:
   sandbox:
-    address: 172.141.145.100
     host: sandbox.test
