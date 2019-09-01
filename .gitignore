@@ -4,8 +4,7 @@
 /certificates/*
 !/certificates/readmd.md
 
-/wordpress/*
-!/wordpress/.gitkeep
+/wordpress
 
 /config/docker-custom.yml
 
