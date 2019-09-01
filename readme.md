@@ -15,4 +15,8 @@ sudo install python-pip
 sudo pip install shyaml
 </pre>
 
-## How to Use
+#How to Use
+After you have successfully install shyaml, you can begin setting up before you docker up. The project uses Makefile that have specific commands that does automation for you so you don't need to do them manually. 
+
+## Create Initial Setup
+The initial setup will use the docker-setup.yml and duplicates to docker-custom.yml and by default sandbox.test is used. This will eventually generates a sandbox.conf using the nginx.tmpl template file and replaces the domain name and hostname and it uses upstream ( proxy ) to make your site available.
