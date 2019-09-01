@@ -26,7 +26,7 @@ services:
       - ./wordpress/sandbox:/var/www/html
 
   mysql:
-    image: mysql:5.7
+    image: benlumia007/docker-mysql:latest
     container_name: docker-mysql
     restart: always
     environment:
@@ -34,7 +34,6 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     volumes:
        - db_data:/var/lib/mysql
-       - ./config/mysql/.my.cnf:/root/.my.cnf
     ports:
       - "3306:3306"
 
