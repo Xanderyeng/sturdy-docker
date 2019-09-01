@@ -27,21 +27,9 @@ for domain in `get_sites`; do
         echo ${value:$@}
     }
 
-    get_address() {
-        local value=`cat ${config} | shyaml get-value sites.${domain}.address`
-        echo ${value:$@}
-    }
-
     for host in `get_hosts`; do 
         if grep -q "{{HOST}}" "config/nginx/${domain}.conf"; then
             sed -i -e "s/{{HOST}}/${host}/g" "config/nginx/${domain}.conf"
-            rm -rf "config/nginx/${domain}.conf-e"
-        fi
-    done
-
-    for address in `get_address`; do
-        if grep -q "{{IP_ADDRESS}}" "config/nginx/${domain}.conf"; then
-            sed -i -e "s/{{IP_ADDRESS}}/${address}/g" "config/nginx/${domain}.conf"
             rm -rf "config/nginx/${domain}.conf-e"
         fi
     done
