@@ -25,3 +25,7 @@ sites:
   sandbox:
     host: sandbox.test
 </pre>
+To begin, all you will need to do is the following
+<pre>
+make initial-setup
+</pre>
