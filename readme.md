@@ -29,3 +29,9 @@ To begin, all you will need to do is the following
 <pre>
 make initial-setup
 </pre>
+
+## Create Certificates
+This certs and keys should not be used for production, these are meant for only local and development only. 
+<pre>
+make create-certificates
+</pre>
