@@ -22,11 +22,6 @@ services:
       - "9000:9000"
     depends_on:
       - mysql
-    environment:
-      WORDPRESS_DB_HOST: mysql
-      WORDPRESS_DB_NAME: sandbox
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
     volumes:
       - ./wordpress/sandbox:/var/www/html
 
@@ -35,10 +30,7 @@ services:
     container_name: docker-mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: sandbox
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: root
     volumes:
        - db_data:/var/lib/mysql
     ports:
