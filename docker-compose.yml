@@ -19,7 +19,7 @@ services:
     container_name: docker-sandbox
     restart: always
     ports:
-      - "9000:9000"
+      - "9000"
     depends_on:
       - mysql
     volumes:
