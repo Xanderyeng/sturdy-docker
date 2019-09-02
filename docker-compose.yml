@@ -15,7 +15,7 @@ services:
       - ./wordpress/sandbox/public_html:/var/www/html
   
   sandbox:
-    image: benlumia007/docker-wordpress:latest
+    image: benlumia007/docker-wordpress:7.3-fpm
     container_name: docker-sandbox
     restart: always
     ports:
