@@ -23,7 +23,7 @@ services:
     depends_on:
       - mysql
     volumes:
-      - ./wordpress/sandbox:/var/www/html
+      - ./wordpress/sandbox/public_html:/var/www/html
 
   mysql:
     image: benlumia007/docker-mysql:latest
