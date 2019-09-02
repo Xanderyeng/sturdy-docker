@@ -15,14 +15,13 @@ services:
       - ./wordpress/sandbox:/var/www/html
   
   sandbox:
-    image: wordpress:php7.3-fpm
+    image: benlumia007/docker-wordpress
     container_name: docker-sandbox
     restart: always
     ports:
       - "9000:9000"
     depends_on:
       - mysql
-    command: usermod -u 1000 www-data
     volumes:
       - ./wordpress/sandbox:/var/www/html
 
