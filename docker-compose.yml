@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   nginx:
-    image: nginx:latest
+    image: benlumia007/docker-nginx:latest
     container_name: docker-nginx
     restart: always
     depends_on:
