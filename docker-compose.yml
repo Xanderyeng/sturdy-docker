@@ -12,7 +12,7 @@ services:
     volumes:
       - ./config/nginx/sandbox.conf:/etc/nginx/conf.d/sandbox.conf
       - ./certificates/sandbox:/etc/nginx/certs/sandbox
-      - ./wordpress/sandbox:/var/www/html
+      - ./wordpress/sandbox/public_html:/var/www/html
   
   sandbox:
     image: benlumia007/docker-wordpress:latest
