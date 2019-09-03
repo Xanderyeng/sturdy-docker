@@ -43,7 +43,6 @@ Makefile scripts are only for macOS and Linux and will not work with Windows. Wi
 <pre>
 make initial-setup
 make create-certificates
-make add-hosts
 </pre>
 
 ## Create Initial Setup
