@@ -27,6 +27,17 @@ sudo install python-pip
 sudo pip install shyaml
 </pre>
 
+### Setting Up Your Host User Passwordless
+One of the biggest thing that I found useful is to set your username password when you use sudo privileges and it works with Linux and macOS so that you can setup hosts file when running one of the script to add and remove hosts in the hosts file. Please follow the following to make your user passwordless
+<pre>
+sudo visudo
+</pre>
+Once you are in this file, scrolled all the way down and enter the following
+<pre>
+username  ALL=(ALL:ALL) NOPASSWD:ALL
+</pre>
+This is the same step if you were to create your own vagrant box and that's it, you can edit your hosts file automatically when using one of the scripts provided. 
+
 # How to Use
 After you have successfully install shyaml, you can begin setting up before you docker up. The project uses Makefile that have specific commands that does automation for you so you don't need to do them manually. 
 
