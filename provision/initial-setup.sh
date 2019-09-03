@@ -32,5 +32,11 @@ for domain in `get_sites`; do
             sed -i -e "s/{{HOST}}/${host}/g" "config/nginx/${domain}.conf"
             rm -rf "config/nginx/${domain}.conf-e"
         fi
+
+        if ! grep -q "${host}" /etc/hosts; then
+           echo "127.0.0.1     ${domain}.test" | sudo tee -a /etc/hosts
+        else
+            echo "${host} already exists in /etc/hosts"
+        fi
     done
 done
