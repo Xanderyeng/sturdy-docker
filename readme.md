@@ -4,7 +4,7 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 ## Table of Content
 
 1. [Overview](https://github.com/benlumia007/docker-for-wordpress#overview)
-2. Requirements
+2. [Requirements](https://github.com/benlumia007/docker-for-wordpress#requirements)
 3. Setup
 4.  MySQL
 5. MailHog
