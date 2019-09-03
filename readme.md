@@ -15,13 +15,13 @@ Docker for WordPress is a local development environment based on docker-compose.
 ## Requirements
 One of the biggest requirements overall is Docker for Linux and Docker for Mac and has been tested thorough. There is one more requirement needed and that equirement is <code>shyaml</code>. [Shyaml](https://pypi.org/project/shyaml/) is a simple script that allows you to read to get access to a yaml or yml data in your shell scripts, which the project needs to generate sites when added. 
 
-### Syaml for macOS
+### Shyaml for macOS
 The easiest way to install shyaml is to use [Homebrew](https://github.com/Homebrew/brew/) for macOS installation
 <pre>
 brew install shyaml
 </pre>
 
-## Installing Shyaml for Ubuntu or Elementary OS
+## Shyaml for Linux ( Ubuntu / Elementary OS )
 <pre>
 sudo install python-pip
 sudo pip install shyaml
