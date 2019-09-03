@@ -13,7 +13,7 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 Docker for WordPress is a local development environment based on docker-compose. By default, instead of using localhost, the project uses https://sandbox.test for better experience and allows you to add more sites if needed so you won't be stuck using localhost by default. The containers that are used in this project are custom built and will go through them one by one with a better understanding on how each work. 
 
 ## Requirements
-One of the biggest requirements overall is Docker for Linux and Docker for Mac. The project is build on Linux and Mac. There is one more requirement needed and that equirement is <code>shyaml</code>. 
+One of the biggest requirements overall is Docker for Linux and Docker for Mac and has been tested thorough. There is one more requirement needed and that equirement is <code>shyaml</code>. [Shyaml](https://pypi.org/project/shyaml/) is a simple script that allows you to read to get access to a yaml or yml data in your shell scripts, which the project needs to generate sites when added. 
 
 ## Installing Shyaml from Homebrew for macOS
 <pre>
