@@ -5,7 +5,7 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 
 1. [Overview](https://github.com/benlumia007/docker-for-wordpress#overview)
 2. [Requirements](https://github.com/benlumia007/docker-for-wordpress#requirements)
-3. Setup
+3. Initial Setup
 4.  MySQL
 5. MailHog
 
@@ -36,10 +36,15 @@ Once you are in this file, scrolled all the way down and enter the following
 <pre>
 username  ALL=(ALL:ALL) NOPASSWD:ALL
 </pre>
-This is the same step if you were to create your own vagrant box and that's it, you can edit your hosts file automatically when using one of the scripts provided. 
+This is the same step if you were to create your own vagrant box and that's it, you can edit your hosts file automatically when using one of the scripts provided.
 
-# How to Use
-After you have successfully install shyaml, you can begin setting up before you docker up. The project uses Makefile that have specific commands that does automation for you so you don't need to do them manually. 
+## Makefile ( A Somewhat Automation )
+Makefile scripts are only for macOS and Linux and will not work with Windows. Windows is currently not supported at the moment. What are the main scripts that gets run.
+<pre>
+make initial-setup
+make create-certificates
+make add-hosts
+</pre>
 
 ## Create Initial Setup
 The initial setup will use the docker-setup.yml and duplicates to docker-custom.yml and by default sandbox.test is used. This will eventually generates a sandbox.conf using the nginx.tmpl template file and replaces the domain name and hostname and it uses upstream ( proxy ) to make your site available. The docker-custom.yml looks like this
