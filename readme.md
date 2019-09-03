@@ -70,6 +70,3 @@ The default, there is two users thaty you can use, one is root and the other one
 <pre>
 docker exec -it docker-mysql mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'wordpress'@'%' WITH GRANT OPTION;"
 </pre>
-## MailHog
-
-
