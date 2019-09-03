@@ -31,6 +31,8 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
     command: --default-authentication-plugin=mysql_native_password
     volumes:
        - db_data:/var/lib/mysql
