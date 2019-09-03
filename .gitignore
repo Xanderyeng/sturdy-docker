@@ -2,7 +2,7 @@
 !/config/nginx/nginx.tmpl
 
 /certificates/*
-!/certificates/readmd.md
+!/certificates/readme.md
 
 /wordpress/*
 !/wordpress/.gitkeep
