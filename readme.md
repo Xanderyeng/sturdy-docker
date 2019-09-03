@@ -45,7 +45,7 @@ make initial-setup
 make create-certificates
 </pre>
 
-## Getting Starte
+## Getting Started
 The initial setup will use the docker-setup.yml and duplicates to docker-custom.yml and by default sandbox.test is used. This will eventually generates a sandbox.conf using the nginx.tmpl template file and replaces the domain name and hostname and it uses upstream ( proxy ) to make your site available. The docker-custom.yml looks like this
 <pre>
 sites:
