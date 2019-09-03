@@ -1,7 +1,7 @@
 # Docker for WordPress
 This is a [Docker](https://www.docker.com) based local environment for [WordPress](https://wordpress.org) Development
 
-## Table of Content
+# Table of Content
 
 1. Overview
 2. Requirements
@@ -9,8 +9,10 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 4.  MySQL
 5. MailHog
 
-## Prerequisite
-Before you begin using Docker for WordPress, I like to point out a few things. Docker for WordPress currently works with Linux and macOS with the latest Docker for Mac and Docker CE for Linux which also comes with other software needed. The main piece of software that you will need since shyaml which is a tool that allows specific files to read and generate automation throughout the this project. Without shyaml, the automation will not work well and may not able to get it working.
+## Overview
+Docker for WordPress is a local development environment based on docker-compose. By default, instead of using localhost, the project uses https://sandbox.test for better experience and allows you to add more sites if needed so you won't be stuck using localhost by default. The containers that are used in this project are custom built and will go through them one by one with a better understanding on how each work. 
+
+## Requirements
 
 ## Installing Shyaml from Homebrew for macOS
 <pre>
