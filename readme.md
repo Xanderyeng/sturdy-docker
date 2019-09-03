@@ -64,3 +64,5 @@ make create-certificates
 </pre>
 
 After you have done all this above, is done to docker-compose up -d, this will then pull down all necesary iamges and deploy them. Please note that the hosts file will be automatically updated when you first initial-setup for each site you create. 
+
+## MySQL
