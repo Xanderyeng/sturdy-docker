@@ -68,8 +68,7 @@ After you have done all this above, is done to docker-compose up -d, this will t
 ## MySQL
 The default user and password for MySQL is user and password is root because since this is a local development and don't think that it is necessary to create a new user and password jsut to use WordPress. But any case, some users prefer not to use the root to do anything, so the best option is to create a new user and password for any user you want. You can go to phpMyAdmin and create one for yourself or you can do this when you already have MySQL container up and runnning.
 <pre>
-docker exec -it docker-mysql mysql -u root -e "CREATE USER 'wordpress'@'%' IDENTIFIED WITH mysql_native_password BY 'wordpress';"
-docker exec -it docker-mysql noroot mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'wordpress'@'%' WITH GRANT OPTION;"
+docker exec -it docker-mysql mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'wordpress'@'%' WITH GRANT OPTION;"
 </pre>
 ## MailHog
 
