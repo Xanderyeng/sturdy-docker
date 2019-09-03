@@ -9,5 +9,7 @@
 
 /config/docker-custom.yml
 
+docker-compose.yml
+
 .DS_Store
 /config/.DS_Store
