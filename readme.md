@@ -21,13 +21,13 @@ The easiest way to install shyaml is to use [Homebrew](https://github.com/Homebr
 brew install shyaml
 </pre>
 
-## Shyaml for Linux ( Ubuntu / Elementary OS )
+### Shyaml for Linux ( Ubuntu / Elementary OS )
 <pre>
 sudo install python-pip
 sudo pip install shyaml
 </pre>
 
-#How to Use
+# How to Use
 After you have successfully install shyaml, you can begin setting up before you docker up. The project uses Makefile that have specific commands that does automation for you so you don't need to do them manually. 
 
 ## Create Initial Setup
