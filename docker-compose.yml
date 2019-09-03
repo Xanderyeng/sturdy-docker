@@ -49,6 +49,13 @@ services:
      - PMA_ARBITRARY=1
     volumes:
      - /sessions
+  
+  mailhog:
+    image: mailhog/mailhog
+    container_name: docker-mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
 
 volumes:
   db_data:
