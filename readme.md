@@ -66,7 +66,7 @@ make create-certificates
 After you have done all this above, is done to docker-compose up -d, this will then pull down all necesary iamges and deploy them. Please note that the hosts file will be automatically updated when you first initial-setup for each site you create. 
 
 ## MySQL
-The default, there is two users thaty you can use, one is root and the other one wordpress which does not have full privileges. Some users do not like to use root, so the wordpress is created by default, if you wish to give wordpress full privileges then, copy and paste the command below, then you should have full access. There is no database, so you will need to create one for sandbox. 
+The default, there is two users thaty you can use, one is root and the other one wordpress which does not have full privileges. Some users do not like to use root, so the wordpress is created by default and it is recommended to set wordpress to have full privileges so that the user can create more than one database if needed.
 <pre>
 docker exec -it docker-mysql mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'wordpress'@'%' WITH GRANT OPTION;"
 </pre>
