@@ -1,7 +1,9 @@
-.PHONY: initial-setup create-certificates pull-images
+.PHONY: initial-setup create-sites create-certificates pull-images
 
-initial-setup: provision/initial-setup.sh
-	/bin/bash provision/initial-setup.sh
+initial-setup: provision/initial-setup
+
+create-sites: provision/create-sites.sh
+	/bin/bash provision/create-sites.sh
 
 create-certificates: provision/tls-ca.sh
 	/bin/bash provision/tls-ca.sh
