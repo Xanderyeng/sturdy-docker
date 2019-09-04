@@ -1,6 +1,7 @@
 .PHONY: initial-setup create-sites create-certificates pull-images
 
-initial-setup: provision/initial-setup
+initial-setup: provision/initial-setup.sh
+	/bin/bash provision/initial-setup.sh
 
 create-sites: provision/create-sites.sh
 	/bin/bash provision/create-sites.sh
