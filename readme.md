@@ -42,6 +42,7 @@ This is the same step if you were to create your own vagrant box and that's it, 
 Makefile scripts are only for macOS and Linux and will not work with Windows. Windows is currently not supported at the moment. What are the main scripts that gets run.
 <pre>
 make initial-setup
+make create-sites
 make create-certificates
 </pre>
 
