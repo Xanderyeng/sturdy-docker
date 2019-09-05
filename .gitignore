@@ -4,8 +4,7 @@
 /certificates/*
 !/certificates/readme.md
 
-/wordpress/*
-!/wordpress/.gitkeep
+/sites/*
 
 /config/docker-custom.yml
 
