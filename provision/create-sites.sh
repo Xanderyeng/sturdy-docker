@@ -20,6 +20,7 @@ for domain in `get_sites`; do
             sed -i -e "s/{{DOMAIN}}/${domain}/g" "config/nginx/${domain}.conf"
             rm -rf "config/nginx/${domain}.conf-e"
         fi
+        mkdir -p "sites/${domain}"
     fi
 
     get_hosts() {
