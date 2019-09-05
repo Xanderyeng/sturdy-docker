@@ -12,7 +12,7 @@ services:
     volumes:
       - ./config/nginx/sandbox.conf:/etc/nginx/conf.d/sandbox.conf
       - ./certificates/sandbox:/etc/nginx/certs/sandbox
-      - ./wordpress/sandbox/public_html:/var/www/html
+      - ./sites/sandbox/public_html:/var/www/html
   
   sandbox:
     image: benlumia007/docker-wordpress:7.3-fpm
@@ -23,7 +23,7 @@ services:
     depends_on:
       - mysql
     volumes:
-      - ./wordpress/sandbox/public_html:/var/www/html
+      - ./sites/sandbox/public_html:/var/www/html
       - ./config/php/php-custom.ini:/usr/local/etc/php/conf.d/php-custom.ini
 
   mysql:
