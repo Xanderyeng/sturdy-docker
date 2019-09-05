@@ -6,7 +6,8 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 1. [Overview](https://github.com/benlumia007/docker-for-wordpress#overview)
 2. [Requirements](https://github.com/benlumia007/docker-for-wordpress#requirements)
 3. [Getting Started](https://github.com/benlumia007/docker-for-wordpress#getting-started)
-4.  [MySQL](https://github.com/benlumia007/docker-for-wordpress#mysql)
+4. [MySQL](https://github.com/benlumia007/docker-for-wordpress#mysql)
+5. [MailHog]
 
 ## Overview
 Docker for WordPress is a local development environment based on docker-compose. By default, instead of using localhost, the project uses https://sandbox.test for better experience and allows you to add more sites if needed so you won't be stuck using localhost by default. The containers that are used in this project are custom built and will go through them one by one with a better understanding on how each work. 
@@ -67,3 +68,6 @@ After you have done all this above, is done to docker-compose up -d, this will t
 
 ## MySQL
 By default, having more than one user having the same privileges just doesn't seem logical anymore when working on a development environment for WordPress. The only user that is currently in use is root. You can create your own user if you wish by going to the phpMyAdmin.
+
+## MailHog
+You can now access MailHog
