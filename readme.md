@@ -7,7 +7,7 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 2. [Requirements](https://github.com/benlumia007/docker-for-wordpress#requirements)
 3. [Getting Started](https://github.com/benlumia007/docker-for-wordpress#getting-started)
 4. [MySQL](https://github.com/benlumia007/docker-for-wordpress#mysql)
-5. [MailHog]
+5. [MailHog](https://github.com/benlumia007/docker-for-wordpress#mailhog)
 
 ## Overview
 Docker for WordPress is a local development environment based on docker-compose. By default, instead of using localhost, the project uses https://sandbox.test for better experience and allows you to add more sites if needed so you won't be stuck using localhost by default. The containers that are used in this project are custom built and will go through them one by one with a better understanding on how each work. 
