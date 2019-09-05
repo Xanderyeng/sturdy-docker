@@ -10,6 +10,6 @@ create-certificates: provision/tls-ca.sh
 	/bin/bash provision/tls-ca.sh
 
 pull-images:
-	docker pull benlumia007/docker-nginx
-	docker pull benlumia007/docker-mysql
-	docker pull benlumia007/docker-wordpress
+	docker pull benlumia007/docker-nginx:latest
+	docker pull benlumia007/docker-mysql:latest
+	docker pull benlumia007/docker-wordpress:7.3-fpm
