@@ -10,7 +10,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./config/nginx/sandbox.conf:/etc/nginx/conf.d/sandbox.conf
+      - ./config/nginx:/etc/nginx/conf.d
       - ./certificates/sandbox:/etc/nginx/certs/sandbox
       - ./sites/sandbox/public_html:/var/www/html
   
