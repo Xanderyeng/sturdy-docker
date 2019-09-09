@@ -1,10 +1,5 @@
 #!/bin/bash
 
-if [[ ! -f "config/docker-custom.yml" ]]; then
-    cp "config/docker-setup.yml" "config/docker-custom.yml"
-    cp "config/docker-compose-setup.yml" "docker-compose.yml"
-fi
-
 config="config/docker-custom.yml"
 
 get_sites() {
@@ -15,7 +10,7 @@ get_sites() {
 for domain in `get_sites`; do
 
     if [[ ! -f "config/nginx/${domain}" ]]; then
-        cp "config/nginx/nginx.tmpl" "config/nginx/${domain}.conf"
+        cp "templates/nginx.tmpl" "config/nginx/${domain}.conf"
         if grep -q "{{DOMAIN}}" "config/nginx/${domain}.conf"; then
             sed -i -e "s/{{DOMAIN}}/${domain}/g" "config/nginx/${domain}.conf"
             rm -rf "config/nginx/${domain}.conf-e"
