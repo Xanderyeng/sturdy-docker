@@ -1,7 +1,11 @@
-.PHONY: initial-setup create-sites create-certificates pull-images
+.PHONY: all initial-setup create-sites create-certificates remove-sites
 
-initial-setup: provision/initial-setup.sh
-	/bin/bash provision/initial-setup.sh
+default: all
+
+all: initial-setup create-sites create-certificates
+
+initial-setup: provision/init.sh
+	/bin/bash provision/init.sh
 
 create-sites: provision/create-sites.sh
 	/bin/bash provision/create-sites.sh
@@ -9,7 +13,5 @@ create-sites: provision/create-sites.sh
 create-certificates: provision/tls-ca.sh
 	/bin/bash provision/tls-ca.sh
 
-pull-images:
-	docker pull benlumia007/nginx:latest
-	docker pull benlumia007/mysql:latest
-	docker pull benlumia007/wordpress:7.3-fpm
+remove-sites: provision/remove-sites.sh
+	/bin/bash provision/remove-sites.sh
