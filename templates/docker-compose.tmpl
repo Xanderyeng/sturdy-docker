@@ -1,4 +1,4 @@
-version: '2.4'
+version: '3.5'
 services:
   nginx:
     image: benlumia007/nginx:latest
@@ -12,8 +12,7 @@ services:
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
       - ./certificates:/etc/nginx/certs
-    volumes_from:
-      - sandbox
+      - ./sites/sandbox/public_html:/var/www/html
   
   sandbox:
     image: benlumia007/wordpress:7.3-fpm
