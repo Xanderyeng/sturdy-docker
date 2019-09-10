@@ -18,7 +18,7 @@ for domain in `get_sites`; do
                 sed -i -e "s/{{DOMAIN}}/${domain}/g" "config/nginx/${domain}.conf"
                 rm -rf "config/nginx/${domain}.conf-e"
             fi
-            mkdir -p "sites/${domain}"
+            mkdir -p "sites/${domain}/public_html"
         fi
 
         get_hosts() {
@@ -36,5 +36,12 @@ for domain in `get_sites`; do
             echo "127.0.0.1     ${domain}.test" | sudo tee -a /etc/hosts
             fi
         done
+
+        cp "templates/wp-config.php" "sites/${domain}/public_html/wp-config.php"
+        sed -i -e "/DB_HOST/s/'[^']*'/'mysql'/2" "sites/${domain}/public_html/wp-config.php"
+        sed -i -e "/DB_NAME/s/'[^']*'/'${domain}'/2" "sites/${domain}/public_html/wp-config.php"
+        sed -i -e "/DB_USER/s/'[^']*'/'wordpress'/2" "sites/${domain}/public_html/wp-config.php"
+        sed -i -e "/DB_PASSWORD/s/'[^']*'/'wordpress'/2" "sites/${domain}/public_html/wp-config.php"
+        rm -rf "sites/${domain}/public_html/wp-config.php-e"
     fi
 done
