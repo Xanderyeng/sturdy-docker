@@ -1,0 +1,61 @@
+version: '2.4'
+services:
+  nginx:
+    image: benlumia007/nginx:latest
+    container_name: docker-nginx
+    restart: always
+    depends_on:
+      - sandbox
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./certificates:/etc/nginx/certs
+    volumes_from:
+      - sandbox
+
+  sandbox:
+    image: benlumia007/wordpress:7.3-fpm
+    container_name: docker-sandbox
+    restart: always
+    ports:
+      - "9000"
+    depends_on:
+      - mysql
+    volumes:
+      - ./sites/sandbox/public_html:/var/www/html
+      - ./config/php/php-custom.ini:/usr/local/etc/php/conf.d/php-custom.ini
+
+  mysql:
+    image: benlumia007/mysql:latest
+    container_name: docker-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+       - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: docker-phpmyadmin
+    restart: always
+    ports:
+     - "8081:80"
+    environment:
+     - PMA_ARBITRARY=1
+    volumes:
+     - /sessions
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: docker-mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+
+volumes:
+  db_data:
