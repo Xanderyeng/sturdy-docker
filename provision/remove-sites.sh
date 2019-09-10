@@ -22,7 +22,7 @@ for domain in `get_sites`; do
 
         for host in `get_hosts`; do 
             if grep -q "${host}" /etc/hosts; then
-                sudo sed -i "/${host}/d" "/etc/hosts"
+                sudo sed -i '' "/${host}/d" "/etc/hosts"
             fi
         done
     fi
