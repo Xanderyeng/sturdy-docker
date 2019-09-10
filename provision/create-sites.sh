@@ -12,6 +12,7 @@ for domain in `get_sites`; do
 
     if [[ "True" == ${provision} ]]; then
         if [[ ! -f "config/nginx/${domain}.conf" ]]; then
+            mkdir -p "config/nginx"
             cp "templates/nginx.conf" "config/nginx/${domain}.conf"
 
             if grep -q "{{DOMAIN}}" "config/nginx/${domain}.conf"; then
