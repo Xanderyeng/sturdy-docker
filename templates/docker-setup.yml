@@ -9,4 +9,5 @@
 # You wil then need to run when you use make create-sites. 
 sites:
   sandbox:
+    provision: true
     host: sandbox.test
