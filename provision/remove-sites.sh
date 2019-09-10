@@ -28,5 +28,6 @@ for domain in `get_sites`; do
         docker exec -it docker-mysql mysql -u root -e "DROP DATABASE IF EXISTS ${domain};"
         docker exec -it docker-mysql mysql -u root -e "REVOKE ALL PRIVILEGES ON ${domain}.* FROM 'wordpress'@'%';"
         docker exec -it docker-mysql mysql -u root -e "FLUSH PRIVILEGES;"
+        rm -rf "sites/${domain}"
     fi    
 done
