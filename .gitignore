@@ -6,6 +6,8 @@
 
 /sites/*
 
+/provision/resources
+
 /config/docker-custom.yml
 
 docker-compose.yml
