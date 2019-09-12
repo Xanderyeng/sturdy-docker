@@ -11,3 +11,8 @@ sites:
   sandbox:
     provision: true
     host: sandbox.test
+
+resources:
+  utilties:
+    - phpmyadmin
+    - tls-ca
