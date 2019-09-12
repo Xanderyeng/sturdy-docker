@@ -6,6 +6,7 @@ dir="sites/dashboard/public_html"
 if [[ ! -d "${dir}" ]]; then
     cp "templates/nginx.conf" "config/nginx/dashboard.conf"
     sed -i -e "s/{{DOMAIN}}/dashboard/g" "config/nginx/dashboard.conf"
+    sed -i -e "s/{{HOST}}/dashboard.test/g" "config/nginx/dashboard.conf"
     rm -rf "config/nginx/dashboard.conf-e"
 fi
 
