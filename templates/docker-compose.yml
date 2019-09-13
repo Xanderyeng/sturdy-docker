@@ -39,17 +39,6 @@ services:
     ports:
       - "3306:3306"
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: docker-phpmyadmin
-    restart: always
-    ports:
-     - "8081:80"
-    environment:
-     - PMA_ARBITRARY=1
-    volumes:
-     - /sessions
-
   mailhog:
     image: mailhog/mailhog
     container_name: docker-mailhog
