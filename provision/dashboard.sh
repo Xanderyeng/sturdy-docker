@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-repo="git@github.com:benlumia007/docker-for-wordpress-dashboard.git"
+repo="https://github.com/benlumia007/docker-for-wordpress-dashboard.git"
 dir="sites/dashboard/public_html"
 
 if [[ ! -d "${dir}" ]]; then
+    mkdir -p "config/nginx"
     cp "templates/nginx.conf" "config/nginx/dashboard.conf"
     sed -i -e "s/{{DOMAIN}}/dashboard/g" "config/nginx/dashboard.conf"
     sed -i -e "s/{{HOST}}/dashboard.test/g" "config/nginx/dashboard.conf"
@@ -16,5 +17,6 @@ if [[ false != "dashboard" && false != "${repo}" ]]; then
     else
         cd ${dir}
         git pull -q
+        cd ../../..
     fi 
 fi
