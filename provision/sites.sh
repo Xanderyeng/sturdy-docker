@@ -8,12 +8,13 @@ if [[ false != "${repo}" ]]; then
     if [[ ! -d "${dir}/provision/.git" ]]; then
         git clone ${repo} ${dir}/provision -q
     else
+        cd "${dir}/provision"
         git pull origin master -q
     fi
 fi
 
 if [[ -d ${dir} ]]; then
     if [[ -f ${dir}/provision/setup.sh ]]; then
-        cd ${dir}/provision && source setup.sh
+        source ${dir}/provision/setup.sh
     fi
 fi
