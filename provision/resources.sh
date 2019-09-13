@@ -7,7 +7,7 @@ get_resources() {
     echo ${value:$@}
 }
 
-repo="git@github.com:benlumia007/docker-for-wordpress-resources.git"
+repo="https://github.com/benlumia007/docker-for-wordpress-resources.git"
 dir="provision/resources/${name}"
 
 if [[ false != ${name} && false != ${repo} ]]; then
@@ -16,6 +16,7 @@ if [[ false != ${name} && false != ${repo} ]]; then
     else
         cd ${dir}
         git pull origin master -q
+        cd ../..
     fi
 fi
 
