@@ -8,7 +8,7 @@ get_resources() {
 }
 
 repo="https://github.com/benlumia007/docker-for-wordpress-resources.git"
-dir="provision/resources/${name}"
+dir="provision/resources"
 
 if [[ false != ${name} && false != ${repo} ]]; then
     if [[ ! -d ${dir}/.git ]]; then
@@ -20,3 +20,4 @@ if [[ false != ${name} && false != ${repo} ]]; then
     fi
 fi
 
+source provision/utility.sh
