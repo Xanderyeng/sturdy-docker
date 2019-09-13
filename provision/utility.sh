@@ -10,5 +10,5 @@ get_resources() {
 resources=`get_resources`
 
 for name in ${resources//- /$'\n'}; do
-    sh "provision/resources/${name}/setup.sh"
+    source provision/resources/${name}/setup.sh
 done
