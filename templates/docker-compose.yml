@@ -1,5 +1,24 @@
 version: '3.7'
 services:
+  mysql:
+    image: benlumia007/mysql:latest
+    container_name: docker-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+       - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: docker-mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+
   nginx:
     image: benlumia007/nginx:latest
     container_name: docker-nginx
@@ -22,25 +41,6 @@ services:
       - "9000"
     volumes:
       - ./sites/dashboard/public_html:/var/www/html/dashboard/public_html
-
-  mysql:
-    image: benlumia007/mysql:latest
-    container_name: docker-mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-    command: --default-authentication-plugin=mysql_native_password
-    volumes:
-       - db_data:/var/lib/mysql
-    ports:
-      - "3306:3306"
-
-  mailhog:
-    image: mailhog/mailhog
-    container_name: docker-mailhog
-    ports:
-      - "8025:8025"
-      - "1025:1025"
 
 volumes:
   db_data:
