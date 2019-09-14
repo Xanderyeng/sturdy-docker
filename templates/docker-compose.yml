@@ -1,31 +1,27 @@
-version: '2.3'
+version: '3.7'
 services:
   nginx:
     image: benlumia007/nginx:latest
     container_name: docker-nginx
     restart: always
     depends_on:
-      - sandbox
+      - dashboard
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
       - ./certificates:/etc/nginx/certs
-    volumes_from:
-      - sandbox
+      - ./sites/dashboard/public_html:/var/www/html/dashboard/public_html
 
-  sandbox:
-    image: benlumia007/wordpress:7.3-fpm
-    container_name: docker-sandbox
+  dashboard:
+    image: benlumia007/php:7.3-fpm
+    container_name: docker-dashboard
     restart: always
     ports:
       - "9000"
-    depends_on:
-      - mysql
     volumes:
-      - ./sites/sandbox/public_html:/var/www/html
-      - ./config/php/php-custom.ini:/usr/local/etc/php/conf.d/php-custom.ini
+      - ./sites/dashboard/public_html:/var/www/html/dashboard/public_html
 
   mysql:
     image: benlumia007/mysql:latest
