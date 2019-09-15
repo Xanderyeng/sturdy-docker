@@ -1,6 +1,6 @@
-.PHONY: all docker-dashboard docker-sites docker-resources
+.PHONY: all docker-dashboard docker-sites docker-resources remove-sites
 
-default: all docker-dashboard
+default: all
 
 all: docker-dashboard docker-sites docker-resources
 
@@ -12,3 +12,6 @@ docker-sites: provision/setup.sh
 
 docker-resources: provision/resources.sh
 	/bin/bash provision/resources.sh
+
+remove-sites: provision/remove-sites.sh
+	/bin/bash provision/remove-sites.sh
