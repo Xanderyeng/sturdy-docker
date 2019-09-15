@@ -13,6 +13,8 @@ for domain in `get_sites`; do
     if [[ "False" == ${provision} ]]; then
         rm -rf "certificates/${domain}.crt"
         rm -rf "certificates/${domain}.key"
+        rm -rf "certificates/${domain}.csr"
+        rm -rf "certificates/${domain}.ext"
         rm -rf "config/nginx/${domain}.conf"
 
         get_hosts() {
