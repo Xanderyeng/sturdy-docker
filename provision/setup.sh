@@ -7,8 +7,6 @@ fi
 
 config="config/docker-custom.yml"
 
-source provision/dashboard.sh
-
 get_sites() {
     local value=`cat ${config} | shyaml keys sites 2> /dev/null`
     echo ${value:-$@}
@@ -23,5 +21,3 @@ for sites in `get_sites`; do
         echo "${sites} will not be provision."
     fi
 done
-
-source provision/resources.sh

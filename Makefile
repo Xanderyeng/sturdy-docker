@@ -1,8 +1,14 @@
-.PHONY: all docker-provision
+.PHONY: all docker-dashboard docker-sites docker-resources
 
-default: all
+default: all docker-dashboard
 
-all: docker-provision
+all: docker-dashboard docker-sites docker-resources
 
-docker-provision: provision/setup.sh
+docker-dashboard: provision/dashboard.sh
+	/bin/bash provision/dashboard.sh
+
+docker-sites: provision/setup.sh
 	/bin/bash provision/setup.sh
+
+docker-resources: provision/resources.sh
+	/bin/bash provision/resources.sh
