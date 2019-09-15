@@ -7,7 +7,7 @@ if [[ ! -d "${dir}" ]]; then
     mkdir -p "config/nginx"
     cp "templates/nginx.conf" "config/nginx/dashboard.conf"
     sed -i -e "s/{{DOMAIN}}/dashboard/g" "config/nginx/dashboard.conf"
-    sed -i -e "s/{{HOST}}/dashboard.test/g" "config/nginx/dashboard.conf"
+    sed -i -e "s/{{DOMAIN}}/dashboard.test/g" "config/nginx/dashboard.conf"
     rm -rf "config/nginx/dashboard.conf-e"
 fi
 
