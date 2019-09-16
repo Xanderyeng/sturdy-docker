@@ -12,13 +12,6 @@ services:
     ports:
       - "3306:3306"
 
-  mailhog:
-    image: mailhog/mailhog
-    container_name: docker-mailhog
-    ports:
-      - "8025:8025"
-      - "1025:1025"
-
   nginx:
     image: benlumia007/nginx:latest
     container_name: docker-nginx
