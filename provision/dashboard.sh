@@ -9,6 +9,10 @@ if [[ ! -d "${dir}" ]]; then
     sed -i -e "s/{{DOMAIN}}/dashboard/g" "config/nginx/dashboard.conf"
     sed -i -e "s/{{DOMAIN}}/dashboard.test/g" "config/nginx/dashboard.conf"
     rm -rf "config/nginx/dashboard.conf-e"
+
+    if ! grep -q "dashboard.test" /etc/hosts; then
+        echo "127.0.0.1   dashboard.test" | sudo tee -a /etc/hosts
+    fi
 fi
 
 if [[ false != "dashboard" && false != "${repo}" ]]; then
@@ -18,7 +22,7 @@ if [[ false != "dashboard" && false != "${repo}" ]]; then
         cd ${dir}
         git pull -q
         cd ../../..
-    fi 
+    fi
 fi
 
 if [[ -d "${dir}" ]]; then
