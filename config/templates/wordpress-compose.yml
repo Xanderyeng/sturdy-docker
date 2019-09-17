@@ -1,0 +1,10 @@
+version: '3.5'
+services:
+  {{DOMAIN}}:
+    image: benlumia007/php:7.3-fpm
+    container_name: docker-{{DOMAIN}}
+    restart: always
+    ports:
+      - "9000"
+    volumes:
+      - ./sites/{{DOMAIN}}/public_html:/var/www/html/{{DOMAIN}}/public_html
