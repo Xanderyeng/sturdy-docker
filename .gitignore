@@ -2,9 +2,10 @@
 !/config/nginx/nginx.tmpl
 
 /certificates/*
-!/certificates/readme.md
+!/certificates/.gitkeep
 
 /sites/*
+!/sites/.gitkeep
 
 /provision/resources
 
