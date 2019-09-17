@@ -17,19 +17,18 @@ for domain in `get_sites`; do
         rm -rf "certificates/${domain}.ext"
         rm -rf "config/nginx/${domain}.conf"
 
-        get_hosts() {
-            local value=`cat ${config} | shyaml get-value sites.${domain}.host`
-            echo ${value:$@}
-        }
-
-        for host in `get_hosts`; do 
-            if grep -q "${host}" /etc/hosts; then
-                sudo sed -i '' "/${host}/d" "/etc/hosts"
+        if grep -q "${domain}.test" /etc/hosts; then
+            uname=`uname`
+            if [[ ${uname} == "Linux" ]]; then
+                sudo sed -i "/${domain}.test/d" "/etc/hosts"
+            else
+                sudo sed -i '' "/${domain}.test/d" "/etc/hosts"
             fi
-        done
+        fi
+
         docker exec -it docker-mysql mysql -u root -e "DROP DATABASE IF EXISTS ${domain};"
         docker exec -it docker-mysql mysql -u root -e "REVOKE ALL PRIVILEGES ON ${domain}.* FROM 'wordpress'@'%';"
         docker exec -it docker-mysql mysql -u root -e "FLUSH PRIVILEGES;"
         rm -rf "sites/${domain}"
-    fi    
+    fi
 done
