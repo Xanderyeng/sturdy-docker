@@ -11,8 +11,7 @@
 
 /config/docker-custom.yml
 
-docker-compose.yml
-sandbox-compose.yml
+/*-compose.yml
 
 .DS_Store
 /config/.DS_Store
