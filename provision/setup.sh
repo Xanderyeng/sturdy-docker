@@ -13,10 +13,12 @@ get_sites() {
 }
 
 for sites in `get_sites`; do
-    provision() {
+    get_site_provision() {
         local value=`cat ${config} | shyaml get-value sites.${sites}.provision 2> /dev/null`
         echo ${value:-$@}
     }
+
+    provision=`get_site_provision`
 
     if [[ "True" == ${provision} ]]; then
         source provision/sites.sh
@@ -24,3 +26,5 @@ for sites in `get_sites`; do
         source provision/remove-sites.sh
     fi
 done
+
+
