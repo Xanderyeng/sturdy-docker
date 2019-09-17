@@ -13,7 +13,10 @@ get_sites() {
 }
 
 for sites in `get_sites`; do
-    provision=`cat ${config} | shyaml get-value sites.${sites}.provision`
+    provision() {
+        local value=`cat ${config} | shyaml get-value sites.${sites}.provision 2> /dev/null`
+        echo ${value:-$@}
+    }
 
     if [[ "True" == ${provision} ]]; then
         source provision/sites.sh
