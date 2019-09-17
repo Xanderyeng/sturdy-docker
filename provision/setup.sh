@@ -18,6 +18,6 @@ for sites in `get_sites`; do
     if [[ "True" == ${provision} ]]; then
         source provision/sites.sh
     else
-        echo "${sites} will not be provision."
+        source provision/remove-sites.sh
     fi
 done
