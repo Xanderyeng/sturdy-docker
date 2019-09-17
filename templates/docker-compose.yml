@@ -26,6 +26,14 @@ services:
       - ./certificates:/etc/nginx/certs
       - ./sites/dashboard/public_html:/var/www/html/dashboard/public_html
 
+  mailhog:
+    image: mailhog/mailhog
+    container_name: docker-mailhog
+    restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
   dashboard:
     image: benlumia007/php:7.3-fpm
     container_name: docker-dashboard
