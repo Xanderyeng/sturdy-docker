@@ -3,7 +3,7 @@
 running=`docker inspect -f '{{.State.Running}}' docker-nginx 2> /dev/null`
 
 if [[ "${running}" = "true" ]]; then
-    echo "server started..."
+    docker-compose restart nginx phpfpm
 else
     echo "starting server..."
     docker-compose up -d
