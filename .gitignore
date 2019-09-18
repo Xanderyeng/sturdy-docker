@@ -2,7 +2,6 @@
 !/config/nginx/nginx.tmpl
 
 /certificates/*
-!/certificates/.gitkeep
 
 /sites/*
 !/sites/.gitkeep
