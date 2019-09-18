@@ -25,6 +25,7 @@ services:
       - ./config/nginx:/etc/nginx/conf.d
       - ./certificates:/etc/nginx/certs
       - ./sites/dashboard/public_html:/var/www/html/dashboard/public_html
+      - ./sites/sandbox/public_html:/var/www/html/sandbox/public_html
 
   mailhog:
     image: mailhog/mailhog
@@ -42,6 +43,16 @@ services:
       - "9000"
     volumes:
       - ./sites/dashboard/public_html:/var/www/html/dashboard/public_html
+      - ./config/docker-custom.yml:/var/www/html/dashboard/public_html/config/docker-custom.yml
+
+  sandbox:
+    image: benlumia007/php:7.3-fpm
+    container_name: docker-sandbox
+    restart: always
+    ports:
+      - "9000"
+    volumes:
+      - ./sites/sandbox/public_html:/var/www/html/sandbox/public_html
 
 volumes:
   db_data:
