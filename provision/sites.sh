@@ -1,6 +1,5 @@
 #!/bin/bash
 
-domain=${sites}
 repo="https://github.com/benlumia007/docker-for-wordpress-sites.git"
 dir="sites/${sites}"
 
