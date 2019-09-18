@@ -23,7 +23,5 @@ for name in ${resources//- /$'\n'}; do
         fi
     fi
 
-    utility=${dir}/${name}
-
-    source ${utility}/setup.sh
+    source ${dir}/${name}/setup.sh
 done
