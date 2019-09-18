@@ -14,6 +14,5 @@ sites:
       - sandbox.test
 
 resources:
-  utilties:
-    - phpmyadmin
-    - tls-ca
+  - phpmyadmin
+  - tls-ca
