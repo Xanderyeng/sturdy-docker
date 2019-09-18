@@ -17,7 +17,7 @@ services:
     container_name: docker-nginx
     restart: always
     depends_on:
-      - dashboard
+      - phpfpm
     ports:
       - "80:80"
       - "443:443"
@@ -34,14 +34,14 @@ services:
       - "1025:1025"
       - "8025:8025"
 
-  dashboard:
+  phpfpm:
     image: benlumia007/php:7.3-fpm
-    container_name: docker-dashboard
+    container_name: docker-phpfpm
     restart: always
     ports:
       - "9000"
     volumes:
-      - ./sites/dashboard/public_html:/var/www/html/dashboard/public_html
+      - ./sites:/var/www/html
 
 volumes:
   db_data:
