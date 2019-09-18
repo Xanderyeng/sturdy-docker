@@ -7,9 +7,9 @@ get_sites() {
     echo ${value:-$@}
 }
 
-for sites in `get_sites`; do
+for domain in `get_sites`; do
     get_site_provision() {
-        local value=`cat ${config} | shyaml get-value sites.${sites}.provision 2> /dev/null`
+        local value=`cat ${config} | shyaml get-value sites.${domain}.provision 2> /dev/null`
         echo ${value:-$@}
     }
 
@@ -17,7 +17,7 @@ for sites in `get_sites`; do
 
     if [[ "True" == ${provision} ]]; then
         repo="https://github.com/benlumia007/docker-for-wordpress-sites.git"
-        dir="sites/${sites}"
+        dir="sites/${domain}"
 
         if [[ false != "${repo}" ]]; then
             if [[ ! -d "${dir}/provision/.git" ]]; then
