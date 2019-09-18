@@ -15,7 +15,7 @@ if [[ ! -d "${dir}" ]]; then
     fi
 fi
 
-if [[ false != "dashboard" && false != "${repo}" ]]; then
+if [[ false != "${repo}" ]]; then
     if [[ ! -d ${dir}/.git ]]; then
         git clone ${repo} ${dir} -q
     else
