@@ -1,4 +1,4 @@
-.PHONY: all docker-setup docker-dashboard docker-sites docker-resources start-server start-sites docker-wordpress
+.PHONY: all docker-setup docker-dashboard docker-sites docker-resources docker-server docker-wordpress
 
 default: all
 
@@ -16,11 +16,8 @@ docker-sites: provision/sites.sh
 docker-resources: provision/resources.sh
 	/bin/bash provision/resources.sh
 
-start-server: provision/start-server.sh
-	/bin/bash provision/start-server.sh
-
-start-sites: provision/start-sites.sh
-	/bin/bash provision/start-sites.sh
+docker-server: provision/server.sh
+	/bin/bash provision/server.sh
 
 docker-wordpress: provision/docker-wordpress.sh
 	/bin/bash provision/docker-wordpress.sh
