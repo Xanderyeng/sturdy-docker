@@ -10,10 +10,10 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 5. [MailHog](https://github.com/benlumia007/docker-for-wordpress#mailhog)
 
 ## Overview
-Docker for WordPress is a local development environment based on docker-compose. By default, instead of using localhost, the project uses https://sandbox.test for better experience and allows you to add more sites if needed so you won't be stuck using localhost by default. The containers that are used in this project are custom built and will go through them one by one with a better understanding on how each work. 
+Docker for WordPress is a local development environment based on docker-compose. By default, instead of using localhost, the project uses https://dashboard.test for better experience and allows you to access phpMyAdmin, MailHog, docs and supports. The containers that are used in this project are custom built and will go through them one by one with a better understanding on how each work. 
 
 ## Requirements
-One of the biggest requirements overall is Docker for Linux and Docker for Mac and has been tested thorough. There is one more requirement needed and that equirement is <code>shyaml</code>. [Shyaml](https://pypi.org/project/shyaml/) is a simple script that allows you to read to get access to a yaml or yml data in your shell scripts, which the project needs to generate sites when added. 
+One of the biggest requirements overall is Docker for Linux and Docker for Mac and <code>shyaml</code>. [Shyaml](https://pypi.org/project/shyaml/) is a simple script that allows you to read to get access to a yaml or yml data in your shell scripts, which the project needs to generate sites when added. 
 
 ### Shyaml for macOS
 The easiest way to install shyaml is to use [Homebrew](https://github.com/Homebrew/brew/) for macOS installation
