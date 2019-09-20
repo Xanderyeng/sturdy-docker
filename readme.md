@@ -51,6 +51,7 @@ The main objective of this project was to automate everything much as possible. 
 * dashboard
 * sites ( WordPress )
 * TLS-CA ( SSL Certificates )
+Makefile is used to create, automate and even start servers.
 <pre>
 make
 </pre>
@@ -60,11 +61,12 @@ Before you begin, I would like to point out one of the file that gets used often
 <pre>
 sites:
   sandbox:
+    provision: false
     host: sandbox.test
 </pre>
-To begin, all you will need to do is the following
+To begin, all you will need to do is the following change the provision to true and
 <pre>
-make initial-setup
+make
 </pre>
 
 ## Create Certificates
