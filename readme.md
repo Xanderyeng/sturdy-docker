@@ -69,10 +69,10 @@ To begin, all you will need to do is the following change the provision to true 
 make
 </pre>
 
-## Create Certificates
-This certs and keys should not be used for production, these are meant for only local and development only. Please install after generating the certs because, by default, https is used. 
+## Certificates and phpMyAdmin
+There isn't much to talk about this but to be clear, phpmyadmin and tls-ca is added as part of the docker-compose.yml file so this way, it makes sense to automate them in one place without the need to create another make call, again all u will need to make sure the everything is set and just type 
 <pre>
-make create-certificates
+make
 </pre>
 
 After you have done all this above, is done to docker-compose up -d, this will then pull down all necesary iamges and deploy them. Please note that the hosts file will be automatically updated when you first initial-setup for each site you create. 
