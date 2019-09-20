@@ -70,7 +70,7 @@ make
 </pre>
 
 ## Certificates and phpMyAdmin
-There isn't much to talk about this but to be clear, phpmyadmin and tls-ca is added as part of the docker-compose.yml file so this way, it makes sense to automate them in one place without the need to create another make call, again all u will need to make sure the everything is set and just type 
+In the <code>docker-custom.yml</code> file, there is a section where you will see phpMyAdmin and TLS-CA, this is where any resources will go so that it will generated any resources that comes with. At this time, only phpMyAdmin and TLS-CA is included since the project itself will be using https rather than http for connection.
 <pre>
 make
 </pre>
