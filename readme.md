@@ -46,12 +46,13 @@ username  ALL=(ALL:ALL) NOPASSWD:ALL
 </pre>
 This is the same step if you were to create your own vagrant box and that's it, you can edit your hosts file automatically when using one of the scripts provided.
 
-## Makefile ( A Somewhat Automation )
-Makefile scripts are only for macOS and Linux and will not work with Windows. Windows is currently not supported at the moment. What are the main scripts that gets run.
+## Automation
+The main objective of this project was to automate everything much as possible. So what exactly does it automate. The automation is used to create the following
+* dashboard
+* sites ( WordPress )
+* TLS-CA ( SSL Certificates )
 <pre>
-make initial-setup
-make create-sites
-make create-certificates
+make
 </pre>
 
 ## Getting Started
