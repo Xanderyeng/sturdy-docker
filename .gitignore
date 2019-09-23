@@ -4,13 +4,12 @@
 /certificates/*
 
 /sites/*
-!/sites/.gitkeep
 
 /provision/resources
 
 /config/docker-custom.yml
 
-/*-compose.yml
+docker-compose.yml
 
 .DS_Store
 /config/.DS_Store
