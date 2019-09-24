@@ -12,6 +12,14 @@ services:
     ports:
       - "3306:3306"
 
+  mailhog:
+    image: benlumia007/mailhog
+    container_name: docker-mailhog
+    restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
   nginx:
     image: benlumia007/nginx:latest
     container_name: docker-nginx
@@ -25,14 +33,6 @@ services:
       - ./config/nginx:/etc/nginx/conf.d
       - ./certificates:/etc/nginx/certs
       - ./sites:/var/www/html
-
-  mailhog:
-    image: mailhog/mailhog
-    container_name: docker-mailhog
-    restart: always
-    ports:
-      - "1025:1025"
-      - "8025:8025"
 
   phpfpm:
     image: benlumia007/php:7.3-fpm
