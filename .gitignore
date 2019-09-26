@@ -1,7 +1,6 @@
 /config/nginx/*
-!/config/nginx/nginx.tmpl
 
-/certificates/*
+/certificates
 
 /sites/*
 
