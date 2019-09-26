@@ -1,0 +1,47 @@
+version: '3.5'
+services:
+  mysql:
+    image: benlumia007/mysql:latest
+    container_name: docker-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+       - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  mailhog:
+    image: benlumia007/mailhog
+    container_name: docker-mailhog
+    restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  nginx:
+    image: benlumia007/nginx:latest
+    container_name: docker-nginx
+    restart: always
+    depends_on:
+      - phpfpm
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./certificates:/etc/nginx/certs
+      - ./sites:/var/www/html
+
+  phpfpm:
+    image: benlumia007/php:7.3-fpm
+    container_name: docker-phpfpm
+    restart: always
+    ports:
+      - "9000"
+    volumes:
+      - ./sites:/var/www/html
+
+volumes:
+  db_data:
