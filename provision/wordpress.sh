@@ -37,6 +37,7 @@ for domain in `get_sites`; do
             docker exec -it docker-phpfpm wp core install  --url="https://${domain}.test" --title="${domain}.test" --admin_user=admin --admin_password=password --admin_email="admin@${domain}.test" --path=/var/www/html/${domain}/public_html --allow-root
             docker exec -it docker-phpfpm wp plugin delete akismet --path=/var/www/html/${domain}/public_html --allow-root
             docker exec -it docker-phpfpm wp plugin delete hello --path=/var/www/html/${domain}/public_html --allow-root
+            docker exec -it docker-phpfpm wp plugin install jetpack --path=/var/www/html/${domain}/public_html --allow-root
             docker exec -it docker-phpfpm wp config shuffle-salts --path=/var/www/html/${domain}/public_html --allow-root
         fi
     fi
