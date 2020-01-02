@@ -13,10 +13,15 @@ for domain in `get_sites`; do
         echo ${value:-$@}
     }
 
+    get_site_repo() {
+        local value=`cat ${config} | shyaml get-value sites.${domain}.repo 2> /dev/null`
+        echo ${value:-$@}
+    }
+
     provision=`get_site_provision`
+    repo=`get_site_repo`
 
     if [[ "True" == ${provision} ]]; then
-        repo="https://github.com/benlumia007/docker-for-wordpress-sites.git"
         dir="sites/${domain}"
 
         if [[ false != "${repo}" ]]; then
