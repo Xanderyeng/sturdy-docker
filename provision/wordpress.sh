@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 config="config/docker-custom.yml"
-dir="sites/${domain}/public_html"
-path="${path}"
 
 get_sites() {
     local value=`cat ${config} | shyaml keys sites 2> /dev/null`
@@ -10,8 +8,6 @@ get_sites() {
 }
 
 for domain in `get_sites`; do
-    dir="sites/${domain}/public_html"
-
     get_site_provision() {
         local value=`cat ${config} | shyaml get-value sites.${domain}.provision 2> /dev/null`
         echo ${value:-$@}
@@ -20,6 +16,9 @@ for domain in `get_sites`; do
     provision=`get_site_provision`
 
     if [[ "True" == ${provision} ]]; then
+        dir="sites/${domain}/public_html"
+        path="/var/www/html/${domain}/public_html"
+
         if [[ ! -f "${dir}/wp-config.php" ]]; then
             docker exec -it docker-phpfpm wp core download --path=${path} --allow-root
 
