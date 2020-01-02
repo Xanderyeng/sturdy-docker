@@ -2,6 +2,7 @@
 
 config="config/docker-custom.yml"
 dir="sites/${domain}/public_html"
+path="${path}"
 
 get_sites() {
     local value=`cat ${config} | shyaml keys sites 2> /dev/null`
@@ -20,7 +21,7 @@ for domain in `get_sites`; do
 
     if [[ "True" == ${provision} ]]; then
         if [[ ! -f "${dir}/wp-config.php" ]]; then
-            docker exec -it docker-phpfpm wp core download --path=/var/www/html/${domain}/public_html --allow-root
+            docker exec -it docker-phpfpm wp core download --path=${path} --allow-root
 
             cp "config/templates/wp-config.php" "${dir}/wp-config.php"
             sed -i -e "/DB_HOST/s/'[^']*'/'mysql'/2" "${dir}/wp-config.php"
@@ -34,10 +35,10 @@ for domain in `get_sites`; do
             docker exec -it docker-mysql mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'%' WITH GRANT OPTION;"
             docker exec -it docker-mysql mysql -u root -e "FLUSH PRIVILEGES;"
 
-            docker exec -it docker-phpfpm wp core install  --url="https://${domain}.test" --title="${domain}.test" --admin_user=admin --admin_password=password --admin_email="admin@${domain}.test" --path=/var/www/html/${domain}/public_html --allow-root
-            docker exec -it docker-phpfpm wp plugin delete akismet --path=/var/www/html/${domain}/public_html --allow-root
-            docker exec -it docker-phpfpm wp plugin delete hello --path=/var/www/html/${domain}/public_html --allow-root
-            docker exec -it docker-phpfpm wp config shuffle-salts --path=/var/www/html/${domain}/public_html --allow-root
+            docker exec -it docker-phpfpm wp core install  --url="https://${domain}.test" --title="${domain}.test" --admin_user=admin --admin_password=password --admin_email="admin@${domain}.test" --path=${path} --allow-root
+            docker exec -it docker-phpfpm wp plugin delete akismet --path=${path} --allow-root
+            docker exec -it docker-phpfpm wp plugin delete hello --path=${path} --allow-root
+            docker exec -it docker-phpfpm wp config shuffle-salts --path=${path} --allow-root
         fi
     fi
 done
