@@ -20,7 +20,11 @@ for domain in `get_sites`; do
         path="/var/www/html/${domain}/public_html"
 
         if [[ ! -f "${dir}/wp-config.php" ]]; then
-            docker exec -it docker-phpfpm wp core download --path=${path} --allow-root
+            if [[ `uname` == "Linux" ]]; then
+                wp core download --path=${dir}
+            else
+                docker exec -it docker-phpfpm wp core download --path=${path} --allow-root
+            fi
 
             cp "config/templates/wp-config.php" "${dir}/wp-config.php"
             sed -i -e "/DB_HOST/s/'[^']*'/'mysql'/2" "${dir}/wp-config.php"
