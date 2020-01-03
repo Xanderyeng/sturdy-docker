@@ -6,7 +6,7 @@
 # Important Note
 #
 # If you need to add a new site, copy the example and uncomment the lines and enter the site name.
-# You wil then need to run when you use make create-sites.
+# You wil then need to run when you use make.
 sites:
   sandbox:
     provision: false
