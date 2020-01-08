@@ -11,15 +11,7 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 5. [MailHog](https://github.com/benlumia007/docker-for-wordpress#mailhog)
 
 ## Overview
-Docker for WordPress is a local development environment based on docker-compose. By default, instead of using localhost, the project uses https://dashboard.test for better experience and allows you to access phpMyAdmin, MailHog, docs and supports. The containers that are used in this project are custom built and will go through them one by one with a better understanding on how each work.
-
-The following containers are use are:
-* NGINX
-* phpfpm
-* MySQL
-* phpMyAdmin
-* MailHog
-* WP-Cli
+Docker for WordPress is a local development environment based on docker-compose. By default, the following containers are started NGINX, MySQL, phpfpm and mailhog. The `/sites` directory is the root that contains one or more sites which is mapped to nginx and phpfpm.
 
 ## Requirements
 One of the biggest requirements overall is Docker for Linux and Docker for Mac and <code>shyaml</code>. [Shyaml](https://pypi.org/project/shyaml/) is a simple script that allows you to read to get access to a yaml or yml data in your shell scripts, which the project needs to generate sites when added. 
