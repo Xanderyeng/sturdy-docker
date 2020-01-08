@@ -1,12 +1,8 @@
-/config/nginx/*
-
 /certificates
-
+/database
+/config/nginx/*
 /sites/*
-
-/provision/resources
-
+/provision/resources\
 /config/docker-custom.yml
-
 .DS_Store
 /config/.DS_Store
