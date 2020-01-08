@@ -1,4 +1,4 @@
-.PHONY: all docker-setup docker-dashboard docker-sites docker-resources docker-wordpress
+.PHONY: all docker-setup docker-dashboard docker-sites docker-resources docker-wordpress backup-database restore-database
 
 default: all
 
@@ -18,3 +18,9 @@ docker-resources: provision/resources.sh
 
 docker-wordpress: provision/wordpress.sh
 	/bin/bash provision/wordpress.sh
+
+backup-database: provision/backup-database.sh
+	/bin/bash provision/backup-database.sh
+
+restore-database: provision/restore-database.sh
+	/bin/bash provision/restore-database.sh
