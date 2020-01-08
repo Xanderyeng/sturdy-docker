@@ -12,5 +12,9 @@ db_backups=`cat ${config} | shyaml get-value options.db_backups 2> /dev/null`
 if [[ ${db_backups} != "False" ]]; then
   for domain in `get_sites`; do
     docker exec -it docker-mysql mysqldump -u root "${domain}" > "database/${domain}.sql"
+    echo "backups initializing..."
+    sleep 2
+    echo ${domain}.sql has been backed up.
+    echo ""
   done
 fi
