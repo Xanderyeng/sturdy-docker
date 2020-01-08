@@ -1,8 +1,11 @@
 /certificates
+/config/nginx/*
 /database
 !/database/readme.md
-/config/nginx/*
+logs/*
+!/logs/readme.md
 /sites/*
+!/sites/readme.md
 /provision/resources
 /config/docker-custom.yml
 .DS_Store
