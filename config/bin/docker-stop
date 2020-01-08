@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 
+running=`docker inspect -f '{{.State.Running}}' docker-nginx 2> /dev/null`
+
+if [[ "false" == ${running} ]]; then
+    echo "not running"
+else
 /bin/bash provision/backup-database.sh
 docker-compose stop
+fi
