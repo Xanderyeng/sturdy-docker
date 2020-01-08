@@ -3,7 +3,8 @@
 running=`docker inspect -f '{{.State.Running}}' docker-nginx 2> /dev/null`
 
 if [[ "false" == ${running} ]]; then
-    echo "some containers are not running or all."
+    echo "none of the containers are running..."
+    echo "type docker-start or docker-up"
 else
     source provision/backup-database.sh
     docker-compose stop
