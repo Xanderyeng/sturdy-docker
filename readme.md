@@ -52,7 +52,7 @@ The main objective of this project was to automate everything much as possible. 
 * dashboard
 * sites ( WordPress )
 * TLS-CA ( SSL Certificates )
-Makefile is used to create, automate and even start servers.
+Makefile is used to create, and automate. You can use `make` when you make change to the `docker-custom.yml` or if there's any changes to the dashboard that is not related in anyways, you will then get these updates automatically. `make` is your friendy command.
 <pre>
 make
 </pre>
@@ -68,15 +68,9 @@ sites:
       - sandbox.test
 </pre>
 To begin, all you will need to do is the following change the provision to true and
-<pre>
-make
-</pre>
 
 ## Certificates and phpMyAdmin
 In the <code>docker-custom.yml</code> file, there is a section where you will see phpMyAdmin and TLS-CA, this is where any resources will go so that it will generated any resources that comes with. At this time, only phpMyAdmin and TLS-CA is included since the project itself will be using https rather than http for connection.
-<pre>
-make
-</pre>
 
 After you have done all this above, is done to docker-compose up -d, this will then pull down all necesary iamges and deploy them. Please note that the hosts file will be automatically updated when you first initial-setup for each site you create. 
 
