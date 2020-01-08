@@ -1,5 +1,6 @@
 /certificates
 /database
+!/database/readme.md
 /config/nginx/*
 /sites/*
 /provision/resources
