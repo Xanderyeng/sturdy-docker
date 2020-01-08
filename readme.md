@@ -63,7 +63,9 @@ Before you begin, I would like to point out one of the file that gets used often
 sites:
   sandbox:
     provision: false
-    host: sandbox.test
+    repo: https://github.com/benlumia007/docker-for-wordpress-sites.git
+    host:
+      - sandbox.test
 </pre>
 To begin, all you will need to do is the following change the provision to true and
 <pre>
