@@ -11,7 +11,7 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 5. [MailHog](https://github.com/benlumia007/docker-for-wordpress#mailhog)
 
 ## Overview
-Docker for WordPress is a local development environment based on docker-compose. By default, the following containers are started NGINX, MySQL, phpfpm and mailhog. The `/sites` directory is the root that contains one or more sites which is mapped to nginx and phpfpm.
+Docker for WordPress is a local development environment based on docker-compose. By default, the following containers are started NGINX, MySQL, PHP fpm, and MailHog. The /sites the directory is the root that contains one or more sites that are mapped to Nginx and PHP fpm.
 
 ## Requirements
 * [Docker](https://www.docker.com/)
@@ -19,7 +19,7 @@ Docker for WordPress is a local development environment based on docker-compose.
 * [Shyaml](https://pypi.org/project/shyaml/) 
 
 ### Shyaml for macOS
-The easiest way to install shyaml is to use [Homebrew](https://github.com/Homebrew/brew/) for macOS installation
+The easiest way to install Shyaml is to use [Homebrew](https://github.com/Homebrew/brew/) for macOS installation.
 <pre>
 brew install shyaml
 </pre>
@@ -37,7 +37,7 @@ brew install wget
 </pre>
 
 ### Setting Up Your Host User Passwordless
-One of the biggest thing that I found useful is to set your username password when you use sudo privileges and it works with Linux and macOS so that you can setup hosts file when running one of the script to add and remove hosts in the hosts file. Please follow the following to make your user passwordless
+One of the biggest things that I found useful is to set your username password when you use sudo privileges and it works with Linux and macOS so that you can setup hosts file when running one of the script to add and remove hosts in the hosts file. Please follow the following to make your user passwordless
 <pre>
 sudo visudo
 </pre>
