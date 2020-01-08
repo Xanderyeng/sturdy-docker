@@ -79,3 +79,6 @@ By default, only the root is set, but the good thing is that when creating a Wor
 
 ## MailHog
 You can now access MailHog
+
+## Notes
+Please note that it is not necessary to edit docker-compose.yml since everything is tied together and no changes are needed except for if you wish to use different php version, then you can make that change. Other than that, I would suggest that you do not edit or modify `docker-compose.yml` at all.
