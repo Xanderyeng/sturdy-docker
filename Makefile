@@ -1,8 +1,8 @@
-.PHONY: all docker-setup docker-dashboard docker-sites docker-resources docker-wordpress backup-database restore-database
+.PHONY: all docker-setup docker-dashboard docker-sites docker-resources docker-wordpress
 
 default: all
 
-all: docker-setup docker-dashboard docker-sites docker-resources backup-database
+all: docker-setup docker-dashboard docker-sites docker-resources docker-wordpress
 
 docker-setup: provision/setup.sh
 	/bin/bash provision/setup.sh
