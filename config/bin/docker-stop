@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+/bin/bash provision/backup-database.sh
+docker-compose stop
