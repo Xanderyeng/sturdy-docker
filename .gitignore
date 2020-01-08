@@ -2,8 +2,6 @@
 /config/nginx/*
 /database
 !/database/readme.md
-logs/*
-!/logs/readme.md
 /sites/*
 !/sites/readme.md
 /provision/resources
