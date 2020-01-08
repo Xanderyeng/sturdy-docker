@@ -42,7 +42,6 @@ services:
     ports:
       - "9000"
     volumes:
-      - ./logs/php:/var/log/php
       - ./sites:/var/www/html
 
 volumes:
