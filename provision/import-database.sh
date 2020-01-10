@@ -40,11 +40,6 @@ if [[ $count != 0 ]]; then
 
       if  [[ "" == ${exists} ]]; then
         docker exec -i docker-mysql mysql -u root ${domain} < ${domain}.sql
-        bold=$(tput bold)
-        echo -e "\e[33m${bold}${domain} imported successfully.\e[0m"
-      else 
-        bold=$(tput bold)
-        echo -e "\e[33m${bold}${domain} database exists.\e[0m"
       fi
     done
 fi
