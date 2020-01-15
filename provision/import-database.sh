@@ -14,10 +14,14 @@ if [[ "${db_restores}" == "False" ]]; then
 fi
 
 for database in `get_sites`; do
-    docker exec -it docker-mysql mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${database};"
-    docker exec -it docker-mysql mysql -u root -e "CREATE USER IF NOT EXISTS 'wordpress'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'wordpress';"
-    docker exec -it docker-mysql mysql -u root -e "GRANT ALL PRIVILEGES ON ${database}.* to 'wordpress'@'%' WITH GRANT OPTION;"
-    docker exec -it docker-mysql mysql -u root -e "FLUSH PRIVILEGES;"
+	running=`docker inspect -f '{{.State.Running}}' docker-mysql 2> /dev/null`
+
+	if [[ ${running} == "true" ]]; then
+		docker exec -it docker-mysql mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${database};"
+		docker exec -it docker-mysql mysql -u root -e "CREATE USER IF NOT EXISTS 'wordpress'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'wordpress';"
+		docker exec -it docker-mysql mysql -u root -e "GRANT ALL PRIVILEGES ON ${database}.* to 'wordpress'@'%' WITH GRANT OPTION;"
+		docker exec -it docker-mysql mysql -u root -e "FLUSH PRIVILEGES;"
+	fi
 done
 
 # count
