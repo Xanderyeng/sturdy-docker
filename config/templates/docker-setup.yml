@@ -25,3 +25,7 @@ sites:
 resources:
   - phpmyadmin
   - tls-ca
+
+options:
+  db_backups: true
+  db_restores: true
