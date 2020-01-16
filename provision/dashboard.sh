@@ -24,8 +24,3 @@ if [[ false != "${repo}" ]]; then
         cd ../../..
     fi
 fi
-
-if [[ -d "${dir}" ]]; then
-    mkdir -p "sites/dashboard/public_html/config"
-    cp "config/docker-custom.yml" "sites/dashboard/public_html/config/docker-custom.yml"
-fi
