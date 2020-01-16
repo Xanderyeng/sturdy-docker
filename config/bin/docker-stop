@@ -7,5 +7,5 @@ if [[ "false" == ${running} ]]; then
     echo "type docker-start or docker-up"
 else
     source provision/backup-database.sh
-    docker-compose stop
+    docker-compose -f .global/docker-compose.yml stop
 fi
