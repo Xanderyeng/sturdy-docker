@@ -30,9 +30,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./config/nginx:/etc/nginx/conf.d
-      - ./certificates:/etc/nginx/certs
-      - ./sites:/var/www/html
+      - ../config/nginx:/etc/nginx/conf.d
+      - ../certificates:/etc/nginx/certs
+      - ../sites:/var/www/html
 
   phpfpm:
     image: benlumia007/php:7.3-fpm
@@ -41,7 +41,7 @@ services:
     ports:
       - "9000"
     volumes:
-      - ./sites:/var/www/html
+      - ../sites:/var/www/html
 
 volumes:
   db_data:
