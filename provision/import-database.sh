@@ -40,10 +40,14 @@ if [[ $count != 0 ]]; then
     for file in $( ls *.sql ); do
       domain=${file%%.sql}
 
-      exists=`docker exec -it docker-mysql mysql -u root --skip-column-names -e "SHOW TABLES FROM ${domain};"`
+	  running=`docker inspect -f '{{.State.Running}}' docker-mysql 2> /dev/null`
 
-      if  [[ "" == ${exists} ]]; then
-        docker exec -i docker-mysql mysql -u root ${domain} < ${domain}.sql
-      fi
+	  if [[ ${running} == "true" ]]; then
+		exists=`docker exec -it docker-mysql mysql -u root --skip-column-names -e "SHOW TABLES FROM ${domain};"`
+
+		if  [[ "" == ${exists} ]]; then
+			docker exec -i docker-mysql mysql -u root ${domain} < ${domain}.sql
+		fi
+	  fi
     done
 fi
