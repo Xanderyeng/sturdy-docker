@@ -33,7 +33,7 @@ count=`ls -1 *.sql 2>/dev/null | wc -l`
 
 # $count != 0
 #
-# apparently, when you vagrant halt or vagrant destroy, it will then back up the database and will
+# apparently, when you use docker-stop docker-destroy, it will then back up the database and will
 # use mysqldump to generate a *.sql. so if you have 1 or more sites then it will start importing
 # database.
 if [[ $count != 0 ]]; then
