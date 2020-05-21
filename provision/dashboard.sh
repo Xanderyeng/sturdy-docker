@@ -10,7 +10,7 @@ if [[ ! -d "${dir}" ]]; then
     sed -i -e "s/{{DOMAIN}}/dashboard.test/g" "config/nginx/dashboard.conf"
     rm -rf "config/nginx/dashboard.conf-e"
 
-    macOS=`uname`
+    macOS="$(uname -s)"
 
     if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
         if ! grep -q "dashboard.test" /mnt/c/Windows/System32/drivers/etc/hosts; then
