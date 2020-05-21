@@ -10,19 +10,15 @@ if [[ ! -d "${dir}" ]]; then
     sed -i -e "s/{{DOMAIN}}/dashboard.test/g" "config/nginx/dashboard.conf"
     rm -rf "config/nginx/dashboard.conf-e"
 
-    macOS=`uname`
-
     if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
         if ! grep -q "dashboard.test" /mnt/c/Windows/System32/drivers/etc/hosts; then
             echo "127.0.0.1   dashboard.test" | sudo tee -a /mnt/c/Windows/System32/drivers/etc/hosts
         fi
-    elif ${macOS} == "Darwin" ; then
+    else
         if ! grep -q "dashboard.test" /etc/hosts; then
             echo "127.0.0.1   dashboard.test" | sudo tee -a /etc/hosts
         fi
     fi
-
-
 fi
 
 if [[ false != "${repo}" ]]; then
