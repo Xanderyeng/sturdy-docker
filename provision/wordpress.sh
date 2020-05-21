@@ -22,8 +22,6 @@ for domain in `get_sites`; do
         if [[ ! -f "${dir}/wp-config.php" ]]; then
             if [[ `uname` == "Linux" ]]; then
                 wp core download --path=${dir}
-            else
-                docker exec -it docker-phpfpm wp core download --path=${path} --allow-root
             fi
 
             cp "config/templates/wp-config.php" "${dir}/wp-config.php"
