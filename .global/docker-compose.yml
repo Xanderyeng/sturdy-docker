@@ -1,5 +1,17 @@
 version: '3.5'
 services:
+  wordpress:
+    image: benlumia007/nginx:php7.2-fpm
+    container_name: docker-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../config/nginx:/etc/nginx/conf.d
+      - ../certificates:/etc/nginx/certs
+      - ../sites:/var/www/html
+      
   mysql:
     image: benlumia007/mysql:latest
     container_name: docker-mysql
@@ -19,29 +31,6 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
-
-  nginx:
-    image: benlumia007/nginx:latest
-    container_name: docker-nginx
-    restart: always
-    depends_on:
-      - phpfpm
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ../config/nginx:/etc/nginx/conf.d
-      - ../certificates:/etc/nginx/certs
-      - ../sites:/var/www/html
-
-  phpfpm:
-    image: benlumia007/php:7.3-fpm
-    container_name: docker-phpfpm
-    restart: always
-    ports:
-      - "9000"
-    volumes:
-      - ../sites:/var/www/html
 
 volumes:
   db_data:
