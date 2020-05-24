@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   wordpress:
-    image: benlumia007/nginx:php7.2-fpm
+    image: benlumia007/nginx:php7.4-fpm
     container_name: docker-nginx
     restart: always
     ports:
@@ -11,7 +11,7 @@ services:
       - ../config/nginx:/etc/nginx/conf.d
       - ../certificates:/etc/nginx/certs
       - ../sites:/var/www/html
-      
+
   mysql:
     image: benlumia007/mysql:latest
     container_name: docker-mysql
