@@ -22,6 +22,11 @@ sites:
   #  host:
   #    - example.test
 
+preprocessor:
+  - 7.2
+  # - 7.3
+  # - 7.4
+
 resources:
   - phpmyadmin
   - tls-ca
