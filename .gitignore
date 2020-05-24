@@ -1,3 +1,4 @@
+.global/docker-compose.yml
 .global/docker-custom.yml
 /certificates
 /config/nginx/*
