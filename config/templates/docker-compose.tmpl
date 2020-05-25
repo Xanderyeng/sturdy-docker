@@ -9,8 +9,8 @@ services:
       - "443:443"
     volumes:
       - ../config/nginx:/etc/nginx/conf.d
-      - ../certificates:/etc/nginx/certs
-      - ../sites:/var/www/html
+      - ../certificates:/srv/certificates
+      - ../sites:/srv/www/
 
   mysql:
     image: benlumia007/mysql:latest
