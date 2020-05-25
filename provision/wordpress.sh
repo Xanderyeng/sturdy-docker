@@ -17,7 +17,7 @@ for domain in `get_sites`; do
 
     if [[ "True" == ${provision} ]]; then
         dir="sites/${domain}/public_html"
-        path="/var/www/html/${domain}/public_html"
+        path="/srv/www/${domain}/public_html"
 
         if [[ ! -f "${dir}/wp-config.php" ]]; then
             if [[ `uname` == "Linux" ]]; then
@@ -36,10 +36,10 @@ for domain in `get_sites`; do
             docker exec -it docker-mysql mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'%' WITH GRANT OPTION;"
             docker exec -it docker-mysql mysql -u root -e "FLUSH PRIVILEGES;"
 
-            docker exec -it docker-phpfpm wp core install  --url="https://${domain}.test" --title="${domain}.test" --admin_user=admin --admin_password=password --admin_email="admin@${domain}.test" --path=${path} --allow-root
-            docker exec -it docker-phpfpm wp plugin delete akismet --path=${path} --allow-root
-            docker exec -it docker-phpfpm wp plugin delete hello --path=${path} --allow-root
-            docker exec -it docker-phpfpm wp config shuffle-salts --path=${path} --allow-root
+            docker exec -it docker-nginx wp core install  --url="https://${domain}.test" --title="${domain}.test" --admin_user=admin --admin_password=password --admin_email="admin@${domain}.test" --path=${path} --allow-root
+            docker exec -it docker-nginx wp plugin delete akismet --path=${path} --allow-root
+            docker exec -it docker-nginx wp plugin delete hello --path=${path} --allow-root
+            docker exec -it docker-nginx wp config shuffle-salts --path=${path} --allow-root
         fi
     fi
 done
