@@ -20,26 +20,19 @@ for domain in `get_sites`; do
         path="/srv/www/${domain}/public_html"
 
         if [[ ! -f "${dir}/wp-config.php" ]]; then
-            if [[ `uname` == "Linux" ]]; then
-                wp core download --path=${dir}
-            fi
-
-            cp "config/templates/wp-config.php" "${dir}/wp-config.php"
-            sed -i -e "/DB_HOST/s/'[^']*'/'mysql'/2" "${dir}/wp-config.php"
-            sed -i -e "/DB_NAME/s/'[^']*'/'${domain}'/2" "${dir}/wp-config.php"
-            sed -i -e "/DB_USER/s/'[^']*'/'wordpress'/2" "${dir}/wp-config.php"
-            sed -i -e "/DB_PASSWORD/s/'[^']*'/'wordpress'/2" "${dir}/wp-config.php"
-            rm -rf "${dir}/wp-config.php-e"
-
             docker exec -it docker-mysql mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"
             docker exec -it docker-mysql mysql -u root -e "CREATE USER IF NOT EXISTS 'wordpress'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'wordpress';"
             docker exec -it docker-mysql mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'%' WITH GRANT OPTION;"
             docker exec -it docker-mysql mysql -u root -e "FLUSH PRIVILEGES;"
 
+            docker exec -it docker-nginx wp core download --path="${path}" --allow-root
+            docker exec -it docker-nginx wp config create --dbhost=mysql --dbname=${domain} --dbuser=wordpress --dbpass=wordpress --path="${path}" --allow-root
             docker exec -it docker-nginx wp core install  --url="https://${domain}.test" --title="${domain}.test" --admin_user=admin --admin_password=password --admin_email="admin@${domain}.test" --path=${path} --allow-root
             docker exec -it docker-nginx wp plugin delete akismet --path=${path} --allow-root
             docker exec -it docker-nginx wp plugin delete hello --path=${path} --allow-root
             docker exec -it docker-nginx wp config shuffle-salts --path=${path} --allow-root
+
+            docker exec -it docker-nginx chown -R 1000:1000 ${path}
         fi
     fi
 done
