@@ -32,6 +32,7 @@ const init = async function() {
         case 'destroy':
         case 'up':
         case 'pull':
+        case 'provision':
             await require('./src/environment').command();
             break;
         case '--version':
