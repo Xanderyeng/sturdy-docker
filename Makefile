@@ -2,7 +2,7 @@
 
 default: all
 
-all: docker-setup docker-database docker-dashboard docker-sites docker-resources
+all: docker-setup docker-database docker-dashboard docker-sites docker-resources docker-wordpress
 
 docker-setup: provision/setup.sh
 	/bin/bash provision/setup.sh

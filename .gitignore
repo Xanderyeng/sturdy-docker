@@ -10,3 +10,4 @@
 /config/docker-custom.yml
 .DS_Store
 /config/.DS_Store
+node_modules

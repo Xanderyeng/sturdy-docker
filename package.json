@@ -1,0 +1,27 @@
+{
+  "name": "docker-for-wordpress",
+  "version": "1.0.0",
+  "description": "A WordPress Development",
+  "main": "index.js",
+  "scripts": {
+    "d4w": "./index.js"
+  },
+  "bin": {
+    "d4w": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benlumia007/docker-for-wordpress.git"
+  },
+  "author": "Benjamin Lu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benlumia007/docker-for-wordpress/issues"
+  },
+  "homepage": "https://github.com/benlumia007/docker-for-wordpress#readme",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "fs-extra": "^9.0.0",
+    "inquirer": "^7.1.0"
+  }
+}
