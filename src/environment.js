@@ -37,6 +37,10 @@ const up = async function() {
     execSync( `docker-compose -f ${DockerFile} up -d` );
 };
 
+const pull = async function() {
+    execSync( `docker-compose -f ${DockerFile} pull` );
+};
+
 const command = async function() {
     if ( commandUtils.subcommand() === 'help' || commandUtils.subcommand() === false ) {
         help();
@@ -57,6 +61,9 @@ const command = async function() {
             case 'up':
                 up();
                 break;
+            case 'pull':
+                pull();
+                break;
             default:
                 help();
                 break;
@@ -64,4 +71,4 @@ const command = async function() {
     }
 };
 
-module.exports = { command, start, stop, restart, destroy, up, help };
+module.exports = { command, start, stop, restart, destroy, up, pull, help };
