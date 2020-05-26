@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/benlumia007/docker-for-wordpress/issues"
   },
-  "homepage": "https://github.com/benlumia007/docker-for-wordpress#readme"
+  "homepage": "https://github.com/benlumia007/docker-for-wordpress#readme",
+  "dependencies": {
+    "shelljs": "^0.8.4"
+  }
 }
