@@ -6,6 +6,7 @@ const path = require( "path" );
 const rootPath = path.dirname( require.main.filename );
 const globalPath = path.join( rootPath, ".global" );
 const DockerFile = path.join( globalPath, 'docker-compose.yml');
+const bin = path.join( rootPath, "config", "bin" );
 
 const help = function() {
     const command = commandUtils.command();
@@ -22,6 +23,7 @@ const start = async function() {
 };
 
 const stop = async function() {
+    execSync( `bash ${bin}/docker-backup` );
     execSync( `docker-compose -f ${DockerFile} stop` );
 };
 
