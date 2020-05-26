@@ -32,6 +32,7 @@ const restart = async function() {
 };
 
 const destroy = async function() {
+    execSync( `bash ${bin}/docker-backup` );
     execSync( `docker-compose -f ${DockerFile} down` );
 };
 
