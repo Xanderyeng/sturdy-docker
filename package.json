@@ -18,10 +18,5 @@
   "bugs": {
     "url": "https://github.com/benlumia007/docker-for-wordpress/issues"
   },
-  "homepage": "https://github.com/benlumia007/docker-for-wordpress#readme",
-  "dependencies": {
-    "chalk": "^4.0.0",
-    "fs-extra": "^9.0.0",
-    "inquirer": "^7.1.0"
-  }
+  "homepage": "https://github.com/benlumia007/docker-for-wordpress#readme"
 }
