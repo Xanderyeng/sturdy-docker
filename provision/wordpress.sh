@@ -27,12 +27,12 @@ for domain in `get_sites`; do
             docker-compose -f ${compose} exec -T mysql mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'%' WITH GRANT OPTION;"
             docker-compose -f ${compose} exec -T mysql mysql -u root -e "FLUSH PRIVILEGES;"
 
-            docker-compose -f ${compose} exec -T nginx wp core download --path="${path}" --allow-root
-            docker-compose -f ${compose} exec -T nginx wp config create --dbhost=mysql --dbname=${domain} --dbuser=wordpress --dbpass=wordpress --path="${path}" --allow-root
-            docker-compose -f ${compose} exec -T nginx wp core install  --url="https://${domain}.test" --title="${domain}.test" --admin_user=admin --admin_password=password --admin_email="admin@${domain}.test" --path=${path} --allow-root
-            docker-compose -f ${compose} exec -T nginx wp plugin delete akismet --path=${path} --allow-root
-            docker-compose -f ${compose} exec -T nginx wp plugin delete hello --path=${path} --allow-root
-            docker-compose -f ${compose} exec -T nginx wp config shuffle-salts --path=${path} --allow-root
+            docker-compose -f ${compose} exec -T nginx wp core download --path="${path}" --quiet --allow-root
+            docker-compose -f ${compose} exec -T nginx wp config create --dbhost=mysql --dbname=${domain} --dbuser=wordpress --dbpass=wordpress --path="${path}" --quiet --allow-root
+            docker-compose -f ${compose} exec -T nginx wp core install  --url="https://${domain}.test" --title="${domain}.test" --admin_user=admin --admin_password=password --admin_email="admin@${domain}.test" --skip-email --quiet --path=${path} --allow-root
+            docker-compose -f ${compose} exec -T nginx wp plugin delete akismet --path=${path} --quiet --allow-root
+            docker-compose -f ${compose} exec -T nginx wp plugin delete hello --path=${path} --quiet --allow-root
+            docker-compose -f ${compose} exec -T nginx wp config shuffle-salts --path=${path} --quiet --allow-root
 
             docker-compose -f ${compose} exec -T nginx chown -R 1000:1000 ${path}
         fi
