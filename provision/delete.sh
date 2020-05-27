@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-config="../.global/docker-custom.yml"
+home=$PWD
+config="${home}/.global/docker-custom.yml"
+
 
 get_sites() {
     local value=`cat ${config} | shyaml keys sites 2> /dev/null`
