@@ -8,19 +8,10 @@
 # If you need to add a new site, copy the example and uncomment the lines and enter the site name.
 # You wil then need to run when you use make.
 sites:
-  sandbox:
-    provision: false
-    repo: https://github.com/benlumia007/docker-for-wordpress-sites.git
-    host:
-      - sandbox.test
-
-  # The following commented out site configuration will create a standard WordPress. Please remember
-  # that whitespace is significant and spaces means different things
-  # example:
-  #  provision: false
-  #  repo: https://github.com/benlumia007/docker-for-wordpress-sites.git
-  #  host:
-  #    - example.test
+  provision: false
+  repo: https://github.com/benlumia007/docker-for-wordpress-sites.git
+  domain:
+    - sandbox
 
 preprocessor:
   - 7.2
