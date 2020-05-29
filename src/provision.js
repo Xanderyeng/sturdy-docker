@@ -20,6 +20,11 @@ const config = yaml.safeLoad( fs.readFileSync( '.global/docker-custom.yml', 'utf
 // Here, we will be using replace-in-file to replace certain words into .conf file.
 const replace = require( "replace-in-file" );
 
+// Here, we will be using simple-git
+const { execSync } = require( 'child_process' );
+
+const configuredHosts = require( "./hosts" );
+
 // Here, we will setup the dashboard 
 const setDashboard = config.default.domain;
 const setDashboardRepo = config.default.repo;
@@ -43,8 +48,22 @@ for ( const dashboard of setDashboard ) {
                     from: /{{DOMAIN}}/g,
                     to: `${dashboard}`,
                 };
-                replaced = replace.sync( options )
+                replaced = replace.sync( options );
+
+                configuredHosts.set('127.0.0.1', `${dashboard}.test`, function (err) {
+                    if (err) {
+                      console.error(err)
+                    } else {
+                      console.log('set /etc/hosts successfully!')
+                    }
+                  });
             }
         } );
+    }
+
+    if ( ! fs.existsSync( `${getSitesPath}/${dashboard}/public_html/.git` ) ) {
+        execSync( `git clone ${setDashboardRepo} ${getSitesPath}/${dashboard}/public_html -q` );
+    } else {
+        execSync( `git pull -q` );
     }
 }
