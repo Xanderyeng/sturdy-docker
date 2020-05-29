@@ -2,3 +2,4 @@
 
 const path = require( "path" );
 const rootPath = path.dirname( require.main.filename );
+const srcPath = path.join( `${rootPath}/src` );
