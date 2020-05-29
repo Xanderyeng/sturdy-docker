@@ -4,10 +4,12 @@
   "description": "A WordPress Development",
   "main": "index.js",
   "scripts": {
-    "d4w": "./index.js"
+    "d4w": "./index.js",
+    "d4w-hosts": "./hosts.js"
   },
   "bin": {
-    "d4w": "./index.js"
+    "d4w": "./index.js",
+    "d4w-hosts": "./hosts.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,9 @@
   },
   "homepage": "https://github.com/benlumia007/docker-for-wordpress#readme",
   "dependencies": {
-    "shelljs": "^0.8.4"
+    "chalk": "^4.0.0",
+    "fs-extra": "^9.0.0",
+    "js-yaml": "^3.14.0",
+    "replace-in-file": "^6.0.0"
   }
 }
