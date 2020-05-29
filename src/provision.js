@@ -103,3 +103,7 @@ if ( provision == true ) {
         }
     }
 }
+
+
+// here we here to generate the phpmyadmin and tls-ca
+execSync( `bash ${getRootPath}/scripts/resources.sh` );
