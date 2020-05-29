@@ -16,7 +16,7 @@ trim_trailing_whitespace = false
 indent_size = 4
 
 # Use WordPress-style tabs for PHP files
-[*.{php,sh}]
+[*.{php,js}]
 indent_style = tab
 indent_size = 4
 
