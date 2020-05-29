@@ -24,8 +24,10 @@ preprocessor:
   # - 7.4
 
 resources:
-  - phpmyadmin
-  - tls-ca
+  repo: https://github.com/benlumia007/docker-for-wordpress-resources.git
+  utilities:
+    - phpmyadmin
+    - tls-ca
 
 options:
   db_backups: true
