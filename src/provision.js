@@ -56,14 +56,48 @@ for ( const dashboard of setDashboard ) {
                     } else {
                       console.log('set /etc/hosts successfully!')
                     }
-                  });
+                });
             }
         } );
     }
+}
 
-    if ( ! fs.existsSync( `${getSitesPath}/${dashboard}/public_html/.git` ) ) {
-        execSync( `git clone ${setDashboardRepo} ${getSitesPath}/${dashboard}/public_html -q` );
-    } else {
-        execSync( `git pull -q` );
+// Here we are going to setup the actual sites 
+const domains = config.sites.domain;
+const provision = config.sites.provision;
+const setDomainRepo = config.sites.repo 
+
+if ( provision == true ) {
+    for ( const domain of domains ) {
+        if ( ! fs.existsSync( `${getSitesPath}/${domain}/public_html` ) ) {
+            fs.mkdir( `${getSitesPath}/${domain}/public_html`, { recursive: true }, error => {
+                if ( error ) {
+                    console.log( `failed to create directory for ${domain}` );
+                }
+            } );
+        }
+
+        if ( ! fs.existsSync( `${getConfigPath}/nginx/${domain}.conf` ) ) {
+            fs.copy( `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/${domain}.conf`, error => {
+                if ( error ) {
+                    console.log( `failed to copy file` );
+                } else {
+                    const options = {
+                        files: `${getConfigPath}/nginx/${domain}.conf`,
+                        from: /{{DOMAIN}}/g,
+                        to: `${domain}`,
+                    };
+                    replaced = replace.sync( options );
+    
+                    configuredHosts.set('127.0.0.1', `${domain}.test`, function (err) {
+                        if (err) {
+                          console.error(err)
+                        } else {
+                          console.log('set /etc/hosts successfully!')
+                        }
+                    });
+                }
+            } );
+        }
     }
 }
