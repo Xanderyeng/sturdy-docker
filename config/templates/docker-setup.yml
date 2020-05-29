@@ -8,7 +8,7 @@
 # If you need to add a new site, copy the example and uncomment the lines and enter the site name.
 # You wil then need to run when you use make.
 default:
-  repo: https://github.com/benlumia007/docker-for-wordpress-sites.git
+  repo: https://github.com/benlumia007/docker-for-wordpress-dashboard.git
   domain:
     - dashboard
 
