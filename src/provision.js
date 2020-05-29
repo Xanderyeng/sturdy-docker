@@ -15,15 +15,15 @@ const getSrcPath = path.setSrcPath();
 // Here, we will be using the require the js-yaml and fs file and read the .global/docker-custom.yml
 const fs = require( "fs-extra" );
 const yaml = require( "js-yaml" );
-const config = yaml.safeLoad( fs.readFileSync( '.global/docker-custom.yml', 'utf8' ) );
-
-// Here, we will be using replace-in-file to replace certain words into .conf file.
 const replace = require( "replace-in-file" );
-
-// Here, we will be using simple-git
 const { execSync } = require( 'child_process' );
-
 const configuredHosts = require( "./hosts" );
+
+
+// Here, we are going to copy the docker-custom to the global directory.
+execSync( `bash ${getRootPath}/scripts/setup.sh` );
+
+const config = yaml.safeLoad( fs.readFileSync( '.global/docker-custom.yml', 'utf8' ) );
 
 // Here, we will setup the dashboard 
 const setDashboard = config.default.domain;
