@@ -1,40 +1,41 @@
 #!/usr/bin/env node
-const commandUtils = require( './src/command-utils' );
+const commands = require( './src/commands' );
 
 const help = function() {
     let help = `
-Usage: d4w COMMAND
+Usage: d4w [command]
 Commands:
+  provision Provision custom.yml file
   up        Create and Start Container
   down      Stop and Remove Container
   start     Start Services
   restart   Restart Services
   stop      Stop Services
 
-Run 'd4w COMMAND help' for more information on a command.
+Run 'd4w [command] help' for more information on a command.
 `;
     console.log( help );
 };
 
 const version = function() {
     var pjson = require('./package.json');
-    console.log( 'WP Local Docker' );
-    console.log( `Version ${pjson.version}` );
+    console.log( 'Docker for WordPress' );
+    console.log( `Version: ${pjson.version}` );
 };
 
 const init = async function() {
-    let command = commandUtils.command();
+    let command = commands.command();
 
     switch ( command ) {
+        case 'provision':
+            await require( "./src/provision" );
+            break;
         case 'start':
         case 'stop':
         case 'restart':
         case 'destroy':
         case 'up':
         case 'pull':
-        case 'provision':
-            await require('./src/environment').command();
-            break;
         case '--version':
         case '-v':
             version();
