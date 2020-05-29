@@ -29,12 +29,12 @@ const setLogsPath = function() {
     return logsPath;
 }
 
-const setSrcPath = function() {
-    return srcPath;
-}
-
 const setSitesPath = function() {
     return sitesPath;
 }
 
-module.exports = { setRootPath, setCertsPath, setConfigPath, setDatabasesPath, setLogsPath, setSrcPath, setSitesPath };
+const setSrcPath = function() {
+    return srcPath;
+}
+
+module.exports = { setRootPath, setCertsPath, setConfigPath, setDatabasesPath, setLogsPath, setSitesPath, setSrcPath };
