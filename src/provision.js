@@ -61,6 +61,7 @@ for ( const dashboard of setDashboard ) {
         } );
     }
 
+    // Here, we are going to run a bash script to grab information from GitHub.
     execSync( `bash ${getRootPath}/scripts/${dashboard}.sh` );
 }
 
@@ -103,7 +104,6 @@ if ( provision == true ) {
         }
     }
 }
-
 
 // here we here to generate the phpmyadmin and tls-ca
 execSync( `bash ${getRootPath}/scripts/resources.sh` );
