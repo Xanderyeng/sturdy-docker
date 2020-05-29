@@ -3,13 +3,15 @@
 config=".global/docker-custom.yml"
 
 get_sites() {
-    local value=`cat ${config} | shyaml keys sites 2> /dev/null`
+    local value=`cat ${config} | shyaml get-value sites.domain 2> /dev/null`
     echo ${value:-$@}
 }
 
-for domain in `get_sites`; do
+domains=`get_sites`
+
+for domain in ${domains//- /$'\n'}; do
     get_site_provision() {
-        local value=`cat ${config} | shyaml get-value sites.${domain}.provision 2> /dev/null`
+        local value=`cat ${config} | shyaml get-value sites.provision 2> /dev/null`
         echo ${value:-$@}
     }
 

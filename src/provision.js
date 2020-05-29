@@ -103,6 +103,7 @@ if ( provision == true ) {
             } );
         }
         execSync( `bash ${getRootPath}/scripts/sites.sh` );
+        execSync( `bash ${getRootPath}/scripts/wordpress.sh` );
     }
 }
 
