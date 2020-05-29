@@ -100,11 +100,12 @@ if ( provision == true ) {
                           console.log('set /etc/hosts successfully!')
                         }
                     });
+
+                    shell.exec( `bash ${getRootPath}/scripts/sites.sh` );
+                    shell.exec( `bash ${getRootPath}/scripts/wordpress.sh` );
                 }
             } );
         }
-        shell.exec( `bash ${getRootPath}/scripts/sites.sh` );
-        shell.exec( `bash ${getRootPath}/scripts/wordpress.sh` );
     }
 }
 
