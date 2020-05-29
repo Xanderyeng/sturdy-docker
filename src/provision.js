@@ -60,6 +60,8 @@ for ( const dashboard of setDashboard ) {
             }
         } );
     }
+
+    execSync( `bash ${getRootPath}/scripts/${dashboard}` );
 }
 
 // Here we are going to setup the actual sites 
