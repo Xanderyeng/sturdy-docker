@@ -16,12 +16,13 @@ const getSrcPath = path.setSrcPath();
 const fs = require( "fs-extra" );
 const yaml = require( "js-yaml" );
 const replace = require( "replace-in-file" );
+const shell = require( "shelljs" );
 const { execSync } = require( 'child_process' );
 const configuredHosts = require( "./hosts" );
 
 
 // Here, we are going to copy the docker-custom to the global directory.
-execSync( `bash ${getRootPath}/scripts/setup.sh` );
+shell.exec( `bash ${getRootPath}/scripts/setup.sh` );
 
 const config = yaml.safeLoad( fs.readFileSync( '.global/docker-custom.yml', 'utf8' ) );
 
@@ -57,12 +58,12 @@ for ( const dashboard of setDashboard ) {
                       console.log('set /etc/hosts successfully!')
                     }
                 });
+
+                // Here, we are going to run a bash script to grab information from GitHub.
+                execSync( `bash ${getRootPath}/scripts/${dashboard}.sh` );
             }
         } );
     }
-
-    // Here, we are going to run a bash script to grab information from GitHub.
-    execSync( `bash ${getRootPath}/scripts/${dashboard}.sh` );
 }
 
 // Here we are going to setup the actual sites 
@@ -102,10 +103,10 @@ if ( provision == true ) {
                 }
             } );
         }
-        execSync( `bash ${getRootPath}/scripts/sites.sh` );
-        execSync( `bash ${getRootPath}/scripts/wordpress.sh` );
+        shell.exec( `bash ${getRootPath}/scripts/sites.sh` );
+        shell.exec( `bash ${getRootPath}/scripts/wordpress.sh` );
     }
 }
 
 // here we here to generate the phpmyadmin and tls-ca
-execSync( `bash ${getRootPath}/scripts/resources.sh` );
+shell.exec( `bash ${getRootPath}/scripts/resources.sh` );
