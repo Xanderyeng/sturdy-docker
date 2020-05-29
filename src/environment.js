@@ -13,4 +13,28 @@ const setRootPath = function() {
     return rootPath;
 }
 
-module.exports = { setRootPath };
+const setCertsPath = function() {
+    return certsPath;
+}
+
+const setConfigPath = function() {
+    return configPath;
+}
+
+const setDatabasesPath = function() {
+    return databasePath;
+}
+
+const setLogsPath = function() {
+    return logsPath;
+}
+
+const setSrcPath = function() {
+    return srcPath;
+}
+
+const setSitesPath = function() {
+    return sitesPath;
+}
+
+module.exports = { setRootPath, setCertsPath, setConfigPath, setDatabasesPath, setLogsPath, setSrcPath, setSitesPath };
