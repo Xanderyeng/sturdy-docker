@@ -102,6 +102,7 @@ if ( provision == true ) {
                 }
             } );
         }
+        execSync( `bash ${getRootPath}/scripts/sites.sh` );
     }
 }
 
