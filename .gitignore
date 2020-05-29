@@ -5,7 +5,7 @@
 !/database/readme.md
 /sites/*
 !/sites/readme.md
-/provision/resources
+/scripts/resources
 /config/docker-custom.yml
 .DS_Store
 /config/.DS_Store
