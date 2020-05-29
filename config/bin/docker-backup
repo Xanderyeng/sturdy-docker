@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-#!/usr/bin/env bash
-
-running=`docker inspect -f '{{.State.Running}}' docker-nginx 2> /dev/null`
-
-if [[ "true" == ${running} ]]; then
-    source provision/backup-database.sh
-fi
