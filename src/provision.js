@@ -40,29 +40,24 @@ for ( const dashboard of setDashboard ) {
     }
 
     if ( ! fs.existsSync( `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
-        fs.copy( `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/${dashboard}.conf`, error => {
-            if ( error ) {
-                console.log( `failed to copy nginx.conf to ${dashboard}.conf` );
+        shell.cp( `-r`, `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/${dashboard}.conf` );
+        const options = {
+            files: `${getConfigPath}/nginx/${dashboard}.conf`,
+            from: /{{DOMAIN}}/g,
+            to: `${dashboard}`,
+        };
+        replaced = replace.sync( options );
+
+        configuredHosts.set('127.0.0.1', `${dashboard}.test`, function (err) {
+            if (err) {
+              console.error(err)
             } else {
-                const options = {
-                    files: `${getConfigPath}/nginx/${dashboard}.conf`,
-                    from: /{{DOMAIN}}/g,
-                    to: `${dashboard}`,
-                };
-                replaced = replace.sync( options );
-
-                configuredHosts.set('127.0.0.1', `${dashboard}.test`, function (err) {
-                    if (err) {
-                      console.error(err)
-                    } else {
-                      console.log('set /etc/hosts successfully!')
-                    }
-                });
-
-                // Here, we are going to run a bash script to grab information from GitHub.
-                execSync( `bash ${getRootPath}/scripts/${dashboard}.sh` );
+              console.log('set /etc/hosts successfully!')
             }
-        } );
+        });
+
+        // Here, we are going to run a bash script to grab information from GitHub.
+        execSync( `bash ${getRootPath}/scripts/${dashboard}.sh` );
     }
 }
 
