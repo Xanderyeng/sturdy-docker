@@ -3,7 +3,7 @@
 // Here, we have the basic paths to different directory without the need to 
 // reconfigured, just extended if necessary. Some of these may not needed will
 // be taken out later once this project is complete.
-const path = require( "./environment" );
+const path = require( "./configure" );
 const getRootPath = path.setRootPath();
 const getCertsPath = path.setCertsPath();
 const getConfigPath = path.setConfigPath();

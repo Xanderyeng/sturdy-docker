@@ -1,40 +1,68 @@
-#!/usr/bin/env node
+const commands = require( "./commands" );
+const { execSync } = require( 'child_process' );
+const path = require( "./configure" );
+const getGlobalPath = path.setGlobalPath();
+const dockerFile = `${getGlobalPath}/docker-compose.yml`
 
-const path = require( "path" );
-const rootPath = path.dirname( require.main.filename );
-const certsPath = path.join( `${rootPath}/certificates` );
-const configPath = path.join( `${rootPath}/config` );
-const databasePath = path.join( `${rootPath}/databases` );
-const logsPath = path.join( `${rootPath}/logs` );
-const srcPath = path.join( `${rootPath}/src` );
-const sitesPath = path.join( `${rootPath}/sites` );
+const help = function() {
+    const command = commands.command();
 
-const setRootPath = function() {
-    return rootPath;
-}
+    const help = `
+Usage:  sandbox ${command}
+`;
+    console.log( help );
+    process.exit();
+};
 
-const setCertsPath = function() {
-    return certsPath;
-}
+const start = async function() {
+    execSync( `docker-compose -f ${dockerFile} start` );
+};
 
-const setConfigPath = function() {
-    return configPath;
-}
+const stop = async function() {
+    execSync( `docker-compose -f ${dockerFile} stop` );
+};
 
-const setDatabasesPath = function() {
-    return databasePath;
-}
+const restart = async function() {
+    execSync( `docker-compose -f ${dockerFile} restart` );;
+};
 
-const setLogsPath = function() {
-    return logsPath;
-}
+const destroy = async function() {
+    execSync( `docker-compose -f ${dockerFile} down` );
+};
 
-const setSitesPath = function() {
-    return sitesPath;
-}
+const up = async function() {
+    execSync( `docker-compose -f ${dockerFile} up -d` );
+};
 
-const setSrcPath = function() {
-    return srcPath;
-}
+const pull = async function() {
+    execSync( `docker-compose -f ${dockerFile} pull` );
+};
 
-module.exports = { setRootPath, setCertsPath, setConfigPath, setDatabasesPath, setLogsPath, setSitesPath, setSrcPath };
+const command = async function() {
+    if ( commands.subcommand() === 'help' || commands.subcommand() === false ) {
+        help();
+    } else {
+        switch ( commands.command() ) {
+            case 'up':
+                up();
+                break;
+            case 'start':
+                start();
+                break;
+            case 'restart':
+                restart();
+                break;
+            case 'destroy':
+                destroy();
+                break;
+            case 'pull':
+                pull();
+                break;
+            default:
+                help();
+                break;
+        }
+    }
+};
+
+module.exports = { command, start, stop, restart, destroy, up, pull, help };
