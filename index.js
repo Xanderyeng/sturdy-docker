@@ -30,12 +30,14 @@ const init = async function() {
         case 'provision':
             await require( "./src/provision" );
             break;
-        case 'start':
-        case 'stop':
-        case 'restart':
-        case 'destroy':
         case 'up':
+        case 'start':
+        case 'restart':
+        case 'stop':
+        case 'destroy':
         case 'pull':
+            await require( "./src/environment" ).command();
+            break;
         case '--version':
         case '-v':
             version();
