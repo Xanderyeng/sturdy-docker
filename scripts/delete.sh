@@ -5,7 +5,7 @@ config="${home}/.global/docker-custom.yml"
 
 
 get_sites() {
-    local value=`cat ${config} | shyaml keys sites 2> /dev/null`
+    local value=`cat ${config} | shyaml get-value sites.domain 2> /dev/null`
     echo ${value:-$@}
 }
 
