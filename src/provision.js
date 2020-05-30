@@ -115,7 +115,7 @@ for ( const dashboard of setDashboard ) {
 // Here we are going to setup the actual sites
 const domains = config.sites.domain;
 const provision = config.sites.provision;
-const setDomainRepo = config.sites.repo
+const setDomainPHP = config.preprocessor;
 
 if ( provision == true ) {
     for ( const domain of domains ) {
@@ -135,6 +135,57 @@ if ( provision == true ) {
 				}
 			});
 		}
+
+		for ( const getDomainPHP of setDomainPHP ) {
+			if ( getDomainPHP == "7.2" ) {
+				if ( shell.grep( `-i`, `7.3`, `${getConfigPath}/nginx/${domain}.conf` ) ) {
+					const options = { files: `${getConfigPath}/nginx/${domain}.conf`, from: /7.3/g, to: `${getDomainPHP}` };
+					replaced = replace.sync( options );
+				}
+
+				if ( shell.grep( `-i`, `7.4`, `${getConfigPath}/nginx/${domain}.conf` ) ) {
+					const options = { files: `${getConfigPath}/nginx/${domain}.conf`, from: /7.4/g, to: `${getDomainPHP}` };
+					replaced = replace.sync( options );
+				}
+
+				if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getConfigPath}/nginx/${domain}.conf` ) ) {
+					const options = { files: `${getConfigPath}/nginx/${domain}.conf`, from: /{{PHPVERSION}}/g, to: `${getDomainPHP}` };
+					replaced = replace.sync( options );
+				}
+			} else if ( getDomainPHP == "7.3" ) {
+				if ( shell.grep( `-i`, `7.2`, `${getConfigPath}/nginx/${domain}.conf` ) ) {
+					const options = { files: `${getConfigPath}/nginx/${domain}.conf`, from: /7.2/g, to: `${getDomainPHP}` };
+					replaced = replace.sync( options );
+				}
+
+				if ( shell.grep( `-i`, `7.4`, `${getConfigPath}/nginx/${domain}.conf` ) ) {
+					const options = { files: `${getConfigPath}/nginx/${domain}.conf`, from: /7.4/g, to: `${getDomainPHP}` };
+					replaced = replace.sync( options );
+				}
+
+				if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getConfigPath}/nginx/${domain}.conf` ) ) {
+					const options = { files: `${getConfigPath}/nginx/${domain}.conf`, from: /{{PHPVERSION}}/g, to: `${getDomainPHP}` };
+					replaced = replace.sync( options );
+				}
+			} else if ( getDomainPHP == "7.4" ) {
+				if ( shell.grep( `-i`, `7.2`, `${getConfigPath}/nginx/${domain}.conf` ) ) {
+					const options = { files: `${getConfigPath}/nginx/${domain}.conf`, from: /7.2/g, to: `${getDomainPHP}` };
+					replaced = replace.sync( options );
+				}
+
+				if ( shell.grep( `-i`, `7.3`, `${getConfigPath}/nginx/${domain}.conf` ) ) {
+					const options = { files: `${getConfigPath}/nginx/${domain}.conf`, from: /7.3/g, to: `${getDomainPHP}` };
+					replaced = replace.sync( options );
+				}
+
+				if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getConfigPath}/nginx/${domain}.conf` ) ) {
+					const options = { files: `${getConfigPath}/nginx/${domain}.conf`, from: /{{PHPVERSION}}/g, to: `${getDomainPHP}` };
+					replaced = replace.sync( options );
+				}
+			}
+		}
+
+
 
 		if ( ! fs.existsSync( `${getSitesPath}/${domain}/public_html/wp-config.php` ) ) {
 			const dir = `/srv/www/${domain}/public_html`;
