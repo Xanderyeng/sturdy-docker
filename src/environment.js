@@ -1,6 +1,7 @@
 const commands = require( "./commands" );
 const { execSync } = require( 'child_process' );
 const path = require( "./configure" );
+const getRootPath = path.setRootPath();
 const getGlobalPath = path.setGlobalPath();
 const dockerFile = `${getGlobalPath}/docker-compose.yml`
 
@@ -38,6 +39,7 @@ const stop = async function( args ) {
     } else if ( args == "mailhog" ) { 
         execSync( `docker-compose -f ${dockerFile} stop ${args}` );
     } else {
+        execSync( `bash ${getRootPath}/scripts/backup-database.sh` );
         execSync( `docker-compose -f ${dockerFile} stop` );
     }
 };
@@ -55,6 +57,7 @@ const restart = async function( args ) {
 };
 
 const down = async function() {
+    execSync( `bash ${getRootPath}/scripts/backup-database.sh` );
     execSync( `docker-compose -f ${dockerFile} down` );
 };
 

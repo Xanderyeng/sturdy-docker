@@ -5,7 +5,7 @@ compose=".global/docker-compose.yml"
 home=$PWD/${compose}
 
 get_sites() {
-    local value=`cat ${config} | shyaml keys sites 2> /dev/null`
+    local value=`cat ${config} | shyaml get-value sites.domain 2> /dev/null`
     echo ${value:-$@}
 }
 
@@ -15,7 +15,9 @@ if [[ "${db_restores}" == "False" ]]; then
     exit;
 fi
 
-for database in `get_sites`; do
+databases=`get_sites`
+
+for database in ${databases//- /$'\n'}; do
 	running=`docker inspect -f '{{.State.Running}}' docker-mysql 2> /dev/null`
 
 	if [[ ${running} == "true" ]]; then
