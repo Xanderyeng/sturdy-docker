@@ -8,30 +8,54 @@ const help = function() {
     const command = commands.command();
 
     const help = `
-Usage:  sandbox ${command}
+Usage:  d4w ${command} {container}
 `;
     console.log( help );
     process.exit();
 };
 
-const start = async function() {
-    execSync( `docker-compose -f ${dockerFile} start` );
-};
-
-const stop = async function() {
-    execSync( `docker-compose -f ${dockerFile} stop` );
-};
-
-const restart = async function() {
-    execSync( `docker-compose -f ${dockerFile} restart` );;
-};
-
-const destroy = async function() {
-    execSync( `docker-compose -f ${dockerFile} down` );
-};
-
 const up = async function() {
     execSync( `docker-compose -f ${dockerFile} up -d` );
+};
+
+const start = async function( args ) {
+    if ( args == "nginx" ) {
+        execSync( `docker-compose -f ${dockerFile} start ${args}` );
+    } else if ( args == "mysql" ) {
+        execSync( `docker-compose -f ${dockerFile} start ${args}` );
+    } else if ( args == "mailhog" ) { 
+        execSync( `docker-compose -f ${dockerFile} start ${args}` );
+    } else {
+        execSync( `docker-compose -f ${dockerFile} start` );
+    }
+}
+
+const stop = async function( args ) {
+    if ( args == "nginx" ) {
+        execSync( `docker-compose -f ${dockerFile} stop ${args}` );
+    } else if ( args == "mysql" ) {
+        execSync( `docker-compose -f ${dockerFile} stop ${args}` );
+    } else if ( args == "mailhog" ) { 
+        execSync( `docker-compose -f ${dockerFile} stop ${args}` );
+    } else {
+        execSync( `docker-compose -f ${dockerFile} stop` );
+    }
+};
+
+const restart = async function( args ) {
+    if ( args == "nginx" ) {
+        execSync( `docker-compose -f ${dockerFile} restart ${args}` );
+    } else if ( args == "mysql" ) {
+        execSync( `docker-compose -f ${dockerFile} restart ${args}` );;
+    } else if ( args == "mailhog" ) {
+        execSync( `docker-compose -f ${dockerFile} restart ${args}` );;
+    } else {
+        execSync( `docker-compose -f ${dockerFile} restart` );
+    }
+};
+
+const down = async function() {
+    execSync( `docker-compose -f ${dockerFile} down` );
 };
 
 const pull = async function() {
@@ -47,13 +71,16 @@ const command = async function() {
                 up();
                 break;
             case 'start':
-                start();
+                start( commands.subcommand() );
                 break;
             case 'restart':
-                restart();
+                restart( commands.subcommand() );
                 break;
-            case 'destroy':
-                destroy();
+            case 'stop':
+                stop( commands.subcommand() );
+                break;
+            case 'down':
+                down();
                 break;
             case 'pull':
                 pull();
@@ -65,4 +92,4 @@ const command = async function() {
     }
 };
 
-module.exports = { command, start, stop, restart, destroy, up, pull, help };
+module.exports = { command, start, stop, restart, down, up, pull, help };
