@@ -29,6 +29,28 @@ if ( ! fs.existsSync( `${getRootPath}/.global/docker-custom.yml` ) ) {
 const config = yaml.safeLoad( fs.readFileSync( '.global/docker-custom.yml', 'utf8' ) );
 const compose = `${getRootPath}/.global/docker-compose.yml`;
 
+
+const db_restores = config.options.db_restores;
+
+if ( db_restores == true ) {
+	console.log( "restoring databases" );
+	const domains = config.sites.domain;
+
+	shell.cd( `${getRootPath}/databases` );
+	for ( const domain of domains ) {
+		if ( shell.exec( `docker inspect -f '{{.State.Running}}' docker-mysql`, { silent: true } ) ) {
+			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "DROP DATABASE IF EXISTS ${domain};"` );
+			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"` );
+			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "CREATE USER IF NOT EXISTS 'wordpress'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'wordpress';"` );
+			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'%' WITH GRANT OPTION;"` );
+			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "FLUSH PRIVILEGES;"` );
+
+			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root ${domain} < ${domain}.sql` );
+		}
+	}
+	shell.cd( `${getRootPath}` );
+}
+
 // Here, we will setup the dashboard
 const setDashboard = config.default.domain;
 const setDashboardRepo = config.default.repo;
@@ -216,7 +238,7 @@ if ( db_backup == true ) {
 	const domains = config.sites.domain;
 
 	for ( const domain of domains ) {
-		const database = `${getRootPath}/database`;
+		const database = `${getRootPath}/databases`;
 		shell.exec( `docker-compose -f ${compose} exec -T mysql mysqldump -u root "${domain}" > "${database}/${domain}.sql"` );
 	}
 }
