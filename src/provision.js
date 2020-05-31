@@ -29,6 +29,56 @@ if ( ! fs.existsSync( `${getRootPath}/.global/docker-custom.yml` ) ) {
 const config = yaml.safeLoad( fs.readFileSync( '.global/docker-custom.yml', 'utf8' ) );
 const compose = `${getRootPath}/.global/docker-compose.yml`;
 
+const defaultsPHP = config.preprocessor;
+
+for ( const defaultPHP of defaultsPHP ) {
+	if ( defaultPHP == "7.2" ) {
+		if ( shell.grep( `-i`, `7.3`, `${getRootPath}/.global/docker-compose.yml` ) ) {
+			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /7.3/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+
+		if ( shell.grep( `-i`, `7.4`, `${getRootPath}/.global/docker-compose.yml` ) ) {
+			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /7.4/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+
+		if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getRootPath}/.global/docker-compose.yml` ) ) {
+			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /{{PHPVERSION}}/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+	} else if ( defaultPHP == "7.3" ) {
+		if ( shell.grep( `-i`, `7.2`, `${getRootPath}/.global/docker-compose.yml` ) ) {
+			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /7.2/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+
+		if ( shell.grep( `-i`, `7.4`, `${getRootPath}/.global/docker-compose.yml` ) ) {
+			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /7.4/g, to: `${defaultsPHP}` };
+			replaced = replace.sync( options );
+		}
+
+		if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getRootPath}/.global/docker-compose.yml` ) ) {
+			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /{{PHPVERSION}}/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+	} else if ( defaultPHP == "7.4" ) {
+		if ( shell.grep( `-i`, `7.2`, `${getRootPath}/.global/docker-compose.yml` ) ) {
+			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /7.2/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+
+		if ( shell.grep( `-i`, `7.3`, `${getRootPath}/.global/docker-compose.yml` ) ) {
+			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /7.3/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+
+		if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getRootPath}/.global/docker-compose.yml` ) ) {
+			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /{{PHPVERSION}}/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+	}
+}
 
 const db_restores = config.options.db_restores;
 
@@ -244,4 +294,16 @@ if ( db_backup == true ) {
 }
 
 // here we here to generate the phpmyadmin and tls-ca
-shell.exec( `bash ${getRootPath}/scripts/resources.sh` );
+const phpmyadmin = config.resources.phpmyadmin;
+
+if ( phpmyadmin  == true ) {
+	if ( ! fs.existsSync( `${getSitesPath}/dashboard/public_html/phpmyadmin` ) ) {
+		shell.mkdir( `-p`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
+		shell.exec( `wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.zip -O "${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip"` );
+		shell.exec( `unzip "${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip"` );
+		shell.mv( `phpMyAdmin-5.0.2-all-languages/*`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
+		shell.rm( `-rf`, `phpMyAdmin-5.0.2-all-languages` );
+		shell.rm( `${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip` );
+		shell.cp( `-r`, `config/phpmyadmin/config.inc.php`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
+	}
+}
