@@ -21,7 +21,10 @@ const { execSync } = require( 'child_process' );
 const configuredHosts = require( "./hosts" );
 
 // Here, we are going to copy the docker-custom to the global directory.
-shell.exec( `bash ${getRootPath}/scripts/setup.sh` );
+if ( ! fs.existsSync( `${getRootPath}/.global/docker-custom.yml` ) ) {
+	shell.cp( `-r`, `${getConfigPath}/templates/docker-compose.yml`, `${getRootPath}/.global/docker-compose.yml` );
+	shell.cp( `-r`, `${getConfigPath}/templates/docker-custom.yml`, `${getRootPath}/.global/docker-custom.yml` );
+}
 
 const config = yaml.safeLoad( fs.readFileSync( '.global/docker-custom.yml', 'utf8' ) );
 const compose = `${getRootPath}/.global/docker-compose.yml`;
