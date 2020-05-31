@@ -210,5 +210,16 @@ if ( provision == true ) {
     }
 }
 
+const db_backup = config.options.db_backups;
+
+if ( db_backup == true ) {
+	const domains = config.sites.domain;
+
+	for ( const domain of domains ) {
+		const database = `${getRootPath}/database`;
+		shell.exec( `docker-compose -f ${compose} exec -T mysql mysqldump -u root "${domain}" > "${database}/${domain}.sql"` );
+	}
+}
+
 // here we here to generate the phpmyadmin and tls-ca
 shell.exec( `bash ${getRootPath}/scripts/resources.sh` );
