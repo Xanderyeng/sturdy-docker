@@ -31,4 +31,4 @@ resources:
 
 options:
   db_backups: true
-  db_restores: true
+  db_restores: false
