@@ -1,8 +1,8 @@
 .global/*
 /certificates
 /config/nginx/*
-/database
-!/database/readme.md
+/databases
+!/databases/readme.md
 /sites/*
 !/sites/readme.md
 /scripts/resources
