@@ -13,7 +13,7 @@ default:
     - dashboard
 
 sites:
-  provision: false
+  provision: true
   repo: https://github.com/benlumia007/docker-for-wordpress-sites.git
   domain:
     - sandbox
