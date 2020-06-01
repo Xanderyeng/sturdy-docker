@@ -3,8 +3,9 @@ var once = require('once')
 var split = require('split')
 var through = require('through')
 var net = require('net')
+const isWSL = require( "is-wsl" );
 
-var WINDOWS = process.platform === 'win32'
+var WINDOWS = process.platform === 'isWSL'
 var EOL = WINDOWS
   ? '\r\n'
   : '\n'
