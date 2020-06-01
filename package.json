@@ -24,7 +24,6 @@
   "dependencies": {
     "chalk": "^4.0.0",
     "fs-extra": "^9.0.0",
-    "is-wsl": "^2.2.0",
     "js-yaml": "^3.14.0",
     "minimist": "^1.2.5",
     "replace-in-file": "^6.0.0",

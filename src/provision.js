@@ -118,15 +118,19 @@ for ( const dashboard of setDashboard ) {
     if ( ! fs.existsSync( `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
         shell.cp( `-r`, `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/${dashboard}.conf` );
         const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /{{DOMAIN}}/g, to: `${dashboard}` };
-        replaced = replace.sync( options );
+		replaced = replace.sync( options );
 
-        configuredHosts.set('127.0.0.1', `${dashboard}.test`, function (err) {
-            if (err) {
-              console.error(err)
-            } else {
-              console.log('set /etc/hosts successfully!')
-            }
-        });
+		const macOS = process.platform === "darwin";
+
+		if ( shell.exec( `grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null` ) ) {
+			if ( ! shell.grep( `-l`, `dashboard.test`, `/mnt/c/Windows/System32/drivers/etc/hosts` ) ) {
+				shell.exec( `echo "127.0.0.1   dashboard.test" | sudo tee -a /mnt/c/Windows/System32/drivers/etc/hosts` );
+			}
+		} else if ( macOS == "darwin" ) {
+			if ( ! shell.grep( `-l`, `dashboard.test`, `/etc/hosts` ) ) {
+				shell.exec( `echo "127.0.0.1   dashboard.test" | sudo tee -a /etc/hosts` );
+			}
+		}
 	}
 
 	if ( ! fs.existsSync( `${getSitesPath}/${dashboard}/public_html/.git` ) ) {
