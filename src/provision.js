@@ -19,7 +19,6 @@ const replace = require( "replace-in-file" );
 const shell = require( "shelljs" );
 const { execSync } = require( 'child_process' );
 const configuredHosts = require( "./hosts" );
-const sudo = require( "sudo-prompt" );
 
 // Here, we are going to copy the docker-custom to the global directory.
 if ( ! fs.existsSync( `${getRootPath}/.global/docker-custom.yml` ) ) {
@@ -121,7 +120,13 @@ for ( const dashboard of setDashboard ) {
         const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /{{DOMAIN}}/g, to: `${dashboard}` };
         replaced = replace.sync( options );
 
-		shell.exec( `sudo d4w-hosts set 127.0.0.1 ${dashboard}.test` );
+        configuredHosts.set('127.0.0.1', `${dashboard}.test`, function (err) {
+            if (err) {
+              console.error(err)
+            } else {
+              console.log('set /etc/hosts successfully!')
+            }
+        });
 	}
 
 	if ( ! fs.existsSync( `${getSitesPath}/${dashboard}/public_html/.git` ) ) {
