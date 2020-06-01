@@ -14,7 +14,7 @@ var EOL = WINDOWS
 
 exports.HOSTS = WINDOWS
   ? '/mnt/c/Windows/System32/drivers/etc/hosts'
-  : '/etc/hoss'
+  : '/etc/hosts'
 
 /**
  * Get a list of the lines that make up the filePath. If the
