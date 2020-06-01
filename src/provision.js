@@ -330,4 +330,21 @@ if ( certificates == true ) {
 			shell.exec( `openssl x509 -req -in "${getCertsPath}/${dashboard}/${dashboard}.csr" -CA "${getCertsPath}/ca/ca.crt" -CAkey "${getCertsPath}/ca/ca.key" -CAcreateserial -out "${getCertsPath}/${dashboard}/${dashboard}.crt" -days 365 -sha256 -extfile "${getCertsPath}/${dashboard}/${dashboard}.ext" &> /dev/null` );
 		}
 	}
+
+	const domains = config.sites.domain;
+	const trueDomains = config.sites.provision;
+
+	if ( trueDomains == true ) {
+		for ( const domain of domain ) {
+			if ( ! fs.existsSync( `${getCertsPath}/${domain}/${domain}.crt` ) ) {
+				shell.mkdir( `-p`, `${getCertsPath}/${domain}` );
+				shell.cp( `-r`, `${getConfigPath}/certs/domain.ext`, `${getCertsPath}/${domain}/${domain}.ext` );
+				shell.sed( `-i`, `{{DOMAIN}}`, `${domain}`, `${getCertsPath}/${domain}/${domain}.ext` );
+
+				shell.exec( `openssl genrsa -out "${getCertsPath}/${domain}/${domain}.key" 4096` );
+				shell.exec( `openssl req -new -key "${getCertsPath}/${domain}/${domain}.key" -out "${getCertsPath}/${domain}/${domain}.csr" -subj "/CN=*.${domain}.test" &> /dev/null` );
+				shell.exec( `openssl x509 -req -in "${getCertsPath}/${domain}/${domain}.csr" -CA "${getCertsPath}/ca/ca.crt" -CAkey "${getCertsPath}/ca/ca.key" -CAcreateserial -out "${getCertsPath}/${domain}/${domain}.crt" -days 365 -sha256 -extfile "${getCertsPath}/${domain}/${domain}.ext" &> /dev/null` );
+			}
+		}
+	}
 }
