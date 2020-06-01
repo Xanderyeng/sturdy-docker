@@ -7,7 +7,7 @@ const isWSL = require( "is-wsl" );
 
 console.log( isWSL);
 
-const macOS = process.platform === "Darwin";
+const macOS = process.platform === "darwin";
 
 var WINDOWS = `${isWSL} ? '${isWSL}' : '${macOS}'`
 var EOL = WINDOWS
