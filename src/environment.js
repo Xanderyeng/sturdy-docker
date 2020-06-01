@@ -24,7 +24,7 @@ const start = async function( args ) {
         execSync( `docker-compose -f ${dockerFile} start ${args}` );
     } else if ( args == "mysql" ) {
         execSync( `docker-compose -f ${dockerFile} start ${args}` );
-    } else if ( args == "mailhog" ) { 
+    } else if ( args == "mailhog" ) {
         execSync( `docker-compose -f ${dockerFile} start ${args}` );
     } else {
         execSync( `docker-compose -f ${dockerFile} start` );
@@ -36,10 +36,9 @@ const stop = async function( args ) {
         execSync( `docker-compose -f ${dockerFile} stop ${args}` );
     } else if ( args == "mysql" ) {
         execSync( `docker-compose -f ${dockerFile} stop ${args}` );
-    } else if ( args == "mailhog" ) { 
+    } else if ( args == "mailhog" ) {
         execSync( `docker-compose -f ${dockerFile} stop ${args}` );
     } else {
-        execSync( `bash ${getRootPath}/scripts/backup-database.sh` );
         execSync( `docker-compose -f ${dockerFile} stop` );
     }
 };
@@ -57,7 +56,6 @@ const restart = async function( args ) {
 };
 
 const down = async function() {
-    execSync( `bash ${getRootPath}/scripts/backup-database.sh` );
     execSync( `docker-compose -f ${dockerFile} down` );
 };
 
