@@ -28,6 +28,7 @@
     "minimist": "^1.2.5",
     "replace-in-file": "^6.0.0",
     "shelljs": "^0.8.4",
-    "split": "^1.0.1"
+    "split": "^1.0.1",
+    "sudo-prompt": "^9.2.1"
   }
 }
