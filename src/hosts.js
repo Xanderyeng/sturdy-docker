@@ -3,19 +3,15 @@ var once = require('once')
 var split = require('split')
 var through = require('through')
 var net = require('net')
-const isWSL = require( "is-wsl" );
 
-const macOS = process.platform === "darwin";
-
-console.log( macOS );
-var platform = `${macOS} ? '${macOS}' : '${isWSL}'`
-var EOL = platform
+var WINDOWS = process.platform === 'win32'
+var EOL = WINDOWS
   ? '\r\n'
   : '\n'
 
-exports.HOSTS = platform
-  ? '/mnt/c/Windows/System32/drivers/etc/hosts'
-  : '/etc/hosts'
+exports.HOSTS = WINDOWS
+  ? ''
+  : '/mnt/c/Windows/System32/drivers/etc/hosts'
 
 /**
  * Get a list of the lines that make up the filePath. If the
