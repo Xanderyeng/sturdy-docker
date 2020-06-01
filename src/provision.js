@@ -121,7 +121,7 @@ for ( const dashboard of setDashboard ) {
         const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /{{DOMAIN}}/g, to: `${dashboard}` };
         replaced = replace.sync( options );
 
-		shell.exec( `d4w-hosts set 127.0.0.1 ${dashboard}.test` );
+		shell.exec( `sudo d4w-hosts set 127.0.0.1 ${dashboard}.test` );
 	}
 
 	if ( ! fs.existsSync( `${getSitesPath}/${dashboard}/public_html/.git` ) ) {
