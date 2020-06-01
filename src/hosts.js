@@ -8,12 +8,12 @@ const isWSL = require( "is-wsl" );
 const macOS = process.platform === "darwin";
 
 console.log( macOS );
-var WINDOWS = `${isWSL} ? '${isWSL}' : '${macOS}'`
-var EOL = WINDOWS
+var platform = `${macOS} ? '${macOS}' : '${isWSL}'`
+var EOL = platform
   ? '\r\n'
   : '\n'
 
-exports.HOSTS = WINDOWS
+exports.HOSTS = platform
   ? '/mnt/c/Windows/System32/drivers/etc/hosts'
   : '/etc/hosts'
 
