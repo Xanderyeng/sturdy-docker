@@ -307,3 +307,13 @@ if ( phpmyadmin  == true ) {
 		shell.cp( `-r`, `config/phpmyadmin/config.inc.php`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
 	}
 }
+
+const certificates  = config.resources.certificates;
+
+if ( certificates == true ) {
+	if ( ! fs.existsSync( `${getCertsPath}/ca/ca.crt` ) ) {
+		shell.mkdir( `-p`, `${getCertsPath}/ca` );
+		shell.exec( `openssl genrsa -out "certificates/ca/ca.key" 4096` );
+		shell.exec( `openssl req -x509 -new -nodes -key "certificates/ca/ca.key" -sha256 -days 365 -out "certificates/ca/ca.crt" -subj "/CN=Docker for WordPress"` );
+	}
+}
