@@ -11,6 +11,7 @@ const getDatabasesPath = path.setDatabasesPath();
 const getLogsPath = path.setLogsPath();
 const getSitesPath = path.setSitesPath();
 const getSrcPath = path.setSrcPath();
+const isWSL = require( "is-wsl" );
 
 // Here, we will be using the require the js-yaml and fs file and read the .global/docker-custom.yml
 const fs = require( "fs-extra" );
@@ -19,7 +20,6 @@ const replace = require( "replace-in-file" );
 const shell = require( "shelljs" );
 const { execSync } = require( 'child_process' );
 const configuredHosts = require( "./hosts" );
-const  sudo = require( "sudo-prompt" );
 
 // Here, we are going to copy the docker-custom to the global directory.
 if ( ! fs.existsSync( `${getRootPath}/.global/docker-custom.yml` ) ) {
@@ -119,21 +119,19 @@ for ( const dashboard of setDashboard ) {
     if ( ! fs.existsSync( `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
         shell.cp( `-r`, `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/${dashboard}.conf` );
         const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /{{DOMAIN}}/g, to: `${dashboard}` };
-		replaced = replace.sync( options );
+        replaced = replace.sync( options );
 
-		var sudoOptions = {
-			name: 'Docker for WordPress'
-		};
-
-		sudo.exec( `d4w-hosts set 127.0.0.1 ${dashboard}.test`, sudoOptions, function( error, stdout ) {
-			if ( error ) {
-				throw error;
-			} else {
-				console.log( "exists" );
-			}
-
-			console.log( stdout );
-		} );
+		if ( isWSL ) {
+			configuredHosts.set('127.0.0.1', `${dashboard}.test`, function (err) {
+				if (err) {
+				  console.error(err)
+				} else {
+				  console.log('set /etc/hosts successfully!')
+				}
+			});
+		} else {
+			shell.exec( `sudo d4w-hosts set 127.0.0.1 ${dashboard}.test` );
+		}
 	}
 
 	if ( ! fs.existsSync( `${getSitesPath}/${dashboard}/public_html/.git` ) ) {

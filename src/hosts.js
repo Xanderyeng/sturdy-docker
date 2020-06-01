@@ -10,8 +10,6 @@ var EOL = WINDOWS
   ? '\r\n'
   : '\n'
 
-  console.log( WINDOWS);
-
 exports.HOSTS = WINDOWS
   ? '/mnt/c/Windows/System32/drivers/etc/hosts'
   : '/etc/hosts'
