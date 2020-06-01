@@ -10,8 +10,8 @@ var EOL = macOS
   : '\n'
 
 exports.HOSTS = macOS
-  ? '/etc/hosts'
-  : '/mnt/c/Windows/System32/drivers/etc/hosts'
+  ? '/mnt/c/Windows/System32/drivers/etc/hosts'
+  : '/etc/hosts'
 
 /**
  * Get a list of the lines that make up the filePath. If the
