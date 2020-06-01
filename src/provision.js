@@ -120,13 +120,14 @@ for ( const dashboard of setDashboard ) {
         const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /{{DOMAIN}}/g, to: `${dashboard}` };
 		replaced = replace.sync( options );
 
+		const wsl = fs.readFileSync('/proc/version', 'utf8').toLowerCase().includes('microsoft');
 		const macOS = process.platform === "darwin";
 
-		if ( shell.exec( `grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null` ) ) {
+		if ( wsl == true ) {
 			if ( ! shell.grep( `-l`, `dashboard.test`, `/mnt/c/Windows/System32/drivers/etc/hosts` ) ) {
 				shell.exec( `echo "127.0.0.1   dashboard.test" | sudo tee -a /mnt/c/Windows/System32/drivers/etc/hosts` );
 			}
-		} else if ( macOS == "darwin" ) {
+		} else if ( macOS == true ) {
 			if ( ! shell.grep( `-l`, `dashboard.test`, `/etc/hosts` ) ) {
 				shell.exec( `echo "127.0.0.1   dashboard.test" | sudo tee -a /etc/hosts` );
 			}
