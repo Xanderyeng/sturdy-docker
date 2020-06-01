@@ -316,4 +316,18 @@ if ( certificates == true ) {
 		shell.exec( `openssl genrsa -out "certificates/ca/ca.key" 4096` );
 		shell.exec( `openssl req -x509 -new -nodes -key "certificates/ca/ca.key" -sha256 -days 365 -out "certificates/ca/ca.crt" -subj "/CN=Docker for WordPress"` );
 	}
+
+	const dashboards = config.default.domain;
+
+	for ( const dashboard of dashboards ) {
+		if ( ! fs.existsSync( `${getCertsPath}/${dashboard}/${dashboard}.crt` ) ) {
+			shell.mkdir( `-p`, `${getCertsPath}/${dashboard}` );
+			shell.cp( `-r`, `${getConfigPath}/certs/domain.ext`, `${getCertsPath}/${dashboard}/${dashboard}.ext` );
+			shell.sed( `-i`, `{{DOMAIN}}`, `${dashboard}`, `${getCertsPath}/${dashboard}/${dashboard}.ext` );
+
+			shell.exec( `openssl genrsa -out "${getCertsPath}/${dashboard}/${dashboard}.key" 4096` );
+			shell.exec( `openssl req -new -key "${getCertsPath}/${dashboard}/${dashboard}.key" -out "${getCertsPath}/${dashboard}/${dashboard}.csr" -subj "/CN=*.${dashboard}.test" &> /dev/null` );
+			shell.exec( `openssl x509 -req -in "${getCertsPath}/${dashboard}/${dashboard}.csr" -CA "${getCertsPath}/ca/ca.crt" -CAkey "${getCertsPath}/ca/ca.key" -CAcreateserial -out "${getCertsPath}/${dashboard}/${dashboard}.crt" -days 365 -sha256 -extfile "${getCertsPath}/${dashboard}/${dashboard}.ext" &> /dev/null` );
+		}
+	}
 }
