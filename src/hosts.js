@@ -3,16 +3,16 @@ var once = require('once')
 var split = require('split')
 var through = require('through')
 var net = require('net')
-const isWSL = require( "is-wsl" );
 
-var WINDOWS = process.platform === 'isWSL'
+var WINDOWS = fs.readFileSync('/proc/version', 'utf8').toLowerCase().includes('microsoft');
+
 var EOL = WINDOWS
   ? '\r\n'
   : '\n'
 
 exports.HOSTS = WINDOWS
-  ? '/etc/hosts'
-  : '/mnt/c/Windows/System32/drivers/etc/hosts'
+  ? '/mnt/c/Windows/System32/drivers/etc/hosts'
+  : '/etc/hosts'
 
 /**
  * Get a list of the lines that make up the filePath. If the
