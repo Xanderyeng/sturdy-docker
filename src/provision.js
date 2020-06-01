@@ -335,7 +335,7 @@ if ( certificates == true ) {
 	const trueDomains = config.sites.provision;
 
 	if ( trueDomains == true ) {
-		for ( const domain of domain ) {
+		for ( const domain of domains ) {
 			if ( ! fs.existsSync( `${getCertsPath}/${domain}/${domain}.crt` ) ) {
 				shell.mkdir( `-p`, `${getCertsPath}/${domain}` );
 				shell.cp( `-r`, `${getConfigPath}/certs/domain.ext`, `${getCertsPath}/${domain}/${domain}.ext` );
