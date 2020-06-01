@@ -1,6 +1,6 @@
 version: '3.5'
 services:
-  wordpress:
+  nginx:
     image: benlumia007/nginx:php{{PHPVERSION}}-fpm
     container_name: docker-nginx
     restart: always
