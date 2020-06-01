@@ -126,9 +126,9 @@ for ( const dashboard of setDashboard ) {
 		if ( wsl == true ) {
 			if ( ! shell.grep( `-l`, `dashboard.test`, `/mnt/c/Windows/System32/drivers/etc/hosts` ) ) {
 				shell.exec( `echo "127.0.0.1   dashboard.test" | sudo tee -a /mnt/c/Windows/System32/drivers/etc/hosts` );
-			} else {
-				shell.exec( `echo "127.0.0.1   dashboard.test" | sudo tee -a /etc/hosts` );
 			}
+		} else {
+			shell.exec( `echo "127.0.0.1   dashboard.test" | sudo tee -a /etc/hosts` );
 		}
 	}
 
