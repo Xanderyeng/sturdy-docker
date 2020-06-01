@@ -4,12 +4,12 @@ var split = require('split')
 var through = require('through')
 var net = require('net')
 
-var macOS = process.platform === 'darwin'
-var EOL = macOS
+var WINDOWS = process.platform === 'win32'
+var EOL = WINDOWS
   ? '\r\n'
   : '\n'
 
-exports.HOSTS = macOS
+exports.HOSTS = WINDOWS
   ? '/etc/hosts'
   : '/mnt/c/Windows/System32/drivers/etc/hosts'
 
