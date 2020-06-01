@@ -207,13 +207,19 @@ if ( provision == true ) {
 			shell.cp( `-r`, `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/${domain}.conf` );
 			const options = { files: `${getConfigPath}/nginx/${domain}.conf`, from: /{{DOMAIN}}/g, to: `${domain}` };
 			replaced = replace.sync( options );
-			configuredHosts.set('127.0.0.1', `${domain}.test`, function (err) {
-				if (err) {
-				  console.error(err)
-				} else {
-				  console.log('set /etc/hosts successfully!')
-				}
-			});
+
+
+			if ( isWSL ) {
+				configuredHosts.set('127.0.0.1', `${domain}.test`, function (err) {
+					if (err) {
+					  console.error(err)
+					} else {
+					  console.log('set /etc/hosts successfully!')
+					}
+				});
+			} else {
+				shell.exec( `sudo d4w-hosts set 127.0.0.1 ${domain}.test` );
+			}
 		}
 
 		for ( const getDomainPHP of setDomainPHP ) {
