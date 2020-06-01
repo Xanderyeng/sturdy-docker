@@ -127,7 +127,9 @@ for ( const dashboard of setDashboard ) {
 			if ( ! shell.grep( `-l`, `dashboard.test`, `/mnt/c/Windows/System32/drivers/etc/hosts` ) ) {
 				shell.exec( `echo "127.0.0.1   dashboard.test" | sudo tee -a /mnt/c/Windows/System32/drivers/etc/hosts` );
 			}
-		} else if ( macOS == true ) {
+		}
+
+		if ( macOS == true ) {
 			if ( ! shell.grep( `-l`, `dashboard.test`, `/etc/hosts` ) ) {
 				shell.exec( `echo "127.0.0.1   dashboard.test" | sudo tee -a /etc/hosts` );
 			}
