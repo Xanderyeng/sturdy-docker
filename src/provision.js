@@ -121,26 +121,17 @@ for ( const dashboard of setDashboard ) {
         const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /{{DOMAIN}}/g, to: `${dashboard}` };
         replaced = replace.sync( options );
 
-		const wsl = fs.readFileSync('/proc/version', 'utf8').toLowerCase().includes('microsoft');
-
-		if ( wsl == true ) {
-			shell.exec( `d4w-hosts set 127.0.0.1 ${dashboard}.test`, error => {
-				if ( error ) {
-					throw error;
+		if ( isWSL ) {
+			configuredHosts.set('127.0.0.1', `${dashboard}.test`, function (err) {
+				if (err) {
+				  console.error(err)
 				} else {
-					console.log( `added ${dashboard}.test sucess.`);
+				  console.log('set /etc/hosts successfully!')
 				}
-			} );
+			});
 		} else {
-			shell.exec( `sudo d4w-hosts set 127.0.0.1 ${dashboard}.test`, error => {
-				if ( error ) {
-					throw error;
-				} else {
-					console.log( `added ${dashboard}.test sucess.`);
-				}
-			} );
+			shell.exec( `sudo d4w-hosts set 127.0.0.1 ${dashboard}.test` );
 		}
-
 	}
 
 	if ( ! fs.existsSync( `${getSitesPath}/${dashboard}/public_html/.git` ) ) {
