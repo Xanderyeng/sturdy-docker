@@ -118,17 +118,15 @@ for ( const dashboard of setDashboard ) {
     if ( ! fs.existsSync( `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
         shell.cp( `-r`, `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/${dashboard}.conf` );
         const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /{{DOMAIN}}/g, to: `${dashboard}` };
-		replaced = replace.sync( options );
+        replaced = replace.sync( options );
 
-		const macOS = process.platform === "darwin";
-
-		if ( macOS == true ) {
-			if ( ! shell.grep( `-l`, `dashboard.test`, `/etc/hosts` ) ) {
-				shell.exec( `echo "127.0.0.1   dashboard.test" | sudo tee -a /etc/hosts` );
-			} else {
-				shell.exec( `echo "127.0.0.1   dashboard.test" | sudo tee -a /mnt/c/Windows/System32/drivers/etc/hosts` );
-			}
-		}
+        configuredHosts.set('127.0.0.1', `${dashboard}.test`, function (err) {
+            if (err) {
+              console.error(err)
+            } else {
+              console.log('set /etc/hosts successfully!')
+            }
+        });
 	}
 
 	if ( ! fs.existsSync( `${getSitesPath}/${dashboard}/public_html/.git` ) ) {
