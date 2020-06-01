@@ -9,7 +9,7 @@ console.log( isWSL);
 
 const macOS = process.platform === "Darwin";
 
-var WINDOWS = `${isWSL} ? ${macOS} : ''`
+var WINDOWS = `${isWSL} ? '' : '${macOS}'`
 var EOL = WINDOWS
   ? '\r\n'
   : '\n'
