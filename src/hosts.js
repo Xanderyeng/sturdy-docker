@@ -5,10 +5,9 @@ var through = require('through')
 var net = require('net')
 const isWSL = require( "is-wsl" );
 
-console.log( isWSL);
-
 const macOS = process.platform === "darwin";
 
+console.log( macOS );
 var WINDOWS = `${isWSL} ? '${isWSL}' : '${macOS}'`
 var EOL = WINDOWS
   ? '\r\n'
