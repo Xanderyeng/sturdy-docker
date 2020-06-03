@@ -33,7 +33,7 @@ Makefile is used to create, and automate. You can use `wsldocker provision` when
 ## Getting Started
 Before you begin, I would like to point out one of the file that gets used often, and that file is <code>docker-setup.yml</code> and when you docker up for the first time, it will then duplicate <code>docker-setup.yml</code> to <code>docker-custom.yml</code> and it will use that to generate any sites you want. By default, the only site that gets create is the
 dashboard.test. Please do remember that doing a provision first to complete the initial setup and you must do a `wsl-docker up`, before you add a new site due to containers may not 
-complete the automation. 
+up. 
 <pre>
 sites:
   provision: false
