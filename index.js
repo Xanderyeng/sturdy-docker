@@ -34,7 +34,7 @@ const init = async function() {
         case 'start':
         case 'restart':
         case 'stop':
-        case 'destroy':
+        case 'down':
         case 'pull':
             await require( "./src/environment" ).command();
             break;
