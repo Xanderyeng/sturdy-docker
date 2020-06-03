@@ -42,6 +42,8 @@ const init = async function() {
 		case  'image':
 			await require( './src/image' ).command();
 			break;
+		case 'shell':
+			await require( './src/shell' ).command();
         case '--version':
         case '-v':
             version();
