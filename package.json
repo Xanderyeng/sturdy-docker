@@ -1,36 +1,32 @@
 {
-  "name": "docker-for-wordpress",
+  "name": "wsl-docker",
   "version": "1.0.0",
   "description": "A WordPress Development",
   "main": "index.js",
-  "scripts": {
-    "d4w": "./index.js",
-    "d4w-hosts": "./hosts.js"
+  "dependencies": {
+    "fs-extra": "^9.0.0",
+    "is-wsl": "^2.2.0",
+    "js-yaml": "^3.14.0",
+    "replace-in-file": "^6.0.0",
+    "shelljs": "^0.8.4",
+    "split": "^1.0.1"
   },
+  "devDependencies": {},
   "bin": {
-    "d4w": "./index.js",
-    "d4w-hosts": "./hosts.js"
+    "wsldocker": "index.js",
+    "wsldocker-hosts": "hosts.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/benlumia007/docker-for-wordpress.git"
+    "url": "git+https://github.com/benlumia007/wsl-docker.git"
   },
+  "keywords": [
+    "WordPress"
+  ],
   "author": "Benjamin Lu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/benlumia007/docker-for-wordpress/issues"
+    "url": "https://github.com/benlumia007/wsl-docker/issues"
   },
-  "homepage": "https://github.com/benlumia007/docker-for-wordpress#readme",
-  "dependencies": {
-    "chalk": "^4.0.0",
-    "fs-extra": "^9.0.0",
-    "hosts-so-easy": "^1.2.8",
-    "is-wsl": "^2.2.0",
-    "js-yaml": "^3.14.0",
-    "minimist": "^1.2.5",
-    "replace-in-file": "^6.0.0",
-    "shelljs": "^0.8.4",
-    "split": "^1.0.1",
-    "sudo-prompt": "^9.2.1"
-  }
+  "homepage": "https://github.com/benlumia007/wsl-docker#readme"
 }

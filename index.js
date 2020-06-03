@@ -3,8 +3,10 @@ const commands = require( './src/commands' );
 
 const help = function() {
     let help = `
-Usage: d4w [command]
+Usage: wsldocker [command]
+
 Commands:
+
   provision Provision custom.yml file
   up        Create and Start Container
   down      Stop and Remove Container
