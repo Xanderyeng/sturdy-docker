@@ -20,6 +20,8 @@ const replace = require( "replace-in-file" );
 const shell = require( "shelljs" );
 const { execSync } = require( 'child_process' );
 const configuredHosts = require( "./hosts" );
+const getComposeFile = path.setComposeFile();
+const getCustomFile = path.setCusomFile();
 
 // Here, we are going to copy the docker-custom to the global directory.
 if ( ! fs.existsSync( `${getRootPath}/.global/docker-custom.yml` ) ) {
@@ -27,8 +29,8 @@ if ( ! fs.existsSync( `${getRootPath}/.global/docker-custom.yml` ) ) {
 	shell.cp( `-r`, `${getConfigPath}/templates/docker-setup.yml`, `${getRootPath}/.global/docker-custom.yml` );
 }
 
-const config = yaml.safeLoad( fs.readFileSync( '.global/docker-custom.yml', 'utf8' ) );
-const compose = `${getRootPath}/.global/docker-compose.yml`;
+const config = yaml.safeLoad( fs.readFileSync( `${getCustomFile}`, 'utf8' ) );
+const compose = `${getComposeFile}`;
 
 const defaultsPHP = config.preprocessor;
 
@@ -270,8 +272,6 @@ if ( provision == true ) {
 				}
 			}
 		}
-
-
 
 		if ( ! fs.existsSync( `${getSitesPath}/${domain}/public_html/wp-config.php` ) ) {
 			const dir = `/srv/www/${domain}/public_html`;

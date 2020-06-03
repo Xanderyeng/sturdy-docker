@@ -9,7 +9,7 @@ const help = function() {
     const command = commands.command();
 
     const help = `
-Usage:  d4w ${command} {container}
+Usage:  wsldocker ${command} {container}
 `;
     console.log( help );
     process.exit();
@@ -59,10 +59,6 @@ const down = async function() {
     execSync( `docker-compose -f ${dockerFile} down` );
 };
 
-const pull = async function() {
-    execSync( `docker-compose -f ${dockerFile} pull` );
-};
-
 const command = async function() {
     if ( commands.subcommand() === 'help' || commands.subcommand() === false ) {
         help();
@@ -83,9 +79,6 @@ const command = async function() {
             case 'down':
                 down();
                 break;
-            case 'pull':
-                pull();
-                break;
             default:
                 help();
                 break;
@@ -93,4 +86,4 @@ const command = async function() {
     }
 };
 
-module.exports = { command, start, stop, restart, down, up, pull, help };
+module.exports = { command, start, stop, restart, down, up, help };

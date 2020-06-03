@@ -4,23 +4,6 @@ const getComposeFile = path.setComposeFile();
 
 let started = false;
 
-const images = {
-    'benlumia007/nginx:php7.2-fpm' : `benlumia007/nginx:php7.2-fpm`,
-    'benlumia007/mysql:latest'     : 'benlumia007/mysql:latest',
-    'benlumia007/mailhog:latest'   : 'benlumia007/mailhog'
-};
-
-const ensureImagesExists = function() {
-	for ( image of Object.keys( images ) ) {
-		try {
-			const output = execSync( `docker images -q ${image}` ).toString();
-			if ( ! output ) {
-				execSync( `docker pull ${image}`, { stdio: 'inherit' } );
-			}
-		} catch ( ex ) {}
-	}
-}
-
 const waitForDatabase = function() {
 	const waitTime = 10000;
 	const waitInterval = 500;
@@ -50,7 +33,9 @@ const startGateway = function() {
 
         if ( ! output ) {
             execSync( `docker-compose -f ${getComposeFile} up -d` );
-        }
+        } else {
+			execSync( `docker-compose -f ${getComposeFile} start` );
+		}
     } catch (ex) {}
 
 
@@ -69,8 +54,8 @@ const startGlobal = async function() {
 	if ( started === true ) {
 		return;
 	}
-	await ensureImagesExists();
-	await startGateway();
+
+	startGateway();
 
 	started = true;
 }

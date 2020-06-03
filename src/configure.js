@@ -9,37 +9,47 @@ const databasePath = path.join( `${rootPath}/databases` );
 const logsPath = path.join( `${rootPath}/logs` );
 const srcPath = path.join( `${rootPath}/src` );
 const sitesPath = path.join( `${rootPath}/sites` );
+const composeFile = path.join( `${globalPath}/docker-compose.yml` );
+const customFile = path.join( `${globalPath}/docker-custom.yml`);
 
 const setRootPath = function() {
     return rootPath;
-}
+};
 
 const setGlobalPath = function() {
     return globalPath;
-}
+};
 
 const setCertsPath = function() {
     return certsPath;
-}
+};
 
 const setConfigPath = function() {
     return configPath;
-}
+};
 
 const setDatabasesPath = function() {
     return databasePath;
-}
+};
 
 const setLogsPath = function() {
     return logsPath;
-}
+};
 
 const setSitesPath = function() {
     return sitesPath;
-}
+};
 
 const setSrcPath = function() {
     return srcPath;
-}
+};
 
-module.exports = { setRootPath, setGlobalPath, setCertsPath, setConfigPath, setDatabasesPath, setLogsPath, setSitesPath, setSrcPath };
+const setComposeFile = function() {
+	return composeFile;
+};
+
+const setCusomFile = function() {
+	return customFile;
+};
+
+module.exports = { setRootPath, setGlobalPath, setCertsPath, setConfigPath, setDatabasesPath, setLogsPath, setSitesPath, setSrcPath, setComposeFile, setCusomFile };
