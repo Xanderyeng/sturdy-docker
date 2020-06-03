@@ -23,12 +23,6 @@ Apparently for some odd reason, unzip is not part of the release so you may need
 sudo apt install zip unzip
 </pre>
 
-### wget for macOS
-Apparently, wget is not included by default if you are using macOS, you will need to install wget for macOS
-<pre>
-brew install wget
-</pre>
-
 ## Automation
 The main objective of this project was to automate everything much as possible. So what exactly does it automate. The automation is used to create the following
 * dashboard
