@@ -1,5 +1,5 @@
-# Docker for WordPress
-This is a [Docker](https://www.docker.com) based local environment for [WordPress](https://wordpress.org) Development
+# WSL Docker
+This is a [Docker](https://www.docker.com) based local environment for [WordPress](https://wordpress.org) developing using the new WSL2. 
 
 ## Table of Content
 
@@ -11,23 +11,16 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 5. [MailHog](https://github.com/benlumia007/docker-for-wordpress#mailhog)
 
 ## Overview
-Docker for WordPress is a local development environment based on docker-compose. By default, the following containers are started NGINX, MySQL, PHP fpm, and MailHog. The /sites the directory is the root that contains one or more sites that are mapped to Nginx and PHP fpm.
+WSL Docker ( formerly Docker for WordPress ) is a local environment based on WSL2 and Docker for Desktop. 
 
 ## Requirements
-* [Docker](https://www.docker.com/)
-* [Docker Compose](https://docs.docker.com/compose/)
-* [Shyaml](https://pypi.org/project/shyaml/) 
+* [Docker Desktop for Windows Home](https://www.docker.com/)
+* [WSL2](https://docs.microsoft.com/en-us/windows/wsl/)
 
-### Shyaml for macOS
-The easiest way to install Shyaml is to use [Homebrew](https://github.com/Homebrew/brew/) for macOS installation.
+### Unzip for Ubuntu
+Apparently for some odd reason, unzip is not part of the release so you may need to install it manually
 <pre>
-brew install shyaml
-</pre>
-
-### Shyaml for Linux ( Ubuntu / Elementary OS )
-<pre>
-sudo install python-pip
-sudo pip install shyaml
+sudo apt install zip unzip
 </pre>
 
 ### wget for macOS
@@ -36,36 +29,22 @@ Apparently, wget is not included by default if you are using macOS, you will nee
 brew install wget
 </pre>
 
-### Setting Up Your Host User Passwordless
-One of the biggest things that I found useful is to set your username password when you use sudo privileges and it works with Linux and macOS so that you can setup hosts file when running one of the script to add and remove hosts in the hosts file. Please follow the following to make your user passwordless
-<pre>
-sudo visudo
-</pre>
-Once you are in this file, scrolled all the way down and enter the following
-<pre>
-username  ALL=(ALL:ALL) NOPASSWD:ALL
-</pre>
-This is the same step if you were to create your own vagrant box and that's it, you can edit your hosts file automatically when using one of the scripts provided.
-
 ## Automation
 The main objective of this project was to automate everything much as possible. So what exactly does it automate. The automation is used to create the following
 * dashboard
 * sites ( WordPress )
 * TLS-CA ( SSL Certificates )
-Makefile is used to create, and automate. You can use `make` when you make change to the `docker-custom.yml` or if there's any changes to the dashboard that is not related in anyways, you will then get these updates automatically. `make` is your friendy command.
-<pre>
-make
-</pre>
+Makefile is used to create, and automate. You can use `wsldocker provision` when you make change to the `docker-custom.yml` or if there's any changes to the dashboard that is not related in anyways, you will then get these updates automatically. `wsldocker provision` is your friendy command.
 
 ## Getting Started
-Before you begin, I would like to point out one of the file that gets used often, and that file is <code>docker-setup.yml</code> and when you docker up for the first time, it will then duplicate <code>docker-setup.yml</code> to <code>docker-custom.yml</code> and it will use that to generate any sites you want. By default, the only site that gets create is sandbox.test
+Before you begin, I would like to point out one of the file that gets used often, and that file is <code>docker-setup.yml</code> and when you docker up for the first time, it will then duplicate <code>docker-setup.yml</code> to <code>docker-custom.yml</code> and it will use that to generate any sites you want. By default, the only site that gets create is the
+dashboard.test. Please do remember that doing a provision first to complete the initial setup and you must do a `wsl-docker up`, before you add a new site due to containers may not 
+complete the automation. 
 <pre>
 sites:
-  sandbox:
-    provision: false
-    repo: https://github.com/benlumia007/docker-for-wordpress-sites.git
-    host:
-      - sandbox.test
+  provision: false
+  domain:
+    - sandbox
 </pre>
 To begin, all you will need to do is the following change the provision to true and
 
