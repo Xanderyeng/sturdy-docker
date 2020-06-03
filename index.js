@@ -37,9 +37,11 @@ const init = async function() {
         case 'restart':
         case 'stop':
         case 'down':
-        case 'pull':
             await require( "./src/environment" ).command();
-            break;
+			break;
+		case  'image':
+			await require( './src/image' ).command();
+			break;
         case '--version':
         case '-v':
             version();
