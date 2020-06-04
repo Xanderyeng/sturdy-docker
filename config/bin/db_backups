@@ -1,0 +1,17 @@
+#!/bin/bash
+config="$PWD/.global/docker-custom.yml"
+
+get_sites() {
+  local value=`cat ${config} | shyaml get-value sites.domain 2> /dev/null`
+  echo ${value:-$@}
+}
+
+domains=`get_sites`
+
+db_backups=`cat ${config} | shyaml get-value options.db_backups 2> /dev/null`
+
+if [[ ${db_backups} != "False" ]]; then
+	for domain in ${domains//- /$'\n'}; do
+    docker exec -it docker-mysql mysql mysqldump -u root -e "${domain}" > "databases/${domain}.sql"
+	done
+fi
