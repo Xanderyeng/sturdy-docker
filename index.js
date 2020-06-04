@@ -7,14 +7,15 @@ Usage: wsldocker [command]
 
 Commands:
 
-  provision Provision custom.yml file
-  up        Create and Start Container
-  down      Stop and Remove Container
-  start     Start Services
-  restart   Restart Services
-  stop      Stop Services
+  create	Create a new WordPress site
+  delete	Delete a WordPress site
+  image		Manage docker images
+  restart	Restarts one or more containers
+  shell		Opens a shell for a specific container ( default: nginx )
+  start		Starts one or more containers
+  stop		Stops one or more containers
 
-Run 'd4w [command] help' for more information on a command.
+Run 'wsldocker [command] help' for more information on a command.
 `;
     console.log( help );
 };
@@ -30,13 +31,16 @@ const init = async function() {
 
     switch ( command ) {
         case 'provision':
-            await require( "./src/provision" );
-            break;
-        case 'up':
+            require( "./src/provision" );
+			break;
+		case 'create':
+			await require( './src/create' ).command();
+			break;
+		case 'delete':
+			await require( './src/delete' );
         case 'start':
         case 'restart':
         case 'stop':
-        case 'down':
             await require( "./src/environment" ).command();
 			break;
 		case  'image':

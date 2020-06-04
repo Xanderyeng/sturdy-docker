@@ -16,9 +16,10 @@ Usage:  wsldocker image {container}
     console.log( help );
     process.exit();
 };
+
 const pull = function() {
 	execSync( `docker-compose -f ${getComposeFile} pull`, { stdio: 'inherit' } );
-}
+};
 
 const command = async function() {
 	switch ( commands.subcommand() ) {
