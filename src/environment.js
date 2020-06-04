@@ -3,6 +3,7 @@ const { execSync } = require( 'child_process' );
 const path = require( "./configure" );
 const getRootPath = path.setRootPath();
 const getGlobalPath = path.setGlobalPath();
+const getConfigPath = path.setConfigPath();
 const dockerFile = `${getGlobalPath}/docker-compose.yml`
 
 const help = function() {
@@ -56,6 +57,7 @@ const restart = async function( args ) {
 };
 
 const down = async function() {
+	execSync( `bash ${getConfigPath}/bin/db_backups`, {stdio: 'inherit'} );
     execSync( `docker-compose -f ${dockerFile} down` );
 };
 
