@@ -33,6 +33,7 @@ const start = async function( args ) {
 }
 
 const stop = async function( args ) {
+	execSync( `bash ${getConfigPath}/bin/db_backups`, { stdio: 'inherit' } );
     if ( args == "nginx" ) {
         execSync( `docker-compose -f ${dockerFile} stop ${args}` );
     } else if ( args == "mysql" ) {
@@ -57,7 +58,7 @@ const restart = async function( args ) {
 };
 
 const down = async function() {
-	execSync( `bash ${getConfigPath}/bin/db_backups`, {stdio: 'inherit'} );
+	execSync( `bash ${getConfigPath}/bin/db_backups`, { stdio: 'inherit' } );
     execSync( `docker-compose -f ${dockerFile} down` );
 };
 
