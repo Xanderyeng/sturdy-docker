@@ -7,13 +7,12 @@ Usage: wsldocker [command]
 
 Commands:
 
-  create	Create a new WordPress site
-  delete	Delete a WordPress site
-  image		Manage docker images
-  restart	Restarts one or more containers
-  shell		Opens a shell for a specific container ( default: nginx )
-  start		Starts one or more containers
-  stop		Stops one or more containers
+  image		    Manage docker images
+  provision     Create a new environment automatically
+  restart	    Restarts one or more containers
+  shell		    Opens a shell for a specific container ( default: nginx )
+  start		    Starts one or more containers
+  stop		    Stops one or more containers
 
 Run 'wsldocker [command] help' for more information on a command.
 `;
@@ -32,15 +31,12 @@ const init = async function() {
     switch ( command ) {
         case 'provision':
             require( "./src/provision" );
-			break;
-		case 'create':
-			await require( './src/create' ).command();
-			break;
-		case 'delete':
-			await require( './src/delete' );
-        case 'start':
+            break;
+        case 'down':
         case 'restart':
+        case 'start':
         case 'stop':
+        case 'up':
             await require( "./src/environment" ).command();
 			break;
 		case  'image':
