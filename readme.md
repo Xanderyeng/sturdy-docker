@@ -25,10 +25,9 @@ sudo apt install zip unzip
 
 ## Automation
 The main objective of this project was to automate everything much as possible. So what exactly does it automate. The automation is used to create the following
-* dashboard
-* sites ( WordPress )
-* TLS-CA ( SSL Certificates )
-Makefile is used to create, and automate. You can use `wsldocker provision` when you make change to the `docker-custom.yml` or if there's any changes to the dashboard that is not related in anyways, you will then get these updates automatically. `wsldocker provision` is your friendy command.
+<pre>
+wsldocker init
+</pre>
 
 ## Getting Started
 Before you begin, I would like to point out one of the file that gets used often, and that file is <code>docker-setup.yml</code> and when you docker up for the first time, it will then duplicate <code>docker-setup.yml</code> to <code>docker-custom.yml</code> and it will use that to generate any sites you want. By default, the only site that gets create is the
