@@ -83,96 +83,6 @@ for ( const defaultPHP of defaultsPHP ) {
 	}
 }
 
-// Here, we will setup the dashboard
-const setDashboard = config.default.domain;
-const setDashboardRepo = config.default.repo;
-const setDashboardPHP = config.preprocessor;
-
-for ( const dashboard of setDashboard ) {
-    if ( ! fs.existsSync( `${getSitesPath}/${dashboard}/public_html` ) ) {
-        fs.mkdir( `${getSitesPath}/${dashboard}/public_html`, { recursive: true }, error => {
-            if ( error ) {
-                console.log( `Failed to create directory for ${setSitesPath}/${dashboard}/public_html` );
-            }
-        } );
-    }
-
-    if ( ! fs.existsSync( `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
-        shell.cp( `-r`, `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/${dashboard}.conf` );
-        const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /{{DOMAIN}}/g, to: `${dashboard}` };
-        replaced = replace.sync( options );
-
-		if ( isWSL ) {
-			configuredHosts.set('127.0.0.1', `${dashboard}.test`, function (err) {
-				if (err) {
-				  console.error(err)
-				} else {
-				  console.log('set /etc/hosts successfully!')
-				}
-			});
-		} else {
-			shell.exec( `sudo d4w-hosts set 127.0.0.1 ${dashboard}.test` );
-		}
-	}
-
-	if ( ! fs.existsSync( `${getSitesPath}/${dashboard}/public_html/.git` ) ) {
-		shell.exec( `git clone ${setDashboardRepo} ${getSitesPath}/${dashboard}/public_html` );
-	} else {
-		shell.cd( `${getSitesPath}/${dashboard}/public_html` );
-		shell.exec( `git pull -q` );
-		shell.cd( `${getRootPath}` );
-	}
-
-	for ( const getDashboardPHP of setDashboardPHP ) {
-		if ( getDashboardPHP == "7.2" ) {
-			if ( shell.grep( `-i`, `7.3`, `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
-				const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /7.3/g, to: `${getDashboardPHP}` };
-				replaced = replace.sync( options );
-			}
-
-			if ( shell.grep( `-i`, `7.4`, `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
-				const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /7.4/g, to: `${getDashboardPHP}` };
-				replaced = replace.sync( options );
-			}
-
-			if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
-				const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /{{PHPVERSION}}/g, to: `${getDashboardPHP}` };
-				replaced = replace.sync( options );
-			}
-		} else if ( getDashboardPHP == "7.3" ) {
-			if ( shell.grep( `-i`, `7.2`, `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
-				const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /7.2/g, to: `${getDashboardPHP}` };
-				replaced = replace.sync( options );
-			}
-
-			if ( shell.grep( `-i`, `7.4`, `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
-				const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /7.4/g, to: `${getDashboardPHP}` };
-				replaced = replace.sync( options );
-			}
-
-			if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
-				const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /{{PHPVERSION}}/g, to: `${getDashboardPHP}` };
-				replaced = replace.sync( options );
-			}
-		} else if ( getDashboardPHP == "7.4" ) {
-			if ( shell.grep( `-i`, `7.2`, `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
-				const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /7.2/g, to: `${getDashboardPHP}` };
-				replaced = replace.sync( options );
-			}
-
-			if ( shell.grep( `-i`, `7.3`, `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
-				const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /7.3/g, to: `${getDashboardPHP}` };
-				replaced = replace.sync( options );
-			}
-
-			if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getConfigPath}/nginx/${dashboard}.conf` ) ) {
-				const options = { files: `${getConfigPath}/nginx/${dashboard}.conf`, from: /{{PHPVERSION}}/g, to: `${getDashboardPHP}` };
-				replaced = replace.sync( options );
-			}
-		}
-	}
-}
-
 // Here we are going to setup the actual sites
 const domains = config.sites.domain;
 const provision = config.sites.provision;
@@ -258,6 +168,7 @@ if ( provision == true ) {
 			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"` );
 			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "CREATE USER IF NOT EXISTS 'wordpress'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'wordpress';"` );
 			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'%' WITH GRANT OPTION;"` );
+	
 			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "FLUSH PRIVILEGES;"` );
 
 			shell.exec( `docker-compose -f ${compose} exec -T nginx wp core download --path="${dir}" --quiet --allow-root` );
@@ -273,57 +184,4 @@ if ( provision == true ) {
 }
 
 // here we here to generate the phpmyadmin and tls-ca
-const phpmyadmin = config.resources.phpmyadmin;
-
-if ( phpmyadmin  == true ) {
-	if ( ! fs.existsSync( `${getSitesPath}/dashboard/public_html/phpmyadmin` ) ) {
-		shell.mkdir( `-p`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
-		shell.exec( `wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.zip -O "${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip"` );
-		shell.exec( `unzip "${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip"` );
-		shell.mv( `phpMyAdmin-5.0.2-all-languages/*`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
-		shell.rm( `-rf`, `phpMyAdmin-5.0.2-all-languages` );
-		shell.rm( `${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip` );
-		shell.cp( `-r`, `config/phpmyadmin/config.inc.php`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
-	}
-}
-
-const certificates  = config.resources.certificates;
-
-if ( certificates == true ) {
-	if ( ! fs.existsSync( `${getCertsPath}/ca/ca.crt` ) ) {
-		shell.mkdir( `-p`, `${getCertsPath}/ca` );
-		shell.exec( `openssl genrsa -out "certificates/ca/ca.key" 4096` );
-		shell.exec( `openssl req -x509 -new -nodes -key "certificates/ca/ca.key" -sha256 -days 365 -out "certificates/ca/ca.crt" -subj "/CN=Docker for WordPress"` );
-	}
-
-	const dashboards = config.default.domain;
-
-	for ( const dashboard of dashboards ) {
-		if ( ! fs.existsSync( `${getCertsPath}/${dashboard}/${dashboard}.crt` ) ) {
-			shell.mkdir( `-p`, `${getCertsPath}/${dashboard}` );
-			shell.cp( `-r`, `${getConfigPath}/certs/domain.ext`, `${getCertsPath}/${dashboard}/${dashboard}.ext` );
-			shell.sed( `-i`, `{{DOMAIN}}`, `${dashboard}`, `${getCertsPath}/${dashboard}/${dashboard}.ext` );
-
-			shell.exec( `openssl genrsa -out "${getCertsPath}/${dashboard}/${dashboard}.key" 4096` );
-			shell.exec( `openssl req -new -key "${getCertsPath}/${dashboard}/${dashboard}.key" -out "${getCertsPath}/${dashboard}/${dashboard}.csr" -subj "/CN=*.${dashboard}.test" &> /dev/null` );
-			shell.exec( `openssl x509 -req -in "${getCertsPath}/${dashboard}/${dashboard}.csr" -CA "${getCertsPath}/ca/ca.crt" -CAkey "${getCertsPath}/ca/ca.key" -CAcreateserial -out "${getCertsPath}/${dashboard}/${dashboard}.crt" -days 365 -sha256 -extfile "${getCertsPath}/${dashboard}/${dashboard}.ext" &> /dev/null` );
-		}
-	}
-
-	const domains = config.sites.domain;
-	const trueDomains = config.sites.provision;
-
-	if ( trueDomains == true ) {
-		for ( const domain of domains ) {
-			if ( ! fs.existsSync( `${getCertsPath}/${domain}/${domain}.crt` ) ) {
-				shell.mkdir( `-p`, `${getCertsPath}/${domain}` );
-				shell.cp( `-r`, `${getConfigPath}/certs/domain.ext`, `${getCertsPath}/${domain}/${domain}.ext` );
-				shell.sed( `-i`, `{{DOMAIN}}`, `${domain}`, `${getCertsPath}/${domain}/${domain}.ext` );
-
-				shell.exec( `openssl genrsa -out "${getCertsPath}/${domain}/${domain}.key" 4096` );
-				shell.exec( `openssl req -new -key "${getCertsPath}/${domain}/${domain}.key" -out "${getCertsPath}/${domain}/${domain}.csr" -subj "/CN=*.${domain}.test" &> /dev/null` );
-				shell.exec( `openssl x509 -req -in "${getCertsPath}/${domain}/${domain}.csr" -CA "${getCertsPath}/ca/ca.crt" -CAkey "${getCertsPath}/ca/ca.key" -CAcreateserial -out "${getCertsPath}/${domain}/${domain}.crt" -days 365 -sha256 -extfile "${getCertsPath}/${domain}/${domain}.ext" &> /dev/null` );
-			}
-		}
-	}
-}
+shell.exec( `bash ${getRootPath}/scripts/resources.sh` );
