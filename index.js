@@ -7,12 +7,14 @@ Usage: wsldocker [command]
 
 Commands:
 
-  image		    Manage docker images
-  provision     Create a new environment automatically
-  restart	    Restarts one or more containers
-  shell		    Opens a shell for a specific container ( default: nginx )
-  start		    Starts one or more containers
-  stop		    Stops one or more containers
+  delete	Delete a WordPress site
+  image		Manage docker images
+  init		Create a dashboard and certificates
+  provision	Creae new WordPress site or sites
+  restart	Restarts one or more containers
+  shell		Opens a shell for a specific container ( default: nginx )
+  start		Starts one or more containers
+  stop		Stops one or more containers
 
 Run 'wsldocker [command] help' for more information on a command.
 `;
