@@ -7,13 +7,8 @@
 #
 # If you need to add a new site, copy the example and uncomment the lines and enter the site name.
 # You wil then need to run when you use make.
-default:
-  repo: https://github.com/benlumia007/docker-for-wordpress-dashboard.git
-  domain:
-    - dashboard
-
 sites:
-  provision: false
+  provision: true
   repo: https://github.com/benlumia007/docker-for-wordpress-sites.git
   domain:
     - sandbox
@@ -24,9 +19,9 @@ preprocessor:
   # - 7.4
 
 resources:
-  - phpmyadmin
-  - tls-ca
+  phpmyadmin: true
+  certificates: true
 
 options:
-  db_backups: false
+  db_backups: true
   db_restores: false
