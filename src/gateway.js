@@ -4,42 +4,16 @@ const getComposeFile = path.setComposeFile();
 
 let started = false;
 
-const waitForDatabase = function() {
-	const waitTime = 10000;
-	const waitInterval = 500;
-	let currentTime = 0;
-
-	const incTime = () => {
-		currentTime += waitInterval;
-		const p = Math.floor( ( currentTime / waitTime) * 100 )
-		process.stdout.clearLine();
-		process.stdout.cursorTo(0);
-		process.stdout.write( `waiting for database ... ${p}%`);
-	};
-
-	const timerFinished = () => {
-		clearInterval(interval);
-		process.stdout.clearLine();
-		process.stdout.cursorTo(0);
-	};
-
-	const interval = setInterval( incTime, waitInterval );
-	setTimeout( timerFinished, waitTime );
-}
-
 const startGateway = function() {
     try {
         const output = execSync( `docker-compose -f ${getComposeFile} ps` ).toString();
 
         if ( ! output ) {
-            execSync( `docker-compose -f ${getComposeFile} up -d` );
+            execSync( `docker-compose -f ${getComposeFile} up -d`, {stdio: 'inherit' } );
         } else {
-			execSync( `docker-compose -f ${getComposeFile} start` );
+			execSync( `docker-compose -f ${getComposeFile} start`, { stdio: 'inherit' } );
 		}
     } catch (ex) {}
-
-
-	waitForDatabase();
 }
 
 const stopGateway = function() {

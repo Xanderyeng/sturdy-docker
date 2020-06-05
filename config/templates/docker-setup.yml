@@ -24,8 +24,8 @@ preprocessor:
   # - 7.4
 
 resources:
-  phpmyadmin: true
-  certificates: true
+  - phpmyadmin
+  - tls-ca
 
 options:
   db_backups: false
