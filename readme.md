@@ -24,10 +24,11 @@ sudo apt install zip unzip
 </pre>
 
 ## Automation
-The main objective of this project was to automate everything much as possible. So what exactly does it automate. The automation is used to create the following
+The main objective of this project is to automate everything much as possible. So what exactly does it automate, it automates root certificate, dashboard, and phpmyadmin by using the following command below, bu first you will need to use the following command for the commands to work, `npm install` and `sudo npm link`. This is the only way I know how make this work without submiting the project to the repository, then you can use the below command.
 <pre>
 wsldocker init
 </pre>
+The `wsldocker init` should be use after you `wsldocker up`. This just verified that the containers are up and running.
 
 ## Getting Started
 Before you begin, I would like to point out one of the file that gets used often, and that file is <code>docker-setup.yml</code> and when you docker up for the first time, it will then duplicate <code>docker-setup.yml</code> to <code>docker-custom.yml</code> and it will use that to generate any sites you want. By default, the only site that gets create is the
