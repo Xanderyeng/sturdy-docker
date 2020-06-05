@@ -2,11 +2,23 @@ const fs = require( 'fs-extra' );
 const replace = require( 'replace-in-file' );
 const { exec } = require( 'child_process' );
 const shell = require( 'shelljs' );
+const yaml = require( 'js-yaml' );
 const { execSync } = require( 'child_process' );
 const path = require( `./configure` );
 const getConfigPath = path.setConfigPath();
 const getSitesPath = path.setSitesPath();
 const getCertsPath = path.setCertsPath();
+const getGlobalPath = path.setGlobalPath();
+const getComposePath = path.setComposeFile();
+const getCustomFile = path.setCusomFile();
+
+// Here, we are going to copy the compose and custom file to the .global
+if ( ! fs.existsSync( `${getGlobalPath}/docker-custom.yml` ) ) {
+	fs.copy( `${getConfigPath}/templates/docker-setup.yml`, `${getGlobalPath}/docker-custom.yml` );
+	fs.copy( `${getConfigPath}/templates/docker-compose.yml`, `${getGlobalPath}/docker-compose.yml` );
+}
+
+const config = yaml.safeLoad( fs.readFileSync( `${getCustomFile}`, 'utf8' ) );
 
 // Here, we are going to create a nginx conf file for dashboard
 if ( ! fs.existsSync( `${getConfigPath}/nginx/dashboard.conf` ) ) {
@@ -83,4 +95,55 @@ if ( ! fs.existsSync( `${getCertsPath}/dashboard/dashboard.crt` ) ) {
 			} );
 		}
 	} );
+}
+
+const defaultsPHP = config.preprocessor;
+
+for ( const defaultPHP of defaultsPHP ) {
+	if ( defaultPHP == "7.2" ) {
+		if ( shell.grep( `-i`, `7.3`, `${getGlobalPath}/docker-compose.yml` ) ) {
+			const options = { files: `${getGlobalPath}/docker-compose.yml`, from: /7.3/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+
+		if ( shell.grep( `-i`, `7.4`, `${getGlobalPath}/docker-compose.yml` ) ) {
+			const options = { files: `${getGlobalPath}/docker-compose.yml`, from: /7.4/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+
+		if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getGlobalPath}/docker-compose.yml` ) ) {
+			const options = { files: `${getGlobalPath}/docker-compose.yml`, from: /{{PHPVERSION}}/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+	} else if ( defaultPHP == "7.3" ) {
+		if ( shell.grep( `-i`, `7.2`, `${getGlobalPath}/docker-compose.yml` ) ) {
+			const options = { files: `${getGlobalPath}/docker-compose.yml`, from: /7.2/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+
+		if ( shell.grep( `-i`, `7.4`, `${getGlobalPath}/docker-compose.yml` ) ) {
+			const options = { files: `${getGlobalPath}/docker-compose.yml`, from: /7.4/g, to: `${defaultsPHP}` };
+			replaced = replace.sync( options );
+		}
+
+		if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getGlobalPath}/docker-compose.yml` ) ) {
+			const options = { files: `${getGlobalPath}/docker-compose.yml`, from: /{{PHPVERSION}}/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+	} else if ( defaultPHP == "7.4" ) {
+		if ( shell.grep( `-i`, `7.2`, `${getGlobalPath}/docker-compose.yml` ) ) {
+			const options = { files: `${getGlobalPath}/docker-compose.yml`, from: /7.2/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+
+		if ( shell.grep( `-i`, `7.3`, `${getGlobalPath}/docker-compose.yml` ) ) {
+			const options = { files: `${getGlobalPath}/docker-compose.yml`, from: /7.3/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+
+		if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getGlobalPath}/docker-compose.yml` ) ) {
+			const options = { files: `${getGlobalPath}/docker-compose.yml`, from: /{{PHPVERSION}}/g, to: `${defaultPHP}` };
+			replaced = replace.sync( options );
+		}
+	}
 }
