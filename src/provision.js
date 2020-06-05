@@ -18,70 +18,11 @@ const fs = require( "fs-extra" );
 const yaml = require( "js-yaml" );
 const replace = require( "replace-in-file" );
 const shell = require( "shelljs" );
-const { execSync } = require( 'child_process' );
 const configuredHosts = require( "./hosts" );
 const getComposeFile = path.setComposeFile();
 const getCustomFile = path.setCusomFile();
 
-// Here, we are going to copy the docker-custom to the global directory.
-if ( ! fs.existsSync( `${getRootPath}/.global/docker-custom.yml` ) ) {
-	shell.cp( `-r`, `${getConfigPath}/templates/docker-compose.yml`, `${getRootPath}/.global/docker-compose.yml` );
-	shell.cp( `-r`, `${getConfigPath}/templates/docker-setup.yml`, `${getRootPath}/.global/docker-custom.yml` );
-}
-
 const config = yaml.safeLoad( fs.readFileSync( `${getCustomFile}`, 'utf8' ) );
-const compose = `${getComposeFile}`;
-
-const defaultsPHP = config.preprocessor;
-
-for ( const defaultPHP of defaultsPHP ) {
-	if ( defaultPHP == "7.2" ) {
-		if ( shell.grep( `-i`, `7.3`, `${getRootPath}/.global/docker-compose.yml` ) ) {
-			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /7.3/g, to: `${defaultPHP}` };
-			replaced = replace.sync( options );
-		}
-
-		if ( shell.grep( `-i`, `7.4`, `${getRootPath}/.global/docker-compose.yml` ) ) {
-			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /7.4/g, to: `${defaultPHP}` };
-			replaced = replace.sync( options );
-		}
-
-		if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getRootPath}/.global/docker-compose.yml` ) ) {
-			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /{{PHPVERSION}}/g, to: `${defaultPHP}` };
-			replaced = replace.sync( options );
-		}
-	} else if ( defaultPHP == "7.3" ) {
-		if ( shell.grep( `-i`, `7.2`, `${getRootPath}/.global/docker-compose.yml` ) ) {
-			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /7.2/g, to: `${defaultPHP}` };
-			replaced = replace.sync( options );
-		}
-
-		if ( shell.grep( `-i`, `7.4`, `${getRootPath}/.global/docker-compose.yml` ) ) {
-			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /7.4/g, to: `${defaultsPHP}` };
-			replaced = replace.sync( options );
-		}
-
-		if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getRootPath}/.global/docker-compose.yml` ) ) {
-			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /{{PHPVERSION}}/g, to: `${defaultPHP}` };
-			replaced = replace.sync( options );
-		}
-	} else if ( defaultPHP == "7.4" ) {
-		if ( shell.grep( `-i`, `7.2`, `${getRootPath}/.global/docker-compose.yml` ) ) {
-			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /7.2/g, to: `${defaultPHP}` };
-			replaced = replace.sync( options );
-		}
-
-		if ( shell.grep( `-i`, `7.3`, `${getRootPath}/.global/docker-compose.yml` ) ) {
-			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /7.3/g, to: `${defaultPHP}` };
-			replaced = replace.sync( options );
-		}
-
-		if ( shell.grep( `-i`, `{{PHPVERSION}}`, `${getRootPath}/.global/docker-compose.yml` ) ) {
-			const options = { files: `${getRootPath}/.global/docker-compose.yml`, from: /{{PHPVERSION}}/g, to: `${defaultPHP}` };
-			replaced = replace.sync( options );
-		}
-	}
-}
 
 // Here we are going to setup the actual sites
 const domains = config.sites.domain;
@@ -168,7 +109,7 @@ if ( provision == true ) {
 			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"` );
 			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "CREATE USER IF NOT EXISTS 'wordpress'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'wordpress';"` );
 			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'%' WITH GRANT OPTION;"` );
-	
+
 			shell.exec( `docker-compose -f ${compose} exec -T mysql mysql -u root -e "FLUSH PRIVILEGES;"` );
 
 			shell.exec( `docker-compose -f ${compose} exec -T nginx wp core download --path="${dir}" --quiet --allow-root` );
@@ -182,6 +123,3 @@ if ( provision == true ) {
 		}
     }
 }
-
-// here we here to generate the phpmyadmin and tls-ca
-shell.exec( `bash ${getRootPath}/scripts/resources.sh` );
