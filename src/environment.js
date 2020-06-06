@@ -21,7 +21,7 @@ const up = async function() {
 };
 
 const start = async function( args ) {
-    if ( args == "nginx" ) {
+    if ( args == "wordpress" ) {
         execSync( `docker-compose -f ${dockerFile} start ${args}` );
     } else if ( args == "mysql" ) {
         execSync( `docker-compose -f ${dockerFile} start ${args}` );
@@ -34,7 +34,7 @@ const start = async function( args ) {
 
 const stop = async function( args ) {
 	execSync( `bash ${getConfigPath}/bin/db_backups`, { stdio: 'inherit' } );
-    if ( args == "nginx" ) {
+    if ( args == "wordpress" ) {
         execSync( `docker-compose -f ${dockerFile} stop ${args}` );
     } else if ( args == "mysql" ) {
         execSync( `docker-compose -f ${dockerFile} stop ${args}` );
@@ -46,7 +46,7 @@ const stop = async function( args ) {
 };
 
 const restart = async function( args ) {
-    if ( args == "nginx" ) {
+    if ( args == "wordpress" ) {
         execSync( `docker-compose -f ${dockerFile} restart ${args}` );
     } else if ( args == "mysql" ) {
         execSync( `docker-compose -f ${dockerFile} restart ${args}` );;
