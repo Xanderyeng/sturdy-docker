@@ -1,21 +1,23 @@
 version: '3.5'
 services:
-  nginx:
-    image: benlumia007/nginx:php{{PHPVERSION}}-fpm
-    container_name: docker-nginx
+  wordpress:
+    image: benlumia007/wordpress:php7.2-apache-cli
+    container_name: wordpress
     restart: always
+    stdin_open: true
+    tty: true
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ../.global/docker-custom.yml:/srv/.global/docker-custom.yml
-      - ../config/nginx:/etc/nginx/conf.d
+      - ../config/apache:/etc/apache2/sites-available
       - ../certificates:/srv/certificates
       - ../sites:/srv/www/
 
   mysql:
     image: benlumia007/mysql:latest
-    container_name: docker-mysql
+    container_name: mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -27,7 +29,7 @@ services:
 
   mailhog:
     image: benlumia007/mailhog
-    container_name: docker-mailhog
+    container_name: mailhog
     restart: always
     ports:
       - "1025:1025"
