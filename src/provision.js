@@ -52,7 +52,7 @@ if ( provision == true ) {
 						exec( `sudo d4w-hosts set 127.0.0.1 ${domain}.test` );
 					}
 
-					execSync( `docker-compose -f ${getComposeFile} exec -T nginx sudo a2ensite ${domain}` );
+					execSync( `docker-compose -f ${getComposeFile} exec -T wordpress sudo a2ensite ${domain}` );
 				}
 			} );
 		}
@@ -70,12 +70,12 @@ if ( provision == true ) {
 						execSync( `docker-compose -f ${getComposeFile} exec -T mysql mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'%' WITH GRANT OPTION;"` );
 						execSync( `docker-compose -f ${getComposeFile} exec -T mysql mysql -u root -e "FLUSH PRIVILEGES;"` );
 
-						execSync( `docker-compose -f ${getComposeFile} exec -T nginx wp core download --path=${dir}` );
-						execSync( `docker-compose -f ${getComposeFile} exec -T nginx wp config create --dbhost=mysql --dbname=${domain} --dbuser=wordpress --dbpass=wordpress --path=${dir}` );
-						execSync( `docker-compose -f ${getComposeFile} exec -T nginx wp core install  --url="https://${domain}.test" --title="${domain}.test" --admin_user=admin --admin_password=password --admin_email="admin@${domain}.test" --skip-email --quiet --path=${dir}` );
-						execSync( `docker-compose -f ${getComposeFile} exec -T nginx wp plugin delete akismet --path=${dir}` );
-						execSync( `docker-compose -f ${getComposeFile} exec -T nginx wp plugin delete hello --path=${dir}` );
-						execSync( `docker-compose -f ${getComposeFile} exec -T nginx wp config shuffle-salts --path=${dir}` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T wordpress wp core download --path=${dir}` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T wordpress wp config create --dbhost=mysql --dbname=${domain} --dbuser=wordpress --dbpass=wordpress --path=${dir}` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T wordpress wp core install  --url="https://${domain}.test" --title="${domain}.test" --admin_user=admin --admin_password=password --admin_email="admin@${domain}.test" --skip-email --quiet --path=${dir}` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T wordpress wp plugin delete akismet --path=${dir}` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T wordpress wp plugin delete hello --path=${dir}` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T wordpress wp config shuffle-salts --path=${dir}` );
 					}
 				}
 			} );
