@@ -1,6 +1,6 @@
 .global/*
 /certificates
-/config/nginx/*
+/config/apache/*
 /databases
 !/databases/readme.md
 /sites/*
