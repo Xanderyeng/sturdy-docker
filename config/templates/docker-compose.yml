@@ -1,8 +1,8 @@
 version: '3.5'
 services:
-  wordpress:
-    image: benlumia007/wordpress:php7.2-apache-cli
-    container_name: wordpress
+  nginx:
+    image: benlumia007/nginx:php7.2-fpm
+    container_name: nginx
     restart: always
     stdin_open: true
     tty: true
@@ -11,7 +11,7 @@ services:
       - "443:443"
     volumes:
       - ../.global/docker-custom.yml:/srv/.global/docker-custom.yml
-      - ../config/apache:/etc/apache2/sites-available
+      - ../config/nginx:/etc/nginx/conf.d
       - ../certificates:/srv/certificates
       - ../sites:/srv/www/
 
