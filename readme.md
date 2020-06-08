@@ -1,4 +1,4 @@
-# WSL Docker
+# WP 4 Docker
 This is a [Docker](https://www.docker.com) based local environment for [WordPress](https://wordpress.org) developing using the new WSL2. 
 
 ## Table of Content
@@ -26,13 +26,13 @@ sudo apt install zip unzip
 ## Automation
 The main objective of this project is to automate everything much as possible. So what exactly does it automate, it automates root certificate, dashboard, and phpmyadmin by using the following command below, bu first you will need to use the following command for the commands to work, `npm install` and `sudo npm link`. This is the only way I know how make this work without submiting the project to the repository, then you can use the below command.
 <pre>
-wsldocker init
+wp4docker init
 </pre>
-The `wsldocker init` should be use after you `wsldocker up`. This just verified that the containers are up and running.
+The `wp4docker init` should be use after you `wp4docker up`. This just verified that the containers are up and running.
 
 ## Getting Started
 Before you begin, I would like to point out one of the file that gets used often, and that file is <code>docker-setup.yml</code> and when you docker up for the first time, it will then duplicate <code>docker-setup.yml</code> to <code>docker-custom.yml</code> and it will use that to generate any sites you want. By default, the only site that gets create is the
-dashboard.test. Please do remember that doing a provision first to complete the initial setup and you must do a `wsl-docker up`, before you add a new site due to containers may not 
+dashboard.test. Please do remember that doing a provision first to complete the initial setup and you must do a `wp4docker up`, before you add a new site due to containers may not 
 up. 
 <pre>
 sites:
