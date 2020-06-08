@@ -38,7 +38,6 @@ if ( ! fs.existsSync( `${getConfigPath}/nginx/dashboard.conf` ) ) {
 			}
 		});
 	} else {
-		console.log( ' host');
 		shell.exec( `sudo wp4docker-hosts set 127.0.0.1 dashboard.test` );
 	}
 }
