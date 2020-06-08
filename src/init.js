@@ -20,13 +20,13 @@ if ( ! fs.existsSync( `${getGlobalPath}/docker-custom.yml` ) ) {
 
 const config = yaml.safeLoad( fs.readFileSync( `${getCustomFile}`, 'utf8' ) );
 
-// Here, we are going to create an apache conf file for dashboard
-if ( ! fs.existsSync( `${getConfigPath}/apache/dashboard.conf` ) ) {
-	fs.copy( `${getConfigPath}/templates/apache.conf`, `${getConfigPath}/apache/dashboard.conf`, error => {
+// Here, we are going to create an nginx conf file for dashboard
+if ( ! fs.existsSync( `${getConfigPath}/nginx/dashboard.conf` ) ) {
+	fs.copy( `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/dashboard.conf`, error => {
 		if ( error ) {
 			throw error;
 		} else {
-			const options = { files: `${getConfigPath}/apache/dashboard.conf`, from: /{{DOMAIN}}/g, to: `dashboard` };
+			const options = { files: `${getConfigPath}/nginx/dashboard.conf`, from: /{{DOMAIN}}/g, to: `dashboard` };
 			replaced = replace.sync( options );
 		}
 	} );
