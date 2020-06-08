@@ -1,9 +1,9 @@
 const fs = require( 'fs-extra' );
 const replace = require( 'replace-in-file' );
 const { exec } = require( 'child_process' );
+const isWSL = require( 'is-wsl' );
 const shell = require( 'shelljs' );
 const yaml = require( 'js-yaml' );
-const { execSync } = require( 'child_process' );
 const path = require( `./configure` );
 const getConfigPath = path.setConfigPath();
 const getSitesPath = path.setSitesPath();
@@ -12,35 +12,40 @@ const getGlobalPath = path.setGlobalPath();
 const getComposeFile = path.setComposeFile();
 const getCustomFile = path.setCusomFile();
 
+shell.config.silent = true 
+
 // Here, we are going to copy the compose and custom file to the .global
 if ( ! fs.existsSync( `${getGlobalPath}/docker-custom.yml` ) ) {
-	fs.copy( `${getConfigPath}/templates/docker-setup.yml`, `${getGlobalPath}/docker-custom.yml` );
-	fs.copy( `${getConfigPath}/templates/docker-compose.yml`, `${getGlobalPath}/docker-compose.yml` );
+	shell.cp( `-r`, `${getConfigPath}/templates/docker-setup.yml`, `${getGlobalPath}/docker-custom.yml` );
+	shell.cp( `-r`, `${getConfigPath}/templates/docker-compose.yml`, `${getGlobalPath}/docker-compose.yml` );
 }
 
 const config = yaml.safeLoad( fs.readFileSync( `${getCustomFile}`, 'utf8' ) );
 
 // Here, we are going to create an nginx conf file for dashboard
 if ( ! fs.existsSync( `${getConfigPath}/nginx/dashboard.conf` ) ) {
-	fs.copy( `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/dashboard.conf`, error => {
-		if ( error ) {
-			throw error;
-		} else {
-			const options = { files: `${getConfigPath}/nginx/dashboard.conf`, from: /{{DOMAIN}}/g, to: `dashboard` };
-			replaced = replace.sync( options );
-		}
-	} );
+	shell.cp( `-r`, `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/dashboard.conf` );
+
+	const options = { files: `${getConfigPath}/nginx/dashboard.conf`, from: /{{DOMAIN}}/g, to: `dashboard` };
+	replaced = replace.sync( options );
+
+	if ( isWSL ) {
+		configuredHosts.set('127.0.0.1', `dashboard.test`, function (err) {
+			if (err) {
+			  console.error(err)
+			} else {
+			  console.log('set /etc/hosts successfully!')
+			}
+		});
+	} else {
+		console.log( ' host');
+		shell.exec( `sudo wp4docker-hosts set 127.0.0.1 dashboard.test` );
+	}
 }
 
 // Here we are going to create a dashboard folder to host the dashboard's files
 if ( ! fs.existsSync( `${getSitesPath}/dashboard/public_html` ) ) {
-	fs.mkdir( `${getSitesPath}/dashboard/public_html`, { recursive: true }, error => {
-		if ( error ) {
-			throw error;
-		} else {
-			exec( `docker-compose -f ${getComposeFile} exec -T nginx sudo a2ensite dashboard` );
-		}
-	} );
+	shell.mkdir( `-p`, `${getSitesPath}/dashboard/public_html` );
 }
 
 // Here, we are going to grab files from GitHub for the dashboard.
@@ -50,51 +55,34 @@ if ( ! fs.existsSync( `${getSitesPath}/dashboard/public_html/.git` ) ) {
 	exec( `git pull`, { cwd: `${getSitesPath}/dashboard/public_html` } );
 }
 
-if ( ! fs.existsSync( `${getSitesPath}/dashboard/public_html/phpmyadmin` ) ) {
-	fs.mkdir( `${getSitesPath}/dashboard/public_html/phpmyadmin`, { recursive: true }, error => {
-		if ( error ) {
-			throw error;
-		}
-
-		execSync( `wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.zip -O "${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip"`, { stdio: 'ignore' } );
-		execSync( `unzip "${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip"`, { stdio: 'ignore' } );
-		execSync( `mv phpMyAdmin-5.0.2-all-languages/* ${getSitesPath}/dashboard/public_html/phpmyadmin` );
-		execSync( `rm -rf phpMyAdmin-5.0.2-all-languages` );
-		execSync( `rm ${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip` );
-		execSync( `cp -r ${getConfigPath}/phpmyadmin/config.inc.php ${getSitesPath}/dashboard/public_html/phpmyadmin` );
-	} );
-}
-
 // Here, we are going to create a certs for the dashboard, which also includes the root ca by default.
 if ( ! fs.existsSync( `${getCertsPath}/ca/ca.crt` ) ) {
-	fs.mkdir( `${getCertsPath}/ca`, { recursive: true }, error => {
-		if ( error ) {
-			throw error;
-		} else {
-			execSync( `openssl genrsa -out "${getCertsPath}/ca/ca.key" 4096`, {stdio: 'ignore' } );
-			execSync( `openssl req -x509 -new -nodes -key "${getCertsPath}/ca/ca.key" -sha256 -days 365 -out "${getCertsPath}/ca/ca.crt" -subj "/CN=Docker for WordPress"`, { stdio: 'ignore' } );
-		}
-	} );
+	shell.mkdir( `-p`, `${getCertsPath}/ca` );
+
+	shell.exec( `openssl genrsa -out "${getCertsPath}/ca/ca.key" 4096` );
+	shell.exec( `openssl req -x509 -new -nodes -key "${getCertsPath}/ca/ca.key" -sha256 -days 365 -out "${getCertsPath}/ca/ca.crt" -subj "/CN=Docker for WordPress"` );
 }
 
 // Here, we are going to create certs for the dashboard.
 if ( ! fs.existsSync( `${getCertsPath}/dashboard/dashboard.crt` ) ) {
-	fs.mkdir( `${getCertsPath}/dashboard/`, { recursive: true }, error => {
-		if ( error ) {
-			throw error;
-		} else {
-			fs.copy( `${getConfigPath}/templates/certs.ext`, `${getCertsPath}/dashboard/dashboard.ext`, error => {
-				if ( error ) {
-					throw error;
-				} else {
-					const options = { files: `${getCertsPath}/dashboard/dashboard.ext`, from: /{{DOMAIN}}/g, to: `dashboard` };
-					replaced = replace.sync( options );
+	shell.mkdir( `-p`, `${getCertsPath}/dashboard` );
+	shell.cp( `-r`, `${getConfigPath}/templates/certs.ext`, `${getCertsPath}/dashboard/dashboard.ext` );
 
-					execSync( `openssl genrsa -out "${getCertsPath}/dashboard/dashboard.key" 4096`, { stdio: 'ignore' } );
-					execSync( `openssl req -new -key "${getCertsPath}/dashboard/dashboard.key" -out "${getCertsPath}/dashboard/dashboard.csr" -subj "/CN=*.dashboard.test"`, { stdio: 'ignore' } );
-					execSync( `openssl x509 -req -in "${getCertsPath}/dashboard/dashboard.csr" -CA "${getCertsPath}/ca/ca.crt" -CAkey "${getCertsPath}/ca/ca.key" -CAcreateserial -out "${getCertsPath}/dashboard/dashboard.crt" -days 365 -sha256 -extfile "${getCertsPath}/dashboard/dashboard.ext"`, { stdio: 'ignore' } );
-				}
-			} );
-		}
-	} );
+	const options = { files: `${getCertsPath}/dashboard/dashboard.ext`, from: /{{DOMAIN}}/g, to: `dashboard` };
+	replaced = replace.sync( options );
+
+	shell.exec( `openssl genrsa -out "${getCertsPath}/dashboard/dashboard.key" 4096` );
+	shell.exec( `openssl req -new -key "${getCertsPath}/dashboard/dashboard.key" -out "${getCertsPath}/dashboard/dashboard.csr" -subj "/CN=*.dashboard.test"` );
+	shell.exec( `openssl x509 -req -in "${getCertsPath}/dashboard/dashboard.csr" -CA "${getCertsPath}/ca/ca.crt" -CAkey "${getCertsPath}/ca/ca.key" -CAcreateserial -out "${getCertsPath}/dashboard/dashboard.crt" -days 365 -sha256 -extfile "${getCertsPath}/dashboard/dashboard.ext"` );
+}
+
+if ( ! fs.existsSync( `${getSitesPath}/dashboard/public_html/phpmyadmin` ) ) {
+	shell.mkdir( `-p`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
+
+	shell.exec( `wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.zip -O "${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip"` );
+	shell.exec( `unzip "${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip"` );
+	shell.mv( `phpMyAdmin-5.0.2-all-languages/*`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
+	shell.rm( `-rf`, `phpMyAdmin-5.0.2-all-languages` );
+	shell.rm( `-rf`, `${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip` );
+	shell.cp( `-r`, `${getConfigPath}/phpmyadmin/config.inc.php`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
 }
