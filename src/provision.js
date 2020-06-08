@@ -32,12 +32,12 @@ const provision = config.sites.provision;
 
 if ( provision == true ) {
     for ( const domain of domains ) {
-        if ( ! fs.existsSync( `${getConfigPath}/apache/${domain}.conf` ) ) {
-			fs.copy( `${getConfigPath}/templates/apache.conf`, `${getConfigPath}/apache/${domain}.conf`, error => {
+        if ( ! fs.existsSync( `${getConfigPath}/nginx/${domain}.conf` ) ) {
+			fs.copy( `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/${domain}.conf`, error => {
 				if ( error ) {
 					throw error;
 				} else {
-					const options = { files: `${getConfigPath}/apache/${domain}.conf`, from: /{{DOMAIN}}/g, to: `${domain}` };
+					const options = { files: `${getConfigPath}/nginx/${domain}.conf`, from: /{{DOMAIN}}/g, to: `${domain}` };
 					replaced = replace.sync( options )
 
 					if ( isWSL ) {
@@ -51,8 +51,6 @@ if ( provision == true ) {
 					} else {
 						exec( `sudo d4w-hosts set 127.0.0.1 ${domain}.test` );
 					}
-
-					execSync( `docker-compose -f ${getComposeFile} exec -T wordpress sudo a2ensite ${domain}` );
 				}
 			} );
 		}
@@ -66,16 +64,16 @@ if ( provision == true ) {
 						const dir = `/srv/www/${domain}/public_html`;
 
 						execSync( `docker-compose -f ${getComposeFile} exec -T mysql mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"` );
-						execSync( `docker-compose -f ${getComposeFile} exec -T mysql mysql -u root -e "CREATE USER IF NOT EXISTS 'wordpress'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'wordpress';"` );
-						execSync( `docker-compose -f ${getComposeFile} exec -T mysql mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'%' WITH GRANT OPTION;"` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T mysql mysql -u root -e "CREATE USER IF NOT EXISTS 'nginx'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'nginx';"` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T mysql mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'nginx'@'%' WITH GRANT OPTION;"` );
 						execSync( `docker-compose -f ${getComposeFile} exec -T mysql mysql -u root -e "FLUSH PRIVILEGES;"` );
 
-						execSync( `docker-compose -f ${getComposeFile} exec -T wordpress wp core download --path=${dir}` );
-						execSync( `docker-compose -f ${getComposeFile} exec -T wordpress wp config create --dbhost=mysql --dbname=${domain} --dbuser=wordpress --dbpass=wordpress --path=${dir}` );
-						execSync( `docker-compose -f ${getComposeFile} exec -T wordpress wp core install  --url="https://${domain}.test" --title="${domain}.test" --admin_user=admin --admin_password=password --admin_email="admin@${domain}.test" --skip-email --quiet --path=${dir}` );
-						execSync( `docker-compose -f ${getComposeFile} exec -T wordpress wp plugin delete akismet --path=${dir}` );
-						execSync( `docker-compose -f ${getComposeFile} exec -T wordpress wp plugin delete hello --path=${dir}` );
-						execSync( `docker-compose -f ${getComposeFile} exec -T wordpress wp config shuffle-salts --path=${dir}` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T nginx wp core download --path=${dir}` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T nginx wp config create --dbhost=mysql --dbname=${domain} --dbuser=nginx --dbpass=nginx --path=${dir}` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T nginx wp core install  --url="https://${domain}.test" --title="${domain}.test" --admin_user=admin --admin_password=password --admin_email="admin@${domain}.test" --skip-email --quiet --path=${dir}` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T nginx wp plugin delete akismet --path=${dir}` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T nginx wp plugin delete hello --path=${dir}` );
+						execSync( `docker-compose -f ${getComposeFile} exec -T nginx wp config shuffle-salts --path=${dir}` );
 					}
 				}
 			} );
