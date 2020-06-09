@@ -3,6 +3,8 @@
 /config/nginx/*
 /databases
 !/databases/readme.md
+/logs/php
+/logs/nginx
 /sites/*
 !/sites/readme.md
 /scripts/resources
