@@ -12,15 +12,13 @@ const getGlobalPath = path.setGlobalPath();
 const getComposeFile = path.setComposeFile();
 const getCustomFile = path.setCusomFile();
 
-shell.config.silent = true 
+
 
 // Here, we are going to copy the compose and custom file to the .global
 if ( ! fs.existsSync( `${getGlobalPath}/docker-custom.yml` ) ) {
 	shell.cp( `-r`, `${getConfigPath}/templates/docker-setup.yml`, `${getGlobalPath}/docker-custom.yml` );
 	shell.cp( `-r`, `${getConfigPath}/templates/docker-compose.yml`, `${getGlobalPath}/docker-compose.yml` );
 }
-
-const config = yaml.safeLoad( fs.readFileSync( `${getCustomFile}`, 'utf8' ) );
 
 // Here, we are going to create an nginx conf file for dashboard
 if ( ! fs.existsSync( `${getConfigPath}/nginx/dashboard.conf` ) ) {
