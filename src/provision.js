@@ -30,10 +30,12 @@ const provision = config.sites.provision;
 if ( provision == true ) {
     for ( const domain of domains ) {
         if ( ! fs.existsSync( `${getConfigPath}/nginx/${domain}.conf` ) ) {
-			shell.cp( `-r`, `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/${domain}.conf` );
+			shell.cp( `-r`, `${getConfigPath}/templates/nginx.conf`, `${getConfigPath}/nginx/${domain}.conf` )
 
 			const options = { files: `${getConfigPath}/nginx/${domain}.conf`, from: /{{DOMAIN}}/g, to: `${domain}` };
-			replaced = replace.sync( options )
+			replaced = replace.sync( options );
+
+			shell.mkdir( `-p`, `${getLogsPath}/nginx/${domain}` );
 
 			if ( isWSL ) {
 				shell.exec( `wp4docker-hosts set 127.0.0.1 ${domain}.test` );

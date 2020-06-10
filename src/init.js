@@ -11,7 +11,7 @@ const getCertsPath = path.setCertsPath();
 const getGlobalPath = path.setGlobalPath();
 const getComposeFile = path.setComposeFile();
 const getCustomFile = path.setCusomFile();
-
+const getLogsPath = path.setLogsPath();
 
 
 // Here, we are going to copy the compose and custom file to the .global
@@ -41,7 +41,7 @@ if ( ! fs.existsSync( `${getSitesPath}/dashboard/public_html` ) ) {
 
 // Here, we are going to grab files from GitHub for the dashboard.
 if ( ! fs.existsSync( `${getSitesPath}/dashboard/public_html/.git` ) ) {
-	exec( `git clone https://github.com/benlumia007/wsl-docker-dashboard.git ${getSitesPath}/dashboard/public_html` );
+	exec( `git clone https://github.com/benlumia007/wp-4-docker-dashboard.git ${getSitesPath}/dashboard/public_html` );
 } else {
 	exec( `git pull`, { cwd: `${getSitesPath}/dashboard/public_html` } );
 }
