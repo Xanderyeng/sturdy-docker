@@ -66,14 +66,3 @@ if ( ! fs.existsSync( `${getCertsPath}/dashboard/dashboard.crt` ) ) {
 	shell.exec( `openssl req -new -key "${getCertsPath}/dashboard/dashboard.key" -out "${getCertsPath}/dashboard/dashboard.csr" -subj "/CN=*.dashboard.test"` );
 	shell.exec( `openssl x509 -req -in "${getCertsPath}/dashboard/dashboard.csr" -CA "${getCertsPath}/ca/ca.crt" -CAkey "${getCertsPath}/ca/ca.key" -CAcreateserial -out "${getCertsPath}/dashboard/dashboard.crt" -days 365 -sha256 -extfile "${getCertsPath}/dashboard/dashboard.ext"` );
 }
-
-if ( ! fs.existsSync( `${getSitesPath}/dashboard/public_html/phpmyadmin` ) ) {
-	shell.mkdir( `-p`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
-
-	shell.exec( `wget https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.zip -O "${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip"` );
-	shell.exec( `unzip "${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip"` );
-	shell.mv( `phpMyAdmin-5.0.2-all-languages/*`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
-	shell.rm( `-rf`, `phpMyAdmin-5.0.2-all-languages` );
-	shell.rm( `-rf`, `${getSitesPath}/dashboard/public_html/phpmyadmin/phpmyadmin.zip` );
-	shell.cp( `-r`, `${getConfigPath}/phpmyadmin/config.inc.php`, `${getSitesPath}/dashboard/public_html/phpmyadmin` );
-}
