@@ -1,9 +1,9 @@
 #!/bin/bash
-config="$PWD/.global/docker-custom.yml"
+config="/srv/.global/custom.yml"
 compose="$PWD/.global/docker-compose.yml"
 
 get_sites() {
-  local value=`cat ${config} | shyaml get-value sites.domain 2> /dev/null`
+  local value=`cat ${config} | shyaml keys sites 2> /dev/null`
   echo ${value:-$@}
 }
 
@@ -13,6 +13,6 @@ db_backups=`cat ${config} | shyaml get-value options.db_backups 2> /dev/null`
 
 if [[ ${db_backups} != "False" ]]; then
 	for domain in ${domains//- /$'\n'}; do
-    docker-compose -f ${compose} exec -T mysql mysqldump -u root -e "${domain}" > "databases/${domain}.sql"
+    mysqldump -u root -e "${domain}" > "/srv/databases/${domain}.sql"
 	done
 fi
