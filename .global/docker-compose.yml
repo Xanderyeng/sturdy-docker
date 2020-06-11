@@ -12,8 +12,10 @@ services:
     volumes:
       - ../.global:/srv/.global
       - ../app:/app
-      - ../databases:/srv/databases
       - ../certificates:/srv/certificates
+      - ../databases:/srv/databases
+      - ../logs/nginx:/var/log/nginx
+      - ../logs/php:/var/log/php
       - ../sites:/srv/www/
       - db_data:/var/lib/mysql
 
