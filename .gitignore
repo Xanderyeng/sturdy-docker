@@ -1,14 +1,12 @@
-.global/*
+.global/custom.yml
 /certificates
-/config/nginx/*
 /databases
 !/databases/readme.md
 /logs/php
 /logs/nginx
 /sites/*
 !/sites/readme.md
-/scripts/resources
-/config/docker-custom.yml
+/app/provision/resources
 .DS_Store
 /config/.DS_Store
 node_modules
