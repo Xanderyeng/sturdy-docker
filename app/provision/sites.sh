@@ -8,6 +8,13 @@ get_sites() {
 }
 
 for domain in `get_sites`; do
+
+    if [[ ! -d "/etc/nginx/conf.d/${domain}.conf" ]]; then
+      sudo cp "/app/config/templates/nginx.conf" "/etc/nginx/conf.d/${domain}.conf"
+      sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.conf"
+    fi
+
+
     get_site_provision() {
         local value=`cat ${config} | shyaml get-value sites.${domain}.provision 2> /dev/null`
         echo ${value:-$@}
