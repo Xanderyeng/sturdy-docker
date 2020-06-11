@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-repo="https://github.com/benlumia007/docker-for-wordpress-dashboard.git"
+repo="https://github.com/benlumia007/wp-4-docker-dashboard.git"
 dir="/srv/www/dashboard/public_html"
 
 if [[ ! -d "${dir}" ]]; then
