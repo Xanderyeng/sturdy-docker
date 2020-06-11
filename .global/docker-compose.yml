@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   nginx:
-    image: ubuntu-lamp-stack
+    image: benlumia007/nginx:php7.2-fpm
     container_name: nginx
     restart: always
     stdin_open: true
@@ -9,12 +9,20 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "9000"
     volumes:
       - ../.global:/srv/.global
       - ../app:/app
       - ../certificates:/srv/certificates
       - ../sites:/srv/www/
+      - db_data:/var/lib/mysql
+
+  mailhog:
+    image: benlumia007/mailhog
+    container_name: mailhog
+    restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
 
 volumes:
   db_data:
