@@ -12,7 +12,7 @@ sites:
     provision: true
     repo: https://github.com/benlumia007/wp-4-docker-sites.git
     host:
-      - sandbox
+      - sandbox.test
 
 resources:
   - phpmyadmin
