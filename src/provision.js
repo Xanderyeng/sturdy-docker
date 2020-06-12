@@ -8,3 +8,4 @@ const { execSync, exec } = require( 'child_process' );
 const getComposeFile = path.setComposeFile();
 
 execSync( `docker-compose -f ${getComposeFile} exec nginx make`, { stdio: 'inherit' } );
+execSync( `bash scripts/hosts.sh` );
