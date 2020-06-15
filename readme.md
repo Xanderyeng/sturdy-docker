@@ -11,7 +11,7 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 5. [MailHog](https://github.com/benlumia007/docker-for-wordpress#mailhog)
 
 ## Overview
-WSL Docker ( formerly Docker for WordPress ) is a local environment based on WSL2 and Docker for Desktop. 
+WP 4 Docker ( formerly Docker for WordPress ) is a local environment based on WSL2 and Docker for Desktop. WP 4 Docker is also compatiible with Linux and macOS
 
 ## Requirements
 * [Docker Desktop for Windows Home](https://www.docker.com/)
@@ -21,6 +21,15 @@ WSL Docker ( formerly Docker for WordPress ) is a local environment based on WSL
 Apparently for some odd reason, unzip is not part of the release so you may need to install it manually
 <pre>
 sudo apt install zip unzip
+</pre>
+
+### Shyaml for Ubuntu and macOS
+<pre>
+sudo apt install python-pip and sudo pip install shyaml
+</pre>
+for macOS
+<pre>
+brew install shyaml
 </pre>
 
 ## Automation
