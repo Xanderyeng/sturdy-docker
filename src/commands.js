@@ -16,4 +16,11 @@ const subcommand = function() {
     }
     return;
 };
-module.exports = { command, subcommand };
+
+const commandArgs = function( escape = true ) {
+    return ( escape ) ? 
+        shellEscape( Array.prototype.slice.call( process.argv, 3 ) ) : 
+        Array.prototype.slice.call( process.argv, 3 );
+};
+
+module.exports = { command, subcommand, commandArgs };

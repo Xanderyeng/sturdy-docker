@@ -1,181 +1,147 @@
-var fs = require('fs')
-var once = require('once')
-var split = require('split')
-var through = require('through')
+#!/usr/bin/env node
+
+var chalk = require('chalk')
+var hostile = require('./hosts-utils')
+var minimist = require('minimist')
 var net = require('net')
-const isWSL = require( "is-wsl" );
 
-var WINDOWS = isWSL;
-var EOL = WINDOWS
-  ? '\r\n'
-  : '\n'
+var argv = minimist(process.argv.slice(2))
 
-exports.HOSTS = WINDOWS
-  ? '/mnt/c/Windows/System32/drivers/etc/hosts'
-  : '/etc/hosts'
+var command = argv._[0]
+
+if (command === 'list' || command === 'ls') list()
+if (command === 'set') set(argv._[1], argv._[2])
+if (command === 'remove') remove(argv._[1])
+if (command === 'load') load(argv._[1])
+if (command === 'unload') unload(argv._[1])
+if (!command) help()
 
 /**
- * Get a list of the lines that make up the filePath. If the
- * `preserveFormatting` parameter is true, then include comments, blank lines
- * and other non-host entries in the result.
- *
- * @param  {boolean}   preserveFormatting
- * @param  {function(err, lines)=} cb
+ * Print help message
  */
+function help () {
+  console.log(function () { /*
+  Usage: hostile [command]
+    Commands:
+      list                   List all current domain records in hosts file
+      set [ip] [host]        Set a domain in the hosts file
+      remove [domain]        Remove a domain from the hosts file
+      load [file]            Load a set of host entries from a file
+      unload [file]          Remove a set of host entries from a file
+  */ }.toString().split(/\n/).slice(1, -1).join('\n'))
+}
 
-exports.getFile = function (filePath, preserveFormatting, cb) {
-  var lines = []
-  if (typeof cb !== 'function') {
-    fs.readFileSync(filePath, { encoding: 'utf8' }).split(/\r?\n/).forEach(online)
-    return lines
+/**
+ * Display all current ip records
+ */
+function list () {
+  var lines
+  try {
+    lines = hostile.get(false)
+  } catch (err) {
+    return error(err)
   }
-
-  cb = once(cb)
-  fs.createReadStream(filePath, { encoding: 'utf8' })
-    .pipe(split())
-    .pipe(through(online))
-    .on('close', function () {
-      cb(null, lines)
-    })
-    .on('error', cb)
-
-  function online (line) {
-    // Remove all comment text from the line
-    var lineSansComments = line.replace(/#.*/, '')
-    var matches = /^\s*?(.+?)\s+(.+?)\s*$/.exec(lineSansComments)
-    if (matches && matches.length === 3) {
-      // Found a hosts entry
-      var ip = matches[1]
-      var host = matches[2]
-      lines.push([ip, host])
+  lines.forEach(function (item) {
+    if (item.length > 1) {
+      console.log(item[0], chalk.green(item[1]))
     } else {
-      // Found a comment, blank line, or something else
-      if (preserveFormatting) {
-        lines.push(line)
+      console.log(item)
+    }
+  })
+}
+
+/**
+ * Set a new host
+ * @param {string} ip
+ * @param {string} host
+ */
+function set( ip, host ) {
+  if ( ! ip || ! host ) {
+    return error('Invalid syntax: hostile set <ip> <host>')
+  }
+
+  if ( ip === 'local' || ip === 'localhost' ) {
+    ip = '127.0.0.1'
+  } else if ( ! net.isIP( ip ) ) {
+    return error( 'Invalid IP address' )
+  }
+
+  try {
+    hostile.set( ip, host )
+    
+  } catch (err) {
+    return error('Error: ' + err.message + '. Are you running as root?')
+  }
+}
+
+/**
+ * Remove a host
+ * @param {string} host
+ */
+function remove (host) {
+  var lines
+  try {
+    lines = hostile.get(false)
+  } catch (err) {
+    return error(err)
+  }
+  lines.forEach(function (item) {
+    if (item[1] === host) {
+      try {
+        hostile.remove(item[0], host)
+      } catch (err) {
+        return error('Error: ' + err.message + '. Are you running as root?')
       }
+      console.log(chalk.green('Removed ' + host))
     }
-  }
+  })
 }
 
 /**
- * Wrapper of `getFile` for getting a list of lines in the Host file
- *
- * @param  {boolean}   preserveFormatting
- * @param  {function(err, lines)=} cb
+ * Load hosts given a file
+ * @param {string} filePath
  */
-exports.get = function (preserveFormatting, cb) {
-  return exports.getFile(exports.HOSTS, preserveFormatting, cb)
+function load (filePath) {
+  var lines = parseFile(filePath)
+
+  lines.forEach(function (item) {
+    set(item[0], item[1])
+  })
+  console.log(chalk.green('\nAdded %d hosts!'), lines.length)
 }
 
 /**
- * Add a rule to /etc/hosts. If the rule already exists, then this does nothing.
- *
- * @param  {string}   ip
- * @param  {string}   host
- * @param  {function(Error)=} cb
+ * Remove hosts given a file
+ * @param {string} filePath
  */
-exports.set = function (ip, host, cb) {
-  var didUpdate = false
-  if (typeof cb !== 'function') {
-    return _set(exports.get(true))
-  }
+function unload (filePath) {
+  var lines = parseFile(filePath)
 
-  exports.get(true, function (err, lines) {
-    if (err) return cb(err)
-    _set(lines)
+  lines.forEach(function (item) {
+    remove(item[1])
   })
-
-  function _set (lines) {
-    // Try to update entry, if host already exists in file
-    lines = lines.map(mapFunc)
-
-    // If entry did not exist, let's add it
-    if (!didUpdate) {
-      // If the last line is empty, or just whitespace, then insert the new entry
-      // right before it
-      var lastLine = lines[lines.length - 1]
-      if (typeof lastLine === 'string' && /\s*/.test(lastLine)) {
-        lines.splice(lines.length - 1, 0, [ip, host])
-      } else {
-        lines.push([ip, host])
-      }
-    }
-
-    exports.writeFile(lines, cb)
-  }
-
-  function mapFunc (line) {
-    // replace a line if both hostname and ip version of the address matches
-    if (Array.isArray(line) && line[1] === host && net.isIP(line[0]) === net.isIP(ip)) {
-      line[0] = ip
-      didUpdate = true
-    }
-    return line
-  }
+  console.log(chalk.green('Removed %d hosts!'), lines.length)
 }
 
 /**
- * Remove a rule from /etc/hosts. If the rule does not exist, then this does
- * nothing.
- *
- * @param  {string}   ip
- * @param  {string}   host
- * @param  {function(Error)=} cb
+ * Get all the lines of the file as array of arrays [[IP, host]]
+ * @param {string} filePath
  */
-exports.remove = function (ip, host, cb) {
-  if (typeof cb !== 'function') {
-    return _remove(exports.get(true))
+function parseFile (filePath) {
+  var lines
+  try {
+    lines = hostile.getFile(filePath, false)
+  } catch (err) {
+    return error(err)
   }
-
-  exports.get(true, function (err, lines) {
-    if (err) return cb(err)
-    _remove(lines)
-  })
-
-  function _remove (lines) {
-    // Try to remove entry, if it exists
-    lines = lines.filter(filterFunc)
-    return exports.writeFile(lines, cb)
-  }
-
-  function filterFunc (line) {
-    return !(Array.isArray(line) && line[0] === ip && line[1] === host)
-  }
+  return lines
 }
 
 /**
- * Write out an array of lines to the host file. Assumes that they're in the
- * format that `get` returns.
- *
- * @param  {Array.<string|Array.<string>>} lines
- * @param  {function(Error)=} cb
+ * Print an error and exit the program
+ * @param {string} message
  */
-exports.writeFile = function (lines, cb) {
-  lines = lines.map(function (line, lineNum) {
-    if (Array.isArray(line)) {
-      line = line[0] + ' ' + line[1]
-    }
-    return line + (lineNum === lines.length - 1 ? '' : EOL)
-  })
-
-  if (typeof cb !== 'function') {
-    var stat = fs.statSync(exports.HOSTS)
-    fs.writeFileSync(exports.HOSTS, lines.join(''), { mode: stat.mode })
-    return true
-  }
-
-  cb = once(cb)
-  fs.stat(exports.HOSTS, function (err, stat) {
-    if (err) {
-      return cb(err)
-    }
-    var s = fs.createWriteStream(exports.HOSTS, { mode: stat.mode })
-    s.on('close', cb)
-    s.on('error', cb)
-
-    lines.forEach(function (data) {
-      s.write(data)
-    })
-    s.end()
-  })
+function error (err) {
+  console.error(chalk.red(err.message || err))
+  process.exit(-1)
 }
