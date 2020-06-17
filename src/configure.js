@@ -10,7 +10,7 @@ const logsPath = path.join( `${rootPath}/logs` );
 const srcPath = path.join( `${rootPath}/src` );
 const sitesPath = path.join( `${rootPath}/sites` );
 const composeFile = path.join( `${globalPath}/docker-compose.yml` );
-const customFile = path.join( `${globalPath}/docker-custom.yml`);
+const customFile = path.join( `${globalPath}/custom.yml`);
 
 const setRootPath = function() {
     return rootPath;
@@ -48,8 +48,8 @@ const setComposeFile = function() {
 	return composeFile;
 };
 
-const setCusomFile = function() {
+const setCustomFile = function() {
 	return customFile;
 };
 
-module.exports = { setRootPath, setGlobalPath, setCertsPath, setConfigPath, setDatabasesPath, setLogsPath, setSitesPath, setSrcPath, setComposeFile, setCusomFile };
+module.exports = { setRootPath, setGlobalPath, setCertsPath, setConfigPath, setDatabasesPath, setLogsPath, setSitesPath, setSrcPath, setComposeFile, setCustomFile };

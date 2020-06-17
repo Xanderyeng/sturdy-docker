@@ -13,23 +13,9 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 WP 4 Docker ( formerly Docker for WordPress ) is a local environment based on WSL2 and Docker for Desktop. WP 4 Docker is also compatiible with Linux and macOS
 
 ## Requirements
-* [Docker Desktop for Windows Home](https://www.docker.com/)
+* [Docker Desktop for Windows](https://www.docker.com/)
 * [WSL2](https://docs.microsoft.com/en-us/windows/wsl/)
-
-### Unzip for Ubuntu
-Apparently for some odd reason, unzip is not part of the release so you may need to install it manually
-<pre>
-sudo apt install zip unzip
-</pre>
-
-### Shyaml for Ubuntu and macOS
-<pre>
-sudo apt install python-pip and sudo pip install shyaml
-</pre>
-for macOS
-<pre>
-brew install shyaml
-</pre>
+* Ubuntu 18.04 or Ubuntu 20.04 LTS from Microsoft Store
 
 ## Getting Started
 Before you begin, I would like to point out one of the file that gets used often, and that file is <code>docker-setup.yml</code> and when you docker up for the first time, it will then duplicate <code>docker-setup.yml</code> to <code>custom.yml</code> inside of the global folder and it will use that to generate any sites you want. By default, the only site that gets create is the dashboard.test and sandbox.
