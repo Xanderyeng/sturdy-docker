@@ -7,5 +7,10 @@ const path = require( './configure' );
 const { execSync, exec } = require( 'child_process' );
 const getComposeFile = path.setComposeFile();
 
-execSync( `docker-compose -f ${getComposeFile} exec nginx make`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-setup`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-restore`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-dashboard`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-sites`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-resources`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-backup`, { stdio: 'inherit' } );
 execSync( `bash scripts/hosts.sh` );
