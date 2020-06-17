@@ -4,7 +4,7 @@ const path = require( "./configure" );
 const getRootPath = path.setRootPath();
 const getGlobalPath = path.setGlobalPath();
 const getConfigPath = path.setConfigPath();
-const dockerFile = `${getGlobalPath}/docker-compose.yml`
+const getComposeFile = path.setComposeFile();
 
 const help = function() {
     const command = commands.command();
@@ -17,47 +17,49 @@ Usage:  wsldocker ${command} {container}
 };
 
 const up = async function() {
-    execSync( `docker-compose -f ${dockerFile} up -d` );
+    execSync( `docker-compose -f ${getComposeFile} up -d` );
 };
 
 const start = async function( args ) {
     if ( args == "nginx" ) {
-        execSync( `docker-compose -f ${dockerFile} start ${args}` );
+        execSync( `docker-compose -f ${getComposeFile} start ${args}` );
     } else if ( args == "mysql" ) {
-        execSync( `docker-compose -f ${dockerFile} start ${args}` );
+        execSync( `docker-compose -f ${getComposeFile} start ${args}` );
     } else if ( args == "mailhog" ) {
-        execSync( `docker-compose -f ${dockerFile} start ${args}` );
+        execSync( `docker-compose -f ${getComposeFile} start ${args}` );
     } else {
-        execSync( `docker-compose -f ${dockerFile} start` );
+        execSync( `docker-compose -f ${getComposeFile} start` );
     }
 }
 
 const stop = async function( args ) {
+    execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-backup`, { stdio: 'inherit' } );
     if ( args == "nginx" ) {
-        execSync( `docker-compose -f ${dockerFile} stop ${args}` );
+        execSync( `docker-compose -f ${getComposeFile} stop ${args}` );
     } else if ( args == "mysql" ) {
-        execSync( `docker-compose -f ${dockerFile} stop ${args}` );
+        execSync( `docker-compose -f ${getComposeFile} stop ${args}` );
     } else if ( args == "mailhog" ) {
-        execSync( `docker-compose -f ${dockerFile} stop ${args}` );
+        execSync( `docker-compose -f ${getComposeFile} stop ${args}` );
     } else {
-        execSync( `docker-compose -f ${dockerFile} stop` );
+        execSync( `docker-compose -f ${getComposeFile} stop` );
     }
 };
 
 const restart = async function( args ) {
     if ( args == "nginx" ) {
-        execSync( `docker-compose -f ${dockerFile} restart ${args}` );
+        execSync( `docker-compose -f ${getComposeFile} restart ${args}` );
     } else if ( args == "mysql" ) {
-        execSync( `docker-compose -f ${dockerFile} restart ${args}` );;
+        execSync( `docker-compose -f ${getComposeFile} restart ${args}` );;
     } else if ( args == "mailhog" ) {
-        execSync( `docker-compose -f ${dockerFile} restart ${args}` );;
+        execSync( `docker-compose -f ${getComposeFile} restart ${args}` );;
     } else {
-        execSync( `docker-compose -f ${dockerFile} restart` );
+        execSync( `docker-compose -f ${getComposeFile} restart` );
     }
 };
 
 const down = async function() {
-    execSync( `docker-compose -f ${dockerFile} down` );
+    execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-backup`, { stdio: 'inherit' } );
+    execSync( `docker-compose -f ${getComposeFile} down` );
 };
 
 const command = async function() {
