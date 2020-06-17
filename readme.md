@@ -5,7 +5,6 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 
 1. [Overview](https://github.com/benlumia007/docker-for-wordpress#overview)
 2. [Requirements](https://github.com/benlumia007/docker-for-wordpress#requirements)
-3. [Automation](https://github.com/benlumia007/docker-for-wordpress#automation)
 3. [Getting Started](https://github.com/benlumia007/docker-for-wordpress#getting-started)
 4. [MySQL](https://github.com/benlumia007/docker-for-wordpress#mysql)
 5. [MailHog](https://github.com/benlumia007/docker-for-wordpress#mailhog)
@@ -32,24 +31,17 @@ for macOS
 brew install shyaml
 </pre>
 
-## Automation
-The main objective of this project is to automate everything much as possible. So what exactly does it automate, it automates root certificate, dashboard, and phpmyadmin by using the following command below, bu first you will need to use the following command for the commands to work, `npm install` and `sudo npm link`. This is the only way I know how make this work without submiting the project to the repository, then you can use the below command.
-<pre>
-wp4docker init
-</pre>
-The `wp4docker init` should be use after you `wp4docker up`. This just verified that the containers are up and running.
-
 ## Getting Started
-Before you begin, I would like to point out one of the file that gets used often, and that file is <code>docker-setup.yml</code> and when you docker up for the first time, it will then duplicate <code>docker-setup.yml</code> to <code>docker-custom.yml</code> and it will use that to generate any sites you want. By default, the only site that gets create is the
-dashboard.test. Please do remember that doing a provision first to complete the initial setup and you must do a `wp4docker up`, before you add a new site due to containers may not 
+Before you begin, I would like to point out one of the file that gets used often, and that file is <code>docker-setup.yml</code> and when you docker up for the first time, it will then duplicate <code>docker-setup.yml</code> to <code>custom.yml</code> inside of the global folder and it will use that to generate any sites you want. By default, the only site that gets create is the dashboard.test and sandbox.
 up. 
 <pre>
 sites:
-  provision: false
-  domain:
-    - sandbox
+  sandbox:
+    provision: true
+    repo: https://github.com/benlumia007/wp-4-docker-sites.git
+    host:
+      - sandbox.test
 </pre>
-To begin, all you will need to do is the following change the provision to true and
 
 ## Certificates and phpMyAdmin
 In the <code>docker-custom.yml</code> file, there is a section where you will see phpMyAdmin and TLS-CA, this is where any resources will go so that it will generated any resources that comes with. At this time, only phpMyAdmin and TLS-CA is included since the project itself will be using https rather than http for connection.
