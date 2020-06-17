@@ -18,12 +18,8 @@ fi
 
 for domain in `get_sites`; do
   if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
-      if ! grep -q "${domain}.test" /mnt/c/Windows/System32/drivers/etc/hosts; then
-          wp4docker-hosts set 127.0.0.1 ${domain}.test
-      fi
+        wp4docker-hosts set 127.0.0.1 ${domain}.test
   else
-      if ! grep -q "${domain}.test" /etc/hosts; then
-          sudo wp4docker-hosts set 127.0.0.1 ${domain}.test
-      fi
+        sudo wp4docker-hosts set 127.0.0.1 ${domain}.test
   fi
 done

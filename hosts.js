@@ -55,23 +55,23 @@ function list () {
  * @param {string} ip
  * @param {string} host
  */
-function set (ip, host) {
-  if (!ip || !host) {
+function set( ip, host ) {
+  if ( ! ip || ! host ) {
     return error('Invalid syntax: hostile set <ip> <host>')
   }
 
-  if (ip === 'local' || ip === 'localhost') {
+  if ( ip === 'local' || ip === 'localhost' ) {
     ip = '127.0.0.1'
-  } else if (!net.isIP(ip)) {
-    return error('Invalid IP address')
+  } else if ( ! net.isIP( ip ) ) {
+    return error( 'Invalid IP address' )
   }
 
   try {
-    hostile.set(ip, host)
+    hostile.set( ip, host )
+    
   } catch (err) {
     return error('Error: ' + err.message + '. Are you running as root?')
   }
-  console.log(chalk.green('Added ' + host))
 }
 
 /**
