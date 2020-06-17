@@ -12,5 +12,4 @@ execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-restore`, 
 execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-dashboard`, { stdio: 'inherit' } );
 execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-sites`, { stdio: 'inherit' } );
 execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-resources`, { stdio: 'inherit' } );
-execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-backup`, { stdio: 'inherit' } );
 execSync( `bash scripts/hosts.sh` );
