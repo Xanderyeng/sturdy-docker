@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const hostile = require( './src/hosts-utils' );
 const commands = require( './src/commands' );
 

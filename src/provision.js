@@ -22,15 +22,15 @@ const sites = config.sites;
 
 if ( isWSL ) {
     
-    execSync( `wp4docker-hosts set 127.0.0.1 dashboard.test` );
+    execSync( `wp4docker-hosts add dashboard.test` );
 
     for ( const domain of Object.keys( sites ) ) {
-        execSync( `wp4docker-hosts set 127.0.0.1 ${domain}.test` );
+        execSync( `wp4docker-hosts add ${domain}.test` );
     }
 } else {
-    execSync( `sudo wp4docker-hosts set 127.0.0.1 dashboard.test` );
+    execSync( `sudo wp4docker-hosts add dashboard.test` );
 
     for ( const domain of Object.keys( sites ) ) {
-        execSync( `sudo wp4docker-hosts set 127.0.0.1 ${domain}.test` );
+        execSync( `sudo wp4docker-hosts add ${domain}.test` );
     }
 }
