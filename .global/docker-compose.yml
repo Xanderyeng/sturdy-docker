@@ -12,10 +12,20 @@ services:
     volumes:
       - ../.global:/srv/.global
       - ../certificates:/srv/certificates
-      - ../databases:/srv/databases
       - ../logs/nginx:/var/log/nginx
       - ../logs/php:/var/log/php
       - ../sites:/srv/www/
+
+  mysql:
+    image: benlumia007/mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ../.global:/srv/.global
+      - ../databases:/srv/databases
       - db_data:/var/lib/mysql
 
   mailhog:
