@@ -13,12 +13,12 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 WP 4 Docker is an easy and automate local development environment for WordPress that works on Linux, macOS, and Windows 10 Home ( Version 2004 ) for WSL2.
 
 ## Requirements
-* [Docker Desktop for Windows](https://www.docker.com/), [Docker Desktop for Mac](https://docker.com), or Linux
+* [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install), [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/), or [Linux](https://docs.docker.com/engine/install/)
 * [WSL2](https://docs.microsoft.com/en-us/windows/wsl/), if you are on Windows 10 Home ( Version: 2004 )
 * Ubuntu 18.04 or 20.04 from Microsoft Store within Windows 10 Home ( Version: 2004 )
 
 ## Getting Started
-Before you begin, I would like to point out one of the file that gets used often, and that file is <code>docker-setup.yml</code> and when you docker up for the first time, it will then duplicate <code>docker-setup.yml</code> to <code>custom.yml</code> inside of the global folder and it will use that to generate any sites you want. By default, the only site that gets create is the dashboard.test and sandbox.
+Before you begin, I would like to point out one of the file that gets used often, and that file is <code>custom.yml</code> and when you docker up for the first time, it will then duplicate <code>default.yml</code> to <code>custom.yml</code> inside of the global folder and it will use that to generate any sites you want. By default, the only site that gets create is the dashboard and sandbox. You can manually copy the default.yml and copy to the .global folder and rename to custom.yml and start your process of creating your sites.
 up. 
 <pre>
 sites:
