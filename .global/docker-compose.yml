@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   apache:
-    image: benlumia007/apache2:php7.2
+    image: benlumia007/nginx:php7.2-fpm
     container_name: apache
     restart: always
     ports:
@@ -10,7 +10,7 @@ services:
     volumes:
       - ../.global:/srv/.global
       - ../certificates:/srv/certificates
-      - ../logs/apache2:/var/log/apache2
+      - ../logs/nginx:/var/log/nginx
       - ../logs/php:/var/log/php
       - ../sites:/srv/www
 
