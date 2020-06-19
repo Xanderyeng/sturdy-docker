@@ -41,7 +41,15 @@ At this point, since all the volumes has been set already in the `docker-compose
 </pre>
 sudo npm -g install
 </pre>
-You should now have some few options especially the following `wp4docker up, wp4docker start, wpdocker restart, wp4docker stop, and wp4docker down`
+You should now have some few options especially the following `wp4docker up, wp4docker start, wpdocker restart, wp4docker stop, and wp4docker down`. Let's go ahead and do a `wp4docker up`, this will bring up the docker up, if you haven't pull the images, it will do that first and it will create apache, mysql, and mailhog.
+
+Before you begin, you should always wait for between 5 to 10 seconds everytime when you either start, restart, or up due to mysql container needs to finished initializing or else the the included provision will fail. After you have waited, let's begin, 
+<pre>
+wp4docker provision
+</pre>
+This will provision setup, databases, dashboard, sites, resources, each will do their parts. After it finishes, make sure to restart the containers, but in reality, you should only need to restart the apache container, all you need to do is `wpdocker restart apache`, if you just do a `wp4docker restart`, it will restart all three containers.
+
+Please note for the sake of containers, you should not do `wpdocker up` or `wpdocker down` often, you should only use these if you need to change to a different container or something fail or screws up the containers. Mostly you should only use `wp4docker start`, `wpdocker restart`, and `wpdocker stop` as much as possible.
 
 ## Certificates and phpMyAdmin
 In the <code>docker-custom.yml</code> file, there is a section where you will see phpMyAdmin and TLS-CA, this is where any resources will go so that it will generated any resources that comes with. At this time, only phpMyAdmin and TLS-CA is included since the project itself will be using https rather than http for connection.
