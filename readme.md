@@ -28,6 +28,20 @@ sites:
     host:
       - sandbox.test
 </pre>
+### How to Begin
+To begin, use git to clone the repository to anywhere
+<pre>
+git clone https://github.com/benlumia007/wp-4-docker.git WordPress
+</pre>
+I would like to keep this simple so I'm going to clone the repository to a folder called WordPress and navigate to the folder
+<pre>
+cd WordPress
+</pre>
+At this point, since all the volumes has been set already in the `docker-compose.yml` file, you don't need to do anything from here so to get started, please use the following command
+</pre>
+sudo npm -g install
+</pre>
+You should now have some few options especially the following `wp4docker up, wp4docker start, wpdocker restart, wp4docker stop, and wp4docker down`
 
 ## Certificates and phpMyAdmin
 In the <code>docker-custom.yml</code> file, there is a section where you will see phpMyAdmin and TLS-CA, this is where any resources will go so that it will generated any resources that comes with. At this time, only phpMyAdmin and TLS-CA is included since the project itself will be using https rather than http for connection.
