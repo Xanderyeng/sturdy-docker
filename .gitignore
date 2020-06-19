@@ -3,7 +3,7 @@
 /databases
 !/databases/readme.md
 /logs/php
-/logs/apache2/*
+/logs/nginx/*
 /sites/*
 !/sites/readme.md
 /app/provision/resources

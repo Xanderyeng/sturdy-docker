@@ -21,7 +21,7 @@ const up = async function() {
 };
 
 const start = async function( args ) {
-    if ( args == "apache" ) {
+    if ( args == "nginx" ) {
         execSync( `docker-compose -f ${getComposeFile} start ${args}` );
     } else if ( args == "mysql" ) {
         execSync( `docker-compose -f ${getComposeFile} start ${args}` );
@@ -34,7 +34,7 @@ const start = async function( args ) {
 
 const stop = async function( args ) {
     execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-backup`, { stdio: 'inherit' } );
-    if ( args == "apache" ) {
+    if ( args == "nginx" ) {
         execSync( `docker-compose -f ${getComposeFile} stop ${args}` );
     } else if ( args == "mysql" ) {
         execSync( `docker-compose -f ${getComposeFile} stop ${args}` );
@@ -46,7 +46,7 @@ const stop = async function( args ) {
 };
 
 const restart = async function( args ) {
-    if ( args == "apache" ) {
+    if ( args == "nginx" ) {
         execSync( `docker-compose -f ${getComposeFile} restart ${args}` );
     } else if ( args == "mysql" ) {
         execSync( `docker-compose -f ${getComposeFile} restart ${args}` );;

@@ -11,11 +11,11 @@ const getComposeFile = path.setComposeFile();
 const getCustomFile = path.setCustomFile();
 const isWSL = require( 'is-wsl' );
 
-execSync( `docker-compose -f ${getComposeFile} exec apache make docker-setup`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-setup`, { stdio: 'inherit' } );
 execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-restore`, { stdio: 'inherit' } );
-execSync( `docker-compose -f ${getComposeFile} exec apache make docker-dashboard`, { stdio: 'inherit' } );
-execSync( `docker-compose -f ${getComposeFile} exec apache make docker-sites`, { stdio: 'inherit' } );
-execSync( `docker-compose -f ${getComposeFile} exec apache make docker-resources`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-dashboard`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-sites`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-resources`, { stdio: 'inherit' } );
 
 const config = yaml.safeLoad( fs.readFileSync( `${getCustomFile}`, 'utf8' ) );
 const sites = config.sites;
