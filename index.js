@@ -3,20 +3,18 @@ const commands = require( './src/commands' );
 
 const help = function() {
     let help = `
-Usage: wsldocker [command]
+Usage: wp4docker [command]
 
 Commands:
 
-  delete	Delete a WordPress site
   image		Manage docker images
-  init		Create a dashboard and certificates
   provision	Creae new WordPress site or sites
   restart	Restarts one or more containers
-  shell		Opens a shell for a specific container ( default: nginx )
+  shell		Opens a shell for a specific container ( default: apache )
   start		Starts one or more containers
   stop		Stops one or more containers
 
-Run 'wsldocker [command] help' for more information on a command.
+Run 'wp4docker [command] help' for more information on a command.
 `;
     console.log( help );
 };
@@ -31,9 +29,6 @@ const init = async function() {
     let command = commands.command();
 
     switch ( command ) {
-        case 'init':
-            require( './src/init' );
-            break;
         case 'provision':
             require( "./src/provision" );
             break;
