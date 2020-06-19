@@ -76,4 +76,4 @@ You can now access MailHog
 <pre>
 user = admin
 password = password
-<pre>
+</pre>
