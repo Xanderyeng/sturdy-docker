@@ -21,7 +21,7 @@ Run 'wp4docker [command] help' for more information on a command.
 
 const version = function() {
     var pjson = require('./package.json');
-    console.log( 'Docker for WordPress' );
+    console.log( 'WP 4 Docker' );
     console.log( `Version: ${pjson.version}` );
 };
 
