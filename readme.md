@@ -10,7 +10,7 @@ This is a [Docker](https://www.docker.com) based local environment for [WordPres
 5. [MailHog](https://github.com/benlumia007/docker-for-wordpress#mailhog)
 
 ## Overview
-WP 4 Docker ( formerly Docker for WordPress ) is a local environment based on WSL2 and Docker for Desktop. WP 4 Docker is also compatiible with Linux and macOS
+WP 4 Docker is an easy and automate local development environment for WordPress that works on Linux, macOS, and Windows 10 Home ( Version 2004 ) for WSL2.
 
 ## Requirements
 * [Docker Desktop for Windows](https://www.docker.com/)
