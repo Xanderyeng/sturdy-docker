@@ -20,41 +20,46 @@ const up = async function() {
     execSync( `docker-compose -f ${getComposeFile} up -d` );
 };
 
-const start = async function( args ) {
-    if ( args == "server" ) {
-        execSync( `docker-compose -f ${getComposeFile} start ${args}` );
-    } else if ( args == "mysql" ) {
-        execSync( `docker-compose -f ${getComposeFile} start ${args}` );
-    } else if ( args == "mailhog" ) {
-        execSync( `docker-compose -f ${getComposeFile} start ${args}` );
-    } else {
-        execSync( `docker-compose -f ${getComposeFile} start` );
-    }
+const start = async function() {
+    const container = commands.subcommand() || 'all';
+
+    try {
+        if ( container == 'all' ) {
+            execSync( `docker-compose -f ${getComposeFile} start`, { stdio: 'inherit' } );
+        } else {
+            execSync( `docker-compose -f ${getComposeFile} start ${container}`, { stdio: 'inherit' } );
+        }
+    } catch ( ex ) {}
+
+    process.exit();
 }
 
-const stop = async function( args ) {
-    execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-backup`, { stdio: 'inherit' } );
-    if ( args == "server" ) {
-        execSync( `docker-compose -f ${getComposeFile} stop ${args}` );
-    } else if ( args == "mysql" ) {
-        execSync( `docker-compose -f ${getComposeFile} stop ${args}` );
-    } else if ( args == "mailhog" ) {
-        execSync( `docker-compose -f ${getComposeFile} stop ${args}` );
-    } else {
-        execSync( `docker-compose -f ${getComposeFile} stop` );
-    }
+const stop = async function() {
+    const container = commands.subcommand() || 'all';
+
+    try {
+        if ( container == 'all' ) {
+            execSync( `docker-compose -f ${getComposeFile} stop`, { stdio: 'inherit' } );
+        } else {
+            execSync( `docker-compose -f ${getComposeFile} stop ${container}`, { stdio: 'inherit' } );
+        }
+    } catch ( ex ) {}
+
+    process.exit();
 };
 
-const restart = async function( args ) {
-    if ( args == "server" ) {
-        execSync( `docker-compose -f ${getComposeFile} restart ${args}` );
-    } else if ( args == "mysql" ) {
-        execSync( `docker-compose -f ${getComposeFile} restart ${args}` );;
-    } else if ( args == "mailhog" ) {
-        execSync( `docker-compose -f ${getComposeFile} restart ${args}` );;
-    } else {
-        execSync( `docker-compose -f ${getComposeFile} restart` );
-    }
+const restart = async function() {
+    const container = commands.subcommand() || 'all';
+
+    try {
+        if ( commands.subcommand == 'all' ) {
+            execSync( `docker-compose -f ${getComposeFile} restart`, { stdio: 'inherit' } );
+        } else {
+            execSync( `docker-compose -f ${getComposeFile} restart ${container}`, { stdio: 'inherit' } );
+        }
+    } catch ( ex ) {}
+
+    process.exit();
 };
 
 const down = async function() {
@@ -71,13 +76,13 @@ const command = async function() {
                 up();
                 break;
             case 'start':
-                start( commands.subcommand() );
+                start();
                 break;
             case 'restart':
-                restart( commands.subcommand() );
+                restart();
                 break;
             case 'stop':
-                stop( commands.subcommand() );
+                stop();
                 break;
             case 'down':
                 down();
