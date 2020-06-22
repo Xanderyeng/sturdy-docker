@@ -1,8 +1,8 @@
 version: '3.5'
 services:
-  nginx:
+  server:
     image: benlumia007/nginx:php7.2-fpm
-    container_name: nginx
+    container_name: server
     restart: always
     ports:
       - "80:80"
@@ -24,6 +24,7 @@ services:
     volumes:
       - ../.global:/srv/.global
       - ../databases:/srv/databases
+      - ../logs/mysql:/var/log/mysql
       - db_data:/var/lib/mysql
 
   mailhog:
