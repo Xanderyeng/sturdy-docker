@@ -37,10 +37,8 @@ const init = async function() {
         case 'start':
         case 'stop':
         case 'up':
+        case 'pull':
             await require( "./src/environment" ).command();
-			break;
-		case  'image':
-			await require( './src/image' ).command();
 			break;
 		case 'shell':
 			await require( './src/shell' ).command();

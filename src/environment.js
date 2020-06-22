@@ -67,6 +67,20 @@ const down = async function() {
     execSync( `docker-compose -f ${getComposeFile} down` );
 };
 
+const pull = async function() {
+    const container = commands.subcommand() || 'all';
+
+    try {
+        if ( container == 'all' ) {
+            execSync( `docker-compose -f ${getComposeFile} pull`, { stdio: 'inherit' } );
+        } else {
+            execSync( `docker pull ${container}`, { stdio: 'inherit' } );
+        }
+    } catch ( ex ) {}
+
+    process.exit();
+}
+
 const command = async function() {
     if ( commands.subcommand() === 'help' || commands.subcommand() === false ) {
         help();
@@ -87,6 +101,9 @@ const command = async function() {
             case 'down':
                 down();
                 break;
+            case 'pull':
+                pull();
+                break;
             default:
                 help();
                 break;
@@ -94,4 +111,4 @@ const command = async function() {
     }
 };
 
-module.exports = { command, start, stop, restart, down, up, help };
+module.exports = { command, start, stop, restart, down, up, pull, help };
