@@ -10,7 +10,7 @@ Commands:
   image		Manage docker images
   provision	Creae new WordPress site or sites
   restart	Restarts one or more containers
-  shell		Opens a shell for a specific container ( default: apache )
+  shell		Opens a shell for a specific container ( default: nginx )
   start		Starts one or more containers
   stop		Stops one or more containers
   pull      Pull image or images
