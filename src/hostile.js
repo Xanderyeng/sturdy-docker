@@ -1,12 +1,12 @@
-const fs = require('fs')
-const once = require('once')
-const split = require('split')
-const through = require('through')
-const net = require('net')
+const fs = require('fs');
+const once = require('once');
+const split = require('split');
+const through = require('through');
+const net = require('net');
 const isWSL = require( "is-wsl" );
 
-var windows = isWSL;
-var EOL = windows
+const windows = isWSL;
+const EOL = windows
   ? '\r\n'
   : '\n'
 
@@ -157,6 +157,5 @@ const writeFile = function( lines, cb ) {
   })
 
 };
-
 
 module.exports = { get, remove, set, writeFile };
