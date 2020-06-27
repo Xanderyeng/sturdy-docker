@@ -6,11 +6,12 @@
 const path = require( './configure' );
 const { execSync } = require( 'child_process' );
 const getComposeFile = path.setComposeFile();
-const getWSL = require( './wsl' );
 
 execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-setup`, { stdio: 'inherit' } );
 execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-restore`, { stdio: 'inherit' } );
 execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-dashboard`, { stdio: 'inherit' } );
 execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-sites`, { stdio: 'inherit' } );
 execSync( `docker-compose -f ${getComposeFile} exec nginx make docker-resources`, { stdio: 'inherit' } );
+
+const getWSL = require( './wsl' );
 getWSL.wsl_host();
