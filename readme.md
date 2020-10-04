@@ -28,28 +28,21 @@ sites:
     host:
       - sandbox.test
 </pre>
-### Supressing prompts for elevating privileges
+## Supressing prompts for elevating privileges
 To allow vagrant to automatically update the hosts file without asking for a sudo password, add one of the following snippets to a new sudoers file include, i.e. sudo visudo -f /etc/sudoers.d/vagrant_hostsupdater.
 
 For Ubuntu and most Linux environments:
 
-# Allow passwordless startup of Vagrant with vagrant-hostsupdater.
-Cmnd_Alias VAGRANT_HOSTS_ADD = /bin/sh -c echo "*" >> /etc/hosts
-Cmnd_Alias VAGRANT_HOSTS_REMOVE = /bin/sed -i -e /*/ d /etc/hosts
-%sudo ALL=(root) NOPASSWD: VAGRANT_HOSTS_ADD, VAGRANT_HOSTS_REMOVE
-For MacOS:
+### Allow passwordless startup of Vagrant with vagrant-hostsupdater.
+The most easiest way to achieve powerless sudo is to add your user to the sudoers with no password and it works with Linux and macOS
 
-# Allow passwordless startup of Vagrant with vagrant-hostsupdater.
-Cmnd_Alias VAGRANT_HOSTS_ADD = /bin/sh -c echo "*" >> /etc/hosts
-Cmnd_Alias VAGRANT_HOSTS_REMOVE = /usr/bin/sed -i -e /*/ d /etc/hosts
-%admin ALL=(root) NOPASSWD: VAGRANT_HOSTS_ADD, VAGRANT_HOSTS_REMOVE
-If vagrant still asks for a password on commands that trigger the VAGRANT_HOSTS_ADD alias above (like up), you might need to wrap the echo statement in quotes, i.e. Cmnd_Alias VAGRANT_HOSTS_ADD = /bin/sh -c 'echo "*" >> /etc/hosts'. This seems to be a problem with older versions of Linux and MacOS.
-If vagrant still asks for a password on commands that trigger the VAGRANT_HOSTS_REMOVE alias above (like halt or suspend), this might indicate that the location of sed in the VAGRANT_HOSTS_REMOVE alias is pointing to the wrong location. The solution is to find the location of sed (ex. which sed) and replace that location in the VAGRANT_HOSTS_REMOVE alias.
+<pre>username ALL=(ALL:ALL) NOPASSWD:ALL</pre>
 
 ### Windows: UAC Prompt
 You can use cacls or icacls to grant your user account permanent write permission to the system's hosts file. You have to open an elevated command prompt; hold ❖ Win and press X, then choose "Command Prompt (Admin)"
 
-cacls %SYSTEMROOT%\system32\drivers\etc\hosts /E /G %USERNAME%:W 
+cacls %SYSTEMROOT%\system32\drivers\etc\hosts /E /G username:W 
+
 ### How to Begin
 To begin, use git to clone the repository to anywhere
 <pre>
