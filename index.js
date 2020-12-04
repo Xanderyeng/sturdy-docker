@@ -12,6 +12,8 @@ Commands:
   shell		Opens a shell for a specific container ( default: nginx )
   start		Starts one or more containers
   stop		Stops one or more containers
+  up        Starts one or more containers
+  down      Destroys one or more containers
   pull      Pull image or images
 
 Run 'wp4docker [command] help' for more information on a command.
