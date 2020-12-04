@@ -92,3 +92,20 @@ You can now access MailHog
 user = admin
 password = password
 </pre>
+
+## ClassicPress
+ClassicPress is now supported, to aactivate, use the following
+<pre>
+sites:
+  classicpress:
+    provision: true
+    repo: https://github.com/benlumia007/wp-4-docker-sites.git
+    host:
+      - classicpress.test
+    custom:
+      cms_type: ClassicPress
+</pre>
+<pre>
+user = admin
+password = password
+</pre>
