@@ -7,7 +7,6 @@ Usage: wp4docker [command]
 
 Commands:
 
-  image		Manage docker images
   provision	Creae new WordPress site or sites
   restart	Restarts one or more containers
   shell		Opens a shell for a specific container ( default: nginx )
