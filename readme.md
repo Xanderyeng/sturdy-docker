@@ -81,6 +81,9 @@ password = root
 
 user = wordpress
 passsword = wordpress
+
+user = classicpress
+passsword = classicpress
 </pre>
 When you create a new site, it will use wordpress by default, you can use both root or wordpress to login.
 
