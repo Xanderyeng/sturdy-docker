@@ -41,7 +41,9 @@ The most easiest way to achieve powerless sudo is to add your user to the sudoer
 ### Windows: UAC Prompt
 You can use cacls or icacls to grant your user account permanent write permission to the system's hosts file. You have to open an elevated command prompt; hold ❖ Win and press X, then choose "Command Prompt (Admin)"
 
+<pre>
 cacls %SYSTEMROOT%\system32\drivers\etc\hosts /E /G username:W 
+</pre>
 
 ### How to Begin
 To begin, use git to clone the repository to anywhere
