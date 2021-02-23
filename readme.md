@@ -54,6 +54,13 @@ I would like to keep this simple so I'm going to clone the repository to a folde
 <pre>
 cd WordPress
 </pre>
+
+### Using npm
+You can now use npm to install wp-4-docker using the following
+<pre>
+npm install @benlumia007/wp-4-docker@1.0.1
+</pre>
+
 At this point, since all the volumes has been set already in the `docker-compose.yml` file, you don't need to do anything from here so to get started, please use the following command
 </pre>
 sudo npm -g install
