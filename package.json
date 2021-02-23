@@ -1,5 +1,5 @@
 {
-  "name": "wp-4-docker",
+  "name": "@benlumia007/wp-4-docker",
   "version": "1.0.1",
   "description": "A WordPress Development",
   "author": "Benjamin Lu",
@@ -14,6 +14,8 @@
     "wp4docker-hosts": "hosts.js"
   },
   "scripts": {
+    "test": "mocha --timeout 60000 --exit -r ts-node/register test/**/*.spec.ts",
+    "build": "tsc",
     "deploy": "npm publish"
   },
   "repository": {
