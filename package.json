@@ -1,6 +1,6 @@
 {
-  "name": "wp-4-docker",
-  "version": "1.0.2",
+  "name": "@benlumia007/wp-4-docker",
+  "version": "1.0.1",
   "description": "A WordPress Development",
   "author": "Benjamin Lu",
 	"license": "GPL-2.0+",
@@ -13,6 +13,11 @@
     "wp4docker": "index.js",
     "wp4docker-hosts": "hosts.js"
   },
+  "scripts": {
+    "test": "mocha --timeout 60000 --exit -r ts-node/register test/**/*.spec.ts",
+    "build": "tsc",
+    "deploy": "npm publish"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/benlumia007/wp-4-docker.git"
@@ -22,6 +27,9 @@
     "Docker",
     "WSL2"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@benlumia007"
+  },
   "dependencies": {
     "fs-extra": "^9.1.0",
     "is-wsl": "^2.2.0",
