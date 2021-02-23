@@ -29,12 +29,12 @@ sites:
       - sandbox.test
 </pre>
 ## Supressing prompts for elevating privileges
-To allow vagrant to automatically update the hosts file without asking for a sudo password, add one of the following snippets to a new sudoers file include, i.e. sudo visudo -f /etc/sudoers.d/vagrant_hostsupdater.
+To allow docker and wsl2 to automatically update the hosts file without asking for a sudo password, add one of the following snippets to a new sudoers file.
 
 For Ubuntu and most Linux environments:
 
-### Allow passwordless startup of Vagrant with vagrant-hostsupdater.
-The most easiest way to achieve powerless sudo is to add your user to the sudoers with no password and it works with Linux and macOS
+### Allow passwordless
+The most easiest way to achieve powerless sudo is to add your user to the sudoers with no password and it works with Linux and macOS, by using sudo visudo.
 
 <pre>username ALL=(ALL:ALL) NOPASSWD:ALL</pre>
 
