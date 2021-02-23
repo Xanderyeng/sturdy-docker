@@ -1,5 +1,5 @@
 # WP 4 Docker
-This is a [Docker](https://www.docker.com) based local environment for [WordPress](https://wordpress.org) developing using the new WSL2. 
+WP 4 Docker is a local development environment focuses on WordPress. It uses [Docker](https://docker.com) and WSL2 for development.
 
 ## Table of Content
 
