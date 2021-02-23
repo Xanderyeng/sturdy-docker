@@ -18,8 +18,7 @@ WP 4 Docker is an easy and automate local development environment for WordPress 
 * Ubuntu 18.04 or 20.04 from Microsoft Store within Windows 10 Home ( Version: 2004 )
 
 ## Getting Started
-Before you begin, I would like to point out one of the file that gets used often, and that file is <code>custom.yml</code> and when you docker up for the first time, it will then duplicate <code>default.yml</code> to <code>custom.yml</code> inside of the global folder and it will use that to generate any sites you want. By default, the only site that gets create is the dashboard and sandbox. You can manually copy the default.yml and copy to the .global folder and rename to custom.yml and start your process of creating your sites.
-up. 
+Before you begin, I would like to point out one of the file that gets used often, and that file is <code>custom.yml</code> and when you docker up for the first time, it will then duplicate <code>default.yml</code> to <code>custom.yml</code> inside of the global folder and it will use that to generate any sites you want. By default, the only site that gets create is the dashboard and sandbox.
 <pre>
 sites:
   sandbox:
@@ -64,6 +63,7 @@ npm install @benlumia007/wp-4-docker@1.0.1
 At this point, since all the volumes has been set already in the `docker-compose.yml` file, you don't need to do anything from here so to get started, please use the following command
 </pre>
 sudo npm -g install
+sudo npm link
 </pre>
 You should now have some few options especially the following `wp4docker up, wp4docker start, wp4docker restart, wp4docker stop, and wp4docker down`. Let's go ahead and do a `wp4docker up`, this will bring up the docker up, if you haven't pull the images, it will do that first and it will create nginx, mysql, and mailhog.
 
