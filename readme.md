@@ -121,3 +121,15 @@ sites:
 user = admin
 password = password
 </pre>
+
+## Custom
+If you decide not to use WordPress or ClassicPress, you have a option to not install anything and just create a new empty site
+<pre>
+  example:
+    provision: true
+    repo: https://github.com/benlumia007/wp-4-docker-sites.git
+    host:
+      - example.test
+    custom:
+      cms_type: none
+</pre>
