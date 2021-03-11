@@ -2,8 +2,10 @@
 /certificates
 /databases
 !/databases/readme.md
-/logs/php
+/logs/mysql
+!/logs/mysql/.gitkeep
 /logs/nginx/*
+/logs/php
 /sites/*
 !/sites/readme.md
 /app/provision/resources
