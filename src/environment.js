@@ -52,7 +52,7 @@ const restart = async function() {
     const container = commands.subcommand() || 'all';
 
     try {
-        if ( commands.subcommand == 'all' ) {
+        if ( container == 'all' ) {
             execSync( `docker-compose -f ${getComposeFile} restart`, { stdio: 'inherit' } );
         } else {
             execSync( `docker-compose -f ${getComposeFile} restart ${container}`, { stdio: 'inherit' } );
