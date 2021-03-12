@@ -39,6 +39,7 @@ const stop = async function() {
 
     try {
         if ( container == 'all' ) {
+            execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-backup`, { stdio: 'inherit' } );
             execSync( `docker-compose -f ${getComposeFile} stop`, { stdio: 'inherit' } );
         } else {
             execSync( `docker-compose -f ${getComposeFile} stop ${container}`, { stdio: 'inherit' } );
