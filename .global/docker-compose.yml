@@ -25,7 +25,6 @@ services:
       - ../.global:/srv/.global
       - ../databases:/srv/databases
       - ../logs/mysql:/var/log/mysql
-      - db_data:/var/lib/mysql
 
   mailhog:
     image: benlumia007/mailhog
@@ -34,6 +33,3 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
-
-volumes:
-  db_data:
