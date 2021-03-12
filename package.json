@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "A WordPress Development",
   "author": "Benjamin Lu",
-	"license": "GPL-2.0+",
+  "license": "GPL-2.0+",
   "bugs": {
     "url": "https://github.com/benlumia007/wp-4-docker/issues"
   },
