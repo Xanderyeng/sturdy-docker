@@ -1,9 +1,6 @@
 const commands = require( "./commands" );
 const { execSync } = require( 'child_process' );
 const path = require( "./configure" );
-const getRootPath = path.setRootPath();
-const getGlobalPath = path.setGlobalPath();
-const getConfigPath = path.setConfigPath();
 const getComposeFile = path.setComposeFile();
 
 const help = function() {
