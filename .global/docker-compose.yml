@@ -15,7 +15,7 @@ services:
       - ../sites:/srv/www
 
   mysql:
-    image: benlumia007/mysql:5.7
+    image: benlumia007/mysql:8.0
     container_name: mysql
     restart: always
     environment:
