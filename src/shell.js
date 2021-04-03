@@ -1,4 +1,3 @@
-
 const commands = require( './commands' );
 const path = require( './configure' );
 const { execSync } = require( 'child_process' );
