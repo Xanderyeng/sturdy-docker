@@ -7,7 +7,7 @@ const help = function() {
     const command = commands.command();
 
     const help = `
-Usage:  wsldocker ${command} {container}
+Usage:  wp4docker ${command} {container}
 `;
     console.log( help );
     process.exit();
