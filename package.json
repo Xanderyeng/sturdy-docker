@@ -1,13 +1,13 @@
 {
-  "name": "@benlumia007/wp-4-docker",
+  "name": "@benlumia007/sturdy-docker",
   "version": "1.0.1",
   "description": "A WordPress Development",
   "author": "Benjamin Lu",
   "license": "GPL-2.0+",
   "bugs": {
-    "url": "https://github.com/benlumia007/wp-4-docker/issues"
+    "url": "https://github.com/benlumia007/sturdy-docker/issues"
   },
-  "homepage": "https://github.com/benlumia007/wp-4-docker#readme",
+  "homepage": "https://github.com/benlumia007/sturdy-docker#readme",
   "main": "index.js",
   "bin": {
     "wp4docker": "index.js",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/benlumia007/wp-4-docker.git"
+    "url": "git+https://github.com/benlumia007/sturdy-docker.git"
   },
   "keywords": [
     "WordPress",
