@@ -17,16 +17,16 @@ const sites = config.sites;
 const wsl_host = function() {
     if ( isWSL ) {
     
-        execSync( `wp4docker-hosts add dashboard.test` );
+        execSync( `sturdydocker-hosts add dashboard.test` );
     
         for ( const domain of Object.keys( sites ) ) {
-            execSync( `wp4docker-hosts add ${domain}.test` );
+            execSync( `sturdydocker-hosts add ${domain}.test` );
         }
     } else {
-        execSync( `sudo wp4docker-hosts add dashboard.test` );
+        execSync( `sudo sturdydocker-hosts add dashboard.test` );
     
         for ( const domain of Object.keys( sites ) ) {
-            execSync( `sudo wp4docker-hosts add ${domain}.test` );
+            execSync( `sudo sturdydocker-hosts add ${domain}.test` );
         }
     }
 };

@@ -10,8 +10,8 @@
   "homepage": "https://github.com/benlumia007/sturdy-docker#readme",
   "main": "index.js",
   "bin": {
-    "wp4docker": "index.js",
-    "wp4docker-hosts": "hosts.js"
+    "sturdydocker": "index.js",
+    "sturdydocker-hosts": "hosts.js"
   },
   "scripts": {
     "test": "mocha --timeout 60000 --exit -r ts-node/register test/**/*.spec.ts",
