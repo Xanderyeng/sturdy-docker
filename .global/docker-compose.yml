@@ -1,8 +1,8 @@
 version: '3.5'
 services:
-  nginx:
-    image: benlumia007/nginx:php7.4-fpm
-    container_name: nginx
+  apache2:
+    image: benlumia007/apache2:php7.4
+    container_name: apache2
     restart: always
     ports:
       - "80:80"
