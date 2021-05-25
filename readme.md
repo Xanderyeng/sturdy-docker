@@ -1,4 +1,4 @@
-# WP 4 Docker
+# Sturdy Docker
 WP 4 Docker is a local development environment focuses on WordPress. It uses [Docker](https://docker.com) and WSL2 for development.
 
 ## Table of Content
