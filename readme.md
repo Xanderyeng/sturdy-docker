@@ -1,5 +1,5 @@
 # Sturdy Docker
-WP 4 Docker is a local development environment focuses on WordPress. It uses [Docker](https://docker.com) and WSL2 for development.
+Sturdy Docker is a local development environment focuses on ClassicPress and WordPress. It uses [Docker](https://docker.com) and WSL2 for development.
 
 ## Table of Content
 
@@ -10,7 +10,7 @@ WP 4 Docker is a local development environment focuses on WordPress. It uses [Do
 5. [MailHog](https://github.com/benlumia007/docker-for-wordpress#mailhog)
 
 ## Overview
-WP 4 Docker is an easy and automate local development environment for WordPress that works on Linux, macOS, and Windows 10 Home ( Version 2004 ) for WSL2.
+Sturdy Docker is an easy and automate local development environment for WordPress that works on Linux, macOS, and Windows 10 Home ( Version 2004 ) for WSL2.
 
 ## Requirements
 * [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install), [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/), or [Linux](https://docs.docker.com/engine/install/)
