@@ -21,11 +21,33 @@ WP 4 Docker is an easy and automate local development environment for WordPress 
 Before you begin, I would like to point out one of the file that gets used often, and that file is <code>custom.yml</code> and when you docker up for the first time, it will then duplicate <code>default.yml</code> to <code>custom.yml</code> inside of the global folder and it will use that to generate any sites you want. By default, the only site that gets create is the dashboard and sandbox.
 <pre>
 sites:
-  sandbox:
+  classicpress:
     provision: true
-    repo: https://github.com/benlumia007/wp-4-docker-sites.git
+    repo: https://github.com/benlumia007/sturdy-docker-sites.git
     host:
-      - sandbox.test
+      - classicpress.test
+    custom:
+      type: ClassicPress
+      plugins:
+        - query-monitor
+      constants:
+        - DISALLOW_FILE_EDIT
+        - WP_DEBUG
+        - WP_DEBUG_DISPLAY
+
+  wordpress:
+    provision: true
+    repo: https://github.com/benlumia007/sturdy-docker-sites.git
+    host:
+      - wordpress.test
+    custom:
+      type: WordPress
+      plugins:
+        - query-monitor
+      constants:
+        - DISALLOW_FILE_EDIT
+        - WP_DEBUG
+        - WP_DEBUG_DISPLAY
 </pre>
 ## Supressing prompts for elevating privileges
 To allow docker and wsl2 to automatically update the hosts file without asking for a sudo password, add one of the following snippets to a new sudoers file.
