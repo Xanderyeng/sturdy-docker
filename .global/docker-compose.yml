@@ -10,8 +10,11 @@ services:
     volumes:
       - ../.global:/srv/.global
       - ../certificates:/srv/certificates
-      - ../logs/nginx:/var/log/nginx
+      - ../config/apache2:/srv/config/apache2
+      - ../config/default.yml:/srv/config/default.yml
+      - ../logs/apache2:/var/log/apache2
       - ../logs/php:/var/log/php
+      - ../provision/apache2:/app
       - ../sites:/srv/www
 
   mysql:
@@ -25,6 +28,7 @@ services:
       - ../.global:/srv/.global
       - ../databases:/srv/databases
       - ../logs/mysql:/var/log/mysql
+      - ../provision/mysql:/app
 
   mailhog:
     image: benlumia007/mailhog

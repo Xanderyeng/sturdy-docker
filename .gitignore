@@ -1,11 +1,9 @@
 .global/custom.yml
 certificates
 databases
-!/databases/readme.md
+logs/apache2
 logs/mysql
-!/logs/mysql/.gitkeep
-logs/nginx/*
 logs/php
-sites/*
-!/sites/readme.md
 node_modules
+provision/apache2/provision/resources
+sites/*
