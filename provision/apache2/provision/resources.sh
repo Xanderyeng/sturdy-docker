@@ -23,10 +23,10 @@ resources=`get_resources`
 for name in ${resources//- /$'\n'}; do
     if [[ false != ${name} && false != ${repo} ]]; then
         if [[ ! -d ${dir}/.git ]]; then
-            git clone ${repo} ${dir} -q
+            noroot git clone ${repo} ${dir} -q
         else
             cd ${dir}
-            git pull  -q
+            noroot git pull  -q
             cd /app
         fi
     fi
