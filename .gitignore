@@ -2,8 +2,11 @@
 certificates
 databases
 logs/apache2
+!logs/apache2/.gitkeep
 logs/mysql
+!logs/mysql/.gitkeep
 logs/php
+!logs/php/.gitkeep
 node_modules
 provision/apache2/provision/resources
 sites/*
