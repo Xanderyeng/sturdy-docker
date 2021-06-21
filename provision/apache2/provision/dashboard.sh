@@ -20,10 +20,6 @@ fi
 if [[ false != "${repo}" ]]; then
     if [[ ! -d ${dir}/.git ]]; then
         noroot git clone ${repo} ${dir} -q
-        cd ${dir}
-        noroot composer install
-        noroot npm install
-        cd /app
     else
         cd ${dir}
         noroot git pull -q
