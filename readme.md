@@ -127,11 +127,17 @@ ClassicPress is now supported, to aactivate, use the following
 sites:
   classicpress:
     provision: true
-    repo: https://github.com/benlumia007/wp-4-docker-sites.git
+    repo: https://github.com/benlumia007/sturdy-docker-sites.git
     host:
       - classicpress.test
     custom:
-      cms_type: ClassicPress
+      type: ClassicPress
+      plugins:
+        - query-monitor
+      constants:
+        - DISALLOW_FILE_EDIT
+        - WP_DEBUG
+        - WP_DEBUG_DISPLAY
 </pre>
 <pre>
 user = admin
@@ -143,9 +149,9 @@ If you decide not to use WordPress or ClassicPress, you have a option to not ins
 <pre>
   example:
     provision: true
-    repo: https://github.com/benlumia007/wp-4-docker-sites.git
+    repo: https://github.com/benlumia007/sturdy-docker-sites.git
     host:
       - example.test
     custom:
-      cms_type: none
+      type: none
 </pre>
