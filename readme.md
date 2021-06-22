@@ -69,7 +69,7 @@ cacls %SYSTEMROOT%\system32\drivers\etc\hosts /E /G username:W
 ### How to Begin
 To begin, use git to clone the repository to anywhere
 <pre>
-git clone https://github.com/benlumia007/wp-4-docker.git WordPress
+git clone git@github.com:benlumia007/sturdy-docker.git WordPress
 </pre>
 I would like to keep this simple so I'm going to clone the repository to a folder called WordPress and navigate to the folder
 <pre>
