@@ -76,28 +76,22 @@ I would like to keep this simple so I'm going to clone the repository to a folde
 cd WordPress
 </pre>
 
-### Using npm
-You can now use npm to install wp-4-docker using the following
-<pre>
-npm install @benlumia007/wp-4-docker@1.0.1
-</pre>
-
 At this point, since all the volumes has been set already in the `docker-compose.yml` file, you don't need to do anything from here so to get started, please use the following command
 </pre>
 sudo npm -g install
 sudo npm link
 </pre>
-You should now have some few options especially the following `wp4docker up, wp4docker start, wp4docker restart, wp4docker stop, and wp4docker down`. Let's go ahead and do a `wp4docker up`, this will bring up the docker up, if you haven't pull the images, it will do that first and it will create nginx, mysql, and mailhog.
+You should now have some few options especially the following `sturdydocker up, sturdydocker start, sturdydocker restart, sturdydocker stop, and sturdydocker down`. Let's go ahead and do a `sturdydocker up`, this will bring up the docker up, if you haven't pull the images, it will do that first and it will create apache2, mysql, and mailhog.
 
 Before you begin, you should always wait for between 5 to 10 seconds everytime when you either start, restart, or up due to mysql container needs to finished initializing or else the the included provision will fail. After you have waited, let's begin, 
 <pre>
-wp4docker provision
+sturdydocker provision
 </pre>
-This will provision setup, databases, dashboard, sites, resources, each will do their parts. After it finishes, make sure to restart the containers, but in reality, you should only need to restart the nginx container, all you need to do is `wp4docker restart nginx`, if you just do a `wp4docker restart nginx`, it will restart all three containers.
+This will provision setup, databases, dashboard, sites, resources, each will do their parts. After it finishes, make sure to restart the containers, but in reality, you should only need to restart the apache2 container, all you need to do is `sturdydocker restart apache2`, if you just do a `sturdydocker restart apache2`, it will restart all three containers.
 
-Please note for the sake of containers, you should not do `wp4docker up` or `wp4docker down` often, you should only use these if you need to change to a different container or something fail or screws up the containers. Mostly you should only use `wp4docker start`, `wp4docker restart`, or `wp4docker stop` as much as possible.
+Please note for the sake of containers, you should not do `sturdydocker up` or `sturdydocker down` often, you should only use these if you need to change to a different container or something fail or screws up the containers. Mostly you should only use `sturdydocker start`, `sturdydocker restart`, or `sturdydocker stop` as much as possible.
 
-When you add new sites if necessary, just follow copy and paste one of the sites and modify it. Then you should do a `wp4docker provision` and `wp4docker restart nginx`.
+When you add new sites if necessary, just follow copy and paste one of the sites and modify it. Then you should do a `sturdydocker provision` and `sturdydocker restart apache2`.
 
 ## Certificates and phpMyAdmin
 In the <code>custom.yml</code> file, there is a section where you will see phpMyAdmin and TLS-CA, this is where any resources will go so that it will generated any resources that comes with. At this time, only phpMyAdmin and TLS-CA is included since the project itself will be using https rather than http for connection.
