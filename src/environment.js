@@ -7,7 +7,7 @@ const help = function() {
     const command = commands.command();
 
     const help = `
-Usage:  wp4docker ${command} {container}
+Usage:  sturdydocker ${command} {container}
 `;
     console.log( help );
     process.exit();

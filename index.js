@@ -3,7 +3,7 @@ const commands = require( './src/commands' );
 
 const help = function() {
     let help = `
-Usage: wp4docker [command]
+Usage: sturdydocker [command]
 
 Commands:
 
@@ -16,7 +16,7 @@ Commands:
   down      Destroys one or more containers
   pull      Pull image or images
 
-Run 'wp4docker [command] help' for more information on a command.
+Run 'sturdydocker [command] help' for more information on a command.
 `;
     console.log( help );
 };
