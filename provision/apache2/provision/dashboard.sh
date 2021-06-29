@@ -25,7 +25,7 @@ if [[ false != "${repo}" ]]; then
         noroot composer install -q
         noroot npm install &> /dev/null
         noroot npm run build &> /dev/null
-        noroot mv ${github}/benjlu ${dir}
+        noroot mv ${github}/public_html ${dir}
         cd /app
     else
         cd ${github}
