@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 repo="https://github.com/benlumia007/sturdy-docker-dashboard.git"
+github="/srv/www/dashboard/github"
 dir="/srv/www/dashboard/public_html"
 
 # noroot
@@ -18,13 +19,16 @@ if [[ ! -d "/etc/apache2/sites-available/dashboard.conf" ]]; then
 fi
 
 if [[ false != "${repo}" ]]; then
-    if [[ ! -d ${dir}/.git ]]; then
-        noroot git clone --branch main ${repo} ${dir} -q
-        cd ${dir}
+    if [[ ! -d ${github}/.git ]]; then
+        noroot git clone --branch main ${repo} ${github} -q
+        cd ${github}
         noroot composer install -q
+        noroot npm install &> /dev/null
+        noroot npm run build &> /dev/null
+        noroot mv ${github}/benjlu ${dir}
         cd /app
     else
-        cd ${dir}
+        cd ${github}
         noroot git pull -q
         cd /app
     fi
