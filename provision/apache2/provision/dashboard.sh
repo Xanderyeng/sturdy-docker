@@ -29,7 +29,10 @@ if [[ false != "${repo}" ]]; then
         cd /app
     else
         cd ${github}
-        noroot git pull -q
+        noroot git fetch origin main -q
+        noroot rm -rf ${dir}
+        noroot npm run build &> /dev/null
+        noroot mv ${github}/public_html ${dir}
         cd /app
     fi
 fi
