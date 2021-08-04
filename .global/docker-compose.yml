@@ -10,9 +10,7 @@ services:
     volumes:
       - ../.global:/srv/.global
       - ../certificates:/srv/certificates
-      - ../config/apache2:/srv/config/apache2
-      - ../config/phpmyadmin:/srv/config/phpmyadmin
-      - ../config/default.yml:/srv/config/default.yml
+      - ../config:/srv/config
       - ../logs/apache2:/var/log/apache2
       - ../logs/php:/var/log/php
       - ../provision/apache2:/app
