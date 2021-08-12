@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   apache2:
-    image: benlumia007/apache2:php7.4
+    image: benlumia007/apache2
     container_name: apache2
     restart: always
     ports:
