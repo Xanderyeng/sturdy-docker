@@ -59,12 +59,30 @@ for domain in `get_sites`; do
         echo ${value:-$@}
     }
 
+    get_site_php() {
+        local value=`cat ${config} | shyaml get-value sites.${domain}.custom.php 2> /dev/null`
+        echo ${value:-$@}
+    }
+
     provision=`get_site_provision`
     repo=`get_site_repo`
     type=`get_site_type`
     plugins=`get_site_plugins`
     themes=`get_site_themes`
     constants=`get_site_constants`
+    php=`get_site_php`
+
+    if [[ ! -z "${php}" ]]; then
+        if [[ ${php} == "8.0" ]]; then
+            if grep -q "7.4" "/etc/apache2/sites-available/${domain}.conf"; then
+                sed -i -e "s/7.4/${php}/g" "/etc/apache2/sites-available/${domain}.conf"
+            fi
+        fi
+    else 
+        if grep -q "8.0" "/etc/apache2/sites-available/${domain}.conf"; then
+            sed -i -e "s/8.0/7.4/g" "/etc/apache2/sites-available/${domain}.conf"
+        fi
+    fi
 
     if [[ "True" == ${provision} ]]; then
         dir="/srv/www/${domain}"
