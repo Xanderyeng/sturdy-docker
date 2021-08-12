@@ -15,3 +15,6 @@ docker-sites: provision/sites.sh
 
 docker-resources: provision/resources.sh
 	/bin/bash provision/resources.sh
+
+docker-services: provision/services.sh
+	/bin/bash provision/services.sh

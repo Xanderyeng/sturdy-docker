@@ -12,6 +12,7 @@ execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-restore`, 
 execSync( `docker-compose -f ${getComposeFile} exec apache2 make docker-dashboard`, { stdio: 'inherit' } );
 execSync( `docker-compose -f ${getComposeFile} exec apache2 make docker-sites`, { stdio: 'inherit' } );
 execSync( `docker-compose -f ${getComposeFile} exec apache2 make docker-resources`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec apache2 make docker-services`, { stdio: 'inherit' } );
 
 const getWSL = require( './wsl' );
 getWSL.wsl_host();
