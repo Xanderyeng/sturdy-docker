@@ -19,13 +19,15 @@ get_sites() {
 for domain in `get_sites`; do
 
     if [[ ! -f "/etc/apache2/sites-available/${domain}.conf" ]]; then
-      if [[ "laravel" == "${domain}" ]]; then
-        cp "/srv/config/apache2/laravel.conf" "/etc/apache2/sites-available/${domain}.conf"
-        else
+
         cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/${domain}.conf"
-      fi
-      sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.conf"
-      a2ensite "${domain}" > /dev/null 2>&1
+        sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.conf"
+
+        if [[ "laravel" == ${domain} ]]; then
+            sed -i -e "s/public_html/public_html\/public/g" "/etc/apache2/sites-available/${domain}.conf"
+        fi
+        
+        a2ensite "${domain}" > /dev/null 2>&1
     fi
 
 
