@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   apache2:
-    image: benlumia007/apache2
+    image: benlumia007/sturdy-docker:apache2
     container_name: apache2
     restart: always
     ports:
@@ -17,7 +17,7 @@ services:
       - ../sites:/srv/www
 
   mysql:
-    image: benlumia007/mysql:8.0
+    image: benlumia007/sturdy-docker:mysql
     container_name: mysql
     restart: always
     environment:
@@ -30,7 +30,7 @@ services:
       - ../provision/mysql:/app
 
   mailhog:
-    image: benlumia007/mailhog
+    image: benlumia007/sturdy-docker:mailhog
     container_name: mailhog
     restart: always
     ports:
