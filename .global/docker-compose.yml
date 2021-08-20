@@ -20,9 +20,6 @@ services:
     image: benlumia007/sturdy-docker:mysql
     container_name: mysql
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-    command: --default-authentication-plugin=mysql_native_password
     volumes:
       - ../.global:/srv/.global
       - ../databases:/srv/databases
