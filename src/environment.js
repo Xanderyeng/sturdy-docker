@@ -91,6 +91,12 @@ const logs = async function() {
     } catch ( ex ) {}
 }
 
+const ps = async function() {
+    try {
+        execSync( `docker ps`, { stdio: 'inherit' } );
+    } catch ( ex ) {}
+}
+
 const command = async function() {
     if ( commands.subcommand() === 'help' || commands.subcommand() === false ) {
         help();
@@ -117,6 +123,9 @@ const command = async function() {
             case 'logs':
                 logs();
                 break;
+            case 'ps':
+                ps();
+                break;
             default:
                 help();
                 break;
@@ -124,4 +133,4 @@ const command = async function() {
     }
 };
 
-module.exports = { command, start, stop, restart, down, up, pull, logs, help };
+module.exports = { command, start, stop, restart, down, up, pull, logs, ps, help };
