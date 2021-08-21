@@ -37,6 +37,7 @@ const init = async function() {
         case 'down':
         case 'restart':
         case 'start':
+        case 'logs':
         case 'stop':
         case 'up':
         case 'pull':

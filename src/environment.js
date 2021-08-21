@@ -79,6 +79,18 @@ const pull = async function() {
     process.exit();
 }
 
+const logs = async function() {
+    const container = commands.subcommand();
+
+    try {
+        if ( container == 'apache2' ) {
+            execSync( `docker logs ${container}`, { stdio: 'inherit' } );
+        } else {
+            execSync( `docker logs ${container}`, { stdio: 'inherit' } );
+        }
+    } catch ( ex ) {}
+}
+
 const command = async function() {
     if ( commands.subcommand() === 'help' || commands.subcommand() === false ) {
         help();
@@ -102,6 +114,9 @@ const command = async function() {
             case 'pull':
                 pull();
                 break;
+            case 'logs':
+                logs();
+                break;
             default:
                 help();
                 break;
@@ -109,4 +124,4 @@ const command = async function() {
     }
 };
 
-module.exports = { command, start, stop, restart, down, up, pull, help };
+module.exports = { command, start, stop, restart, down, up, pull, logs, help };
