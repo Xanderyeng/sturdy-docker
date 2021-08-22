@@ -7,6 +7,8 @@ const path = require( './configure' );
 const { execSync } = require( 'child_process' );
 const getComposeFile = path.setComposeFile();
 
+console.log( '/bin/bash config/bin/check_update.sh' );
+execSync( `/bin/bash config/bin/check_update.sh` );
 execSync( `docker-compose -f ${getComposeFile} exec apache2 make docker-setup`, { stdio: 'inherit' } );
 execSync( `docker-compose -f ${getComposeFile} exec mysql make docker-restore`, { stdio: 'inherit' } );
 execSync( `docker-compose -f ${getComposeFile} exec apache2 make docker-dashboard`, { stdio: 'inherit' } );

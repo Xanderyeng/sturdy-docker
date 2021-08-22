@@ -23,6 +23,7 @@ services:
     volumes:
       - ../.global:/srv/.global
       - ../databases:/srv/databases
+      - ../logs/mysql:/var/log/mysql
       - ../provision/mysql:/app
 
   mailhog:
