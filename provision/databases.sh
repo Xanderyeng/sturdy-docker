@@ -19,13 +19,13 @@ for domain in `get_sites`; do
 
     if [[ "ClassicPress" == ${type} ]]; then
         mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"
-        mysql -u root -e "CREATE USER IF NOT EXISTS 'classicpress'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'classicpress';"
-        mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'classicpress'@'%' WITH GRANT OPTION;"
+        mysql -u root -e "CREATE USER IF NOT EXISTS 'classicpress'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'classicpress';"
+        mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'classicpress'@'localhost' WITH GRANT OPTION;"
         mysql -u root -e "FLUSH PRIVILEGES;"
     else
         mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"
-        mysql -u root -e "CREATE USER IF NOT EXISTS 'wordpress'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'wordpress';"
-        mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'%' WITH GRANT OPTION;"
+        mysql -u root -e "CREATE USER IF NOT EXISTS 'wordpress'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'wordpress';"
+        mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'localhost' WITH GRANT OPTION;"
         mysql -u root -e "FLUSH PRIVILEGES;"
     fi
 done

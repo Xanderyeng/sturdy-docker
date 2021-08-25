@@ -1,35 +1,19 @@
 version: '3.5'
 services:
-  apache2:
-    image: benlumia007/sturdy-docker:apache2
-    container_name: apache2
+  server:
+    image: server
+    container_name: server
     restart: always
     ports:
       - "80:80"
       - "443:443"
+      - "3306:3306"
     volumes:
       - ../.global:/srv/.global
       - ../certificates:/srv/certificates
       - ../config:/srv/config
       - ../logs/apache2:/var/log/apache2
       - ../logs/php:/var/log/php
-      - ../provision/apache2:/app
-      - ../sites:/srv/www
-
-  mysql:
-    image: benlumia007/sturdy-docker:mysql
-    container_name: mysql
-    restart: always
-    volumes:
-      - ../.global:/srv/.global
+      - ../provision:/app
       - ../databases:/srv/databases
-      - ../logs/mysql:/var/log/mysql
-      - ../provision/mysql:/app
-
-  mailhog:
-    image: benlumia007/sturdy-docker:mailhog
-    container_name: mailhog
-    restart: always
-    ports:
-      - "1025:1025"
-      - "8025:8025"
+      - ../sites:/srv/www

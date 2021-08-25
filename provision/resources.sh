@@ -16,7 +16,7 @@ get_resources() {
 }
 
 repo="https://github.com/benlumia007/sturdy-docker-resources.git"
-dir="provision/resources"
+dir="resources"
 
 resources=`get_resources`
 
