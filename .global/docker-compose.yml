@@ -17,3 +17,11 @@ services:
       - ../provision:/app
       - ../databases:/srv/databases
       - ../sites:/srv/www
+
+  mailhog:
+    image: benlumia007/sturdy-docker:mailhog
+    container_name: mailhog
+    restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
