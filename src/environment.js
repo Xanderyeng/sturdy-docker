@@ -83,7 +83,7 @@ const logs = async function() {
     const container = commands.subcommand();
 
     try {
-        if ( container == 'apache2' ) {
+        if ( container == 'server' ) {
             execSync( `docker logs ${container}`, { stdio: 'inherit' } );
         } else {
             execSync( `docker logs ${container}`, { stdio: 'inherit' } );

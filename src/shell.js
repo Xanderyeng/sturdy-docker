@@ -4,7 +4,7 @@ const { execSync } = require( 'child_process' );
 const getComposeFile = path.setComposeFile();
 
 const command = async function() {
-    const container = commands.subcommand() || 'apache2';
+    const container = commands.subcommand() || 'server';
 
     try {
         if ( container === 'mailhog' ) {
