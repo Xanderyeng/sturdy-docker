@@ -8,9 +8,9 @@ noroot() {
     sudo -EH -u "www-data" "$@";
 }
 
-
 config="/srv/.global/custom.yml"
 
 if [[ ! -f "${config}" ]]; then
+  echo "shit"
   noroot cp "/srv/config/default.yml" "/srv/.global/custom.yml"
 fi
