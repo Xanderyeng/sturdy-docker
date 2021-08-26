@@ -117,6 +117,22 @@ You can now access MailHog
 
 ## WordPress
 <pre>
+sites:
+  wordpress:
+    provision: true
+    repo: https://github.com/benlumia007/sturdy-docker-sites.git
+    host:
+      - wordpress.test
+    custom:
+      type: WordPress
+      plugins:
+        - query-monitor
+      constants:
+        - DISALLOW_FILE_EDIT
+        - WP_DEBUG
+        - WP_DEBUG_DISPLAY
+</pre>
+<pre>
 user = admin
 password = password
 </pre>
