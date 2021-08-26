@@ -8,5 +8,5 @@ logs/mysql
 logs/php
 !logs/php/.gitkeep
 node_modules
-provision/apache2/provision/resources
+provision/resources
 sites/*
