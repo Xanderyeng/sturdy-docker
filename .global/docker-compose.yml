@@ -8,6 +8,8 @@ services:
       - "80:80"
       - "443:443"
       - "3306:3306"
+      - "1025:1025"
+      - "8025:8025"
     volumes:
       - ../.global:/srv/.global
       - ../certificates:/srv/certificates
@@ -17,11 +19,3 @@ services:
       - ../provision:/app
       - ../databases:/srv/databases
       - ../sites:/srv/www
-
-  mailhog:
-    image: benlumia007/sturdy-docker:mailhog
-    container_name: mailhog
-    restart: always
-    ports:
-      - "1025:1025"
-      - "8025:8025"
