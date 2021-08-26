@@ -87,7 +87,7 @@ Before you begin, you should always wait for between 5 to 10 seconds everytime w
 <pre>
 sturdydocker provision
 </pre>
-This will provision setup, databases, dashboard, sites, resources, each will do their parts. After it finishes, make sure to restart the containers, but in reality, you should only need to restart the server container, all you need to do is `sturdydocker restart server`, if you just do a `sturdydocker restart server`, it will restart all three containers.
+This will provision setup, databases, dashboard, sites, resources, and services.
 
 Please note for the sake of containers, you should not do `sturdydocker up` or `sturdydocker down` often, you should only use these if you need to change to a different container or something fail or screws up the containers. Mostly you should only use `sturdydocker start`, `sturdydocker restart`, or `sturdydocker stop` as much as possible.
 
