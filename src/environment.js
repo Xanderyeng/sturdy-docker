@@ -7,7 +7,7 @@ const help = function() {
     const command = commands.command();
 
     const help = `
-Usage:  sturdydocker ${command} {container}
+Usage:  sturdydocker ${command}
 `;
     console.log( help );
     process.exit();
@@ -18,46 +18,16 @@ const up = async function() {
 };
 
 const start = async function() {
-    const container = commands.subcommand() || 'all';
-
-    try {
-        if ( container == 'all' ) {
-            execSync( `docker-compose -f ${getComposeFile} start`, { stdio: 'inherit' } );
-        } else {
-            execSync( `docker-compose -f ${getComposeFile} start ${container}`, { stdio: 'inherit' } );
-        }
-    } catch ( ex ) {}
-
-    process.exit();
+    execSync( `docker-compose -f ${getComposeFile} start`, { stdio: 'inherit' } );
 }
 
 const stop = async function() {
-    const container = commands.subcommand() || 'all';
-
-    try {
-        if ( container == 'all' ) {
-            execSync( `docker-compose -f ${getComposeFile} exec server make docker-backup`, { stdio: 'inherit' } );
-            execSync( `docker-compose -f ${getComposeFile} stop`, { stdio: 'inherit' } );
-        } else {
-            execSync( `docker-compose -f ${getComposeFile} stop ${container}`, { stdio: 'inherit' } );
-        }
-    } catch ( ex ) {}
-
-    process.exit();
+    execSync( `docker-compose -f ${getComposeFile} exec server make docker-backup`, { stdio: 'inherit' } );
+    execSync( `docker-compose -f ${getComposeFile} stop`, { stdio: 'inherit' } );
 };
 
 const restart = async function() {
-    const container = commands.subcommand() || 'all';
-
-    try {
-        if ( container == 'all' ) {
-            execSync( `docker-compose -f ${getComposeFile} restart`, { stdio: 'inherit' } );
-        } else {
-            execSync( `docker-compose -f ${getComposeFile} restart ${container}`, { stdio: 'inherit' } );
-        }
-    } catch ( ex ) {}
-
-    process.exit();
+    execSync( `docker-compose -f ${getComposeFile} restart`, { stdio: 'inherit' } );
 };
 
 const down = async function() {
@@ -66,29 +36,11 @@ const down = async function() {
 };
 
 const pull = async function() {
-    const container = commands.subcommand() || 'all';
-
-    try {
-        if ( container == 'all' ) {
-            execSync( `docker-compose -f ${getComposeFile} pull`, { stdio: 'inherit' } );
-        } else {
-            execSync( `docker pull ${container}`, { stdio: 'inherit' } );
-        }
-    } catch ( ex ) {}
-
-    process.exit();
+    execSync( `docker-compose -f ${getComposeFile} pull`, { stdio: 'inherit' } );
 }
 
 const logs = async function() {
-    const container = commands.subcommand();
-
-    try {
-        if ( container == 'server' ) {
-            execSync( `docker logs ${container}`, { stdio: 'inherit' } );
-        } else {
-            execSync( `docker logs ${container}`, { stdio: 'inherit' } );
-        }
-    } catch ( ex ) {}
+    execSync( `docker logs server`, { stdio: 'inherit' } );
 }
 
 const ps = async function() {
