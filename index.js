@@ -7,14 +7,15 @@ Usage: sturdydocker [command]
 
 Commands:
 
-  provision	Creae new WordPress site or sites
-  restart	Restarts one or more containers
-  shell		Opens a shell for a specific container ( default: nginx )
-  start		Starts one or more containers
-  stop		Stops one or more containers
-  up        Starts one or more containers
-  down      Destroys one or more containers
-  pull      Pull image or images
+provision   Creae new WordPress site or sites
+restart     Restarts one or more container
+shell       Opens a shell for a specific container
+start       Starts one or more container
+stop        Stops one or more container
+up          Starts one or more container
+down        Destroys one or more container
+pull        Pull image or images
+logs        Fetch the logs of a container
 
 Run 'sturdydocker [command] help' for more information on a command.
 `;
@@ -23,7 +24,7 @@ Run 'sturdydocker [command] help' for more information on a command.
 
 const version = function() {
     var pjson = require('./package.json');
-    console.log( 'WP 4 Docker' );
+    console.log( 'Sturdy Docker' );
     console.log( `Version: ${pjson.version}` );
 };
 
