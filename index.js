@@ -41,12 +41,11 @@ const init = async function() {
         case 'logs':
         case 'ps':
         case 'stop':
+        case 'shell':
         case 'up':
         case 'pull':
             await require( "./src/environment" ).command();
 			break;
-		case 'shell':
-			await require( './src/shell' ).command();
         case '--version':
         case '-v':
             version();

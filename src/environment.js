@@ -49,6 +49,12 @@ const ps = async function() {
     } catch ( ex ) {}
 }
 
+const shell = async function() {
+    try {
+        execSync( `docker-compose -f ${getComposeFile} exec server bash`, { stdio: 'inherit' } );
+    } catch ( ex ) {}
+}
+
 const command = async function() {
     if ( commands.subcommand() === 'help' || commands.subcommand() === false ) {
         help();
@@ -78,6 +84,9 @@ const command = async function() {
             case 'ps':
                 ps();
                 break;
+            case 'shell':
+                shell();
+                break;
             default:
                 help();
                 break;
@@ -85,4 +94,4 @@ const command = async function() {
     }
 };
 
-module.exports = { command, start, stop, restart, down, up, pull, logs, ps, help };
+module.exports = { command, start, stop, restart, down, up, pull, logs, ps, shell, help };
