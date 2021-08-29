@@ -7,7 +7,6 @@ const path = require( './configure' );
 const { execSync } = require( 'child_process' );
 const fs = require( 'fs-extra' );
 const yaml = require( 'js-yaml' );
-const getComposeFile = path.setComposeFile();
 const getCustomFile = path.setCustomFile();
 const isWSL = require( 'is-wsl' );
 

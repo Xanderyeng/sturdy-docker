@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const path = require( "path" );
-const rootPath = path.dirname( require.main.filename );
+const rootPath = path.dirname( __dirname );
 const globalPath = path.join( `${rootPath}/.global` );
 const certsPath = path.join( `${rootPath}/certificates` );
 const configPath = path.join( `${rootPath}/config` );

@@ -8,10 +8,10 @@
     "url": "https://github.com/benlumia007/sturdy-docker/issues"
   },
   "homepage": "https://github.com/benlumia007/sturdy-docker#readme",
-  "main": "index.js",
+  "main": "bin/index.js",
   "bin": {
-    "sturdydocker": "index.js",
-    "sturdydocker-hosts": "hosts.js"
+    "sturdydocker": "bin/index.js",
+    "sturdydocker-hosts": "bin/hosts.js"
   },
   "repository": {
     "type": "git",

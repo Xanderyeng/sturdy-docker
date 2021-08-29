@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const commands = require( './src/commands' );
+const commands = require( '../src/commands' );
 
 const help = function() {
     let help = `
@@ -33,7 +33,7 @@ const init = async function() {
 
     switch ( command ) {
         case 'provision':
-            require( "./src/provision" );
+            require( "../src/provision" );
             break;
         case 'down':
         case 'restart':
@@ -44,7 +44,7 @@ const init = async function() {
         case 'shell':
         case 'up':
         case 'pull':
-            await require( "./src/environment" ).command();
+            await require( "../src/environment" ).command();
 			break;
         case '--version':
         case '-v':

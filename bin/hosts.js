@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const hostile = require( './src/hostile' );
-const commands = require( './src/commands' );
+const hostile = require( '../src/hostile' );
+const commands = require( '../src/commands' );
 
 const add = function( host) {
     hostile.set( `127.0.0.1`, `${host}`, function( error) {
