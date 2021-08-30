@@ -103,15 +103,13 @@ The first thing you want to do is `sturdydocker pull` to pull the main image `be
 
 ## Provision
 Let's begin provisioning by using the command `sturdydocker provision`. This will provision the following
+<pre>
 - dashboard
 - sites
 - resources
   - phpmyadmin
   - tls-ca 
-<pre>
-sturdydocker provision
 </pre>
-This will provision setup, databases, dashboard, sites, resources, and services.
 
 Please note for the sake of containers, you should not do `sturdydocker up` or `sturdydocker down` often, you should only use these if you need to change to a different container or something fail or screws up the containers. Mostly you should only use `sturdydocker start`, `sturdydocker restart`, or `sturdydocker stop` as much as possible.
 
