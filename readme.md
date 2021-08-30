@@ -112,9 +112,13 @@ Let's begin provisioning by using the command `sturdydocker provision`. This wil
 </pre>
 
 ## Certificates and phpMyAdmin
-In the <code>custom.yml</code> file, there is a section where you will see phpMyAdmin and TLS-CA, this is where any resources will go so that it will generated any resources that comes with. At this time, only phpMyAdmin and TLS-CA is included since the project itself will be using https rather than http for connection.
-
-As for the certificates, it will generate a root ca and the rest for sites. You should only need to install the ca.crt and it should be SSL ready. 
+In the <code>custom.yml</code> file, there is a section where you will see 
+<pre>
+resources:
+  - phpmyadmin
+  - tls-ca
+</pre>
+This is where any resources will go so that it will generated any resources that comes with. At this time, only phpMyAdmin and TLS-CA is included since the project itself will be using https rather than http for connection. As for the certificates, it will generate a root ca and the rest for sites. You should only need to install the ca.crt and it should be SSL ready. 
 
 ## MySQL
 By default, only the root is set, but the good thing is that when creating a WordPress site, it will then create a new user and password "wordpress" and it will then create a database if exists and will launched.
