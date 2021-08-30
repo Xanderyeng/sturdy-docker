@@ -101,7 +101,13 @@ Run 'sturdydocker [command] help' for more information on a command.
 </pre>
 The first thing you want to do is `sturdydocker pull` to pull the main image `benlumia007/sturdy-docker` or you can just do a `sturdydocker up` to automatically pull down the image needed.
 
-Before you begin, you should always wait for between 5 to 10 seconds everytime when you either start, restart, or up due to mysql container needs to finished initializing or else the the included provision will fail. After you have waited, let's begin, 
+## Provision
+Let's begin provisioning by using the command `sturdydocker provision`. This will provision the following
+- dashboard
+- sites
+- resources
+  - phpmyadmin
+  - tls-ca 
 <pre>
 sturdydocker provision
 </pre>
