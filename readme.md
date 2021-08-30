@@ -129,64 +129,19 @@ When you look at the docker-compose.yml file in the .global folder, you will see
 4. PHP 8.0
 5. MailHog
 </pre>
-When you create a new site, it will use wordpress by default, you can use both root or wordpress to login.
+### Apache2
+I decided to use apache2 rather than nginx just because is a lot easier to maintain and easier to configure. At this moment. Sturdy Docker is using Apache v2.4.41.
 
-## MailHog
-You can now access MailHog
+### MySQL Server 8.0
+The latest version of MySQL server.
 
-## WordPress
-<pre>
-sites:
-  wordpress:
-    provision: true
-    repo: https://github.com/benlumia007/sturdy-docker-sites.git
-    host:
-      - wordpress.test
-    custom:
-      type: WordPress
-      plugins:
-        - query-monitor
-      constants:
-        - DISALLOW_FILE_EDIT
-        - WP_DEBUG
-        - WP_DEBUG_DISPLAY
-</pre>
-<pre>
-user = admin
-password = password
-</pre>
+### PHP 7.4
+At this momemet, php 7.4 is set by default for all sites that gets created and it is using php7.4-fpm with fgcid. 
 
-## ClassicPress
-ClassicPress is now supported, to aactivate, use the following
+### PHP 8.0
+On top of PHP 7.4. PHP 8.0 is also included and enabled by default so that you can switch back and forth by adding a new environment variable in the custom.yml in the custom section. 
 <pre>
-sites:
-  classicpress:
-    provision: true
-    repo: https://github.com/benlumia007/sturdy-docker-sites.git
-    host:
-      - classicpress.test
-    custom:
-      type: ClassicPress
-      plugins:
-        - query-monitor
-      constants:
-        - DISALLOW_FILE_EDIT
-        - WP_DEBUG
-        - WP_DEBUG_DISPLAY
-</pre>
-<pre>
-user = admin
-password = password
-</pre>
-
-## Custom
-If you decide not to use WordPress or ClassicPress, you have a option to not install anything and just create a new empty site
-<pre>
-  example:
-    provision: true
-    repo: https://github.com/benlumia007/sturdy-docker-sites.git
-    host:
-      - example.test
-    custom:
-      type: none
+custom:
+  type: WordPress
+  php: 8.0
 </pre>
