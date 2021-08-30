@@ -110,7 +110,7 @@ Let's begin provisioning by using the command `sturdydocker provision`. This wil
   - tls-ca 
 </pre>
 
-## Certificates and phpMyAdmin
+## Resources
 In the <code>custom.yml</code> file, there is a section where you will see 
 <pre>
 resources:
