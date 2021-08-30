@@ -18,6 +18,16 @@ get_sites() {
 
 for domain in `get_sites`; do
 
+    get_primary_value() {
+        local value=`cat ${config} | shyaml get-value sites.${domain}.${1} 2> /dev/null`
+        echo ${value:-$@}
+    }
+    
+    get_custom_value() {
+        local value=`cat ${config} | shyaml get-value sites.${domain}.custom.${1} 2> /dev/null`
+        echo ${value:-$@}
+    }   
+
     get_site_provision() {
         local value=`cat ${config} | shyaml get-value sites.${domain}.provision 2> /dev/null`
         echo ${value:-$@}
