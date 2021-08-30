@@ -120,17 +120,14 @@ resources:
 </pre>
 This is where any resources will go so that it will generated any resources that comes with. At this time, only phpMyAdmin and TLS-CA is included since the project itself will be using https rather than http for connection. As for the certificates, it will generate a root ca and the rest for sites. You should only need to install the ca.crt and it should be SSL ready. 
 
-## MySQL
-By default, only the root is set, but the good thing is that when creating a WordPress site, it will then create a new user and password "wordpress" and it will then create a database if exists and will launched.
+## So What's Included
+When you look at the docker-compose.yml file in the .global folder, you will see only one image that takes care of all of your needs when doing development. Rather than setting up multiple services. I have managed to setup one image for all. This includes the following.
 <pre>
-user = root
-password = root
-
-user = wordpress
-passsword = wordpress
-
-user = classicpress
-passsword = classicpress
+1. Apache
+2. MySQL Server 8.0
+3. PHP 7.4
+4. PHP 8.0
+5. MailHog
 </pre>
 When you create a new site, it will use wordpress by default, you can use both root or wordpress to login.
 
