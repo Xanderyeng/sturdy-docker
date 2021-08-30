@@ -22,54 +22,19 @@ for domain in `get_sites`; do
         local value=`cat ${config} | shyaml get-value sites.${domain}.${1} 2> /dev/null`
         echo ${value:-$@}
     }
-    
+
     get_custom_value() {
         local value=`cat ${config} | shyaml get-value sites.${domain}.custom.${1} 2> /dev/null`
         echo ${value:-$@}
     }   
 
-    get_site_provision() {
-        local value=`cat ${config} | shyaml get-value sites.${domain}.provision 2> /dev/null`
-        echo ${value:-$@}
-    }
-
-    get_site_repo() {
-        local value=`cat ${config} | shyaml get-value sites.${domain}.repo 2> /dev/null`
-        echo ${value:-$@}
-    }
-
-    get_site_type() {
-        local value=`cat ${config} | shyaml get-value sites.${domain}.custom.type 2> /dev/null`
-        echo ${value:-$@}
-    }
-
-    get_site_plugins() {
-        local value=`cat ${config} | shyaml get-value sites.${domain}.custom.plugins 2> /dev/null`
-        echo ${value:-$@}
-    }
-
-    get_site_themes() {
-        local value=`cat ${config} | shyaml get-value sites.${domain}.custom.themes 2> /dev/null`
-        echo ${value:-$@}
-    }
-
-    get_site_constants() {
-        local value=`cat ${config} | shyaml get-value sites.${domain}.custom.constants 2> /dev/null`
-        echo ${value:-$@}
-    }
-
-    get_site_php() {
-        local value=`cat ${config} | shyaml get-value sites.${domain}.custom.php 2> /dev/null`
-        echo ${value:-$@}
-    }
-
-    provision=`get_site_provision`
-    repo=`get_site_repo`
-    type=`get_site_type`
-    plugins=`get_site_plugins`
-    themes=`get_site_themes`
-    constants=`get_site_constants`
-    php=`get_site_php`
+    provision=`get_primary_value 'provision' ''`
+    repo=`get_primary_value 'repo' ''`
+    type=`get_custom_value 'type' ''`
+    plugins=`get_custom_value 'plugins' ''`
+    themes=`get_custom_value 'themes' ''`
+    constants=`get_custom_value 'constants' ''`
+    php=`get_custom_value 'php' ''`
 
     if [[ "True" == ${provision} ]]; then
 
