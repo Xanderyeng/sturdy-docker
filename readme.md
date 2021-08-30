@@ -77,8 +77,8 @@ cd WordPress
 </pre>
 
 At this point, since all the volumes has been set already in the `docker-compose.yml` file, you don't need to do anything from here so to get started, please use the following command
-</pre>
-sudo npm -g install
+<pre>
+sudo npm install
 sudo npm link
 </pre>
 You should now have some few options especially the following `sturdydocker up, sturdydocker start, sturdydocker restart, sturdydocker stop, and sturdydocker down`. Let's go ahead and do a `sturdydocker up`, this will bring up the docker up, if you haven't pull the images, it will do that first and it will create server container which has all the features needed.
