@@ -159,6 +159,21 @@ When working with ClassicPress, the username and password is
 username: admin
 password: password
 </pre>
+<pre>
+  classicpress:
+    provision: true
+    repo: https://github.com/benlumia007/sturdy-docker-sites.git
+    host:
+      - classicpress.test
+    custom:
+      type: ClassicPress
+      plugins:
+        - query-monitor
+      constants:
+        - DISALLOW_FILE_EDIT
+        - WP_DEBUG
+        - WP_DEBUG_DISPLAY
+</pre>
 
 ### WordPress
 When working with WordPress, the username and password is
@@ -166,6 +181,22 @@ When working with WordPress, the username and password is
 username: admin
 password: password
 </pre>
+<pre>
+  wordpress:
+    provision: true
+    repo: https://github.com/benlumia007/sturdy-docker-sites.git
+    host:
+      - wordpress.test
+    custom:
+      type: WordPress
+      plugins:
+        - query-monitor
+      constants:
+        - DISALLOW_FILE_EDIT
+        - WP_DEBUG
+        - WP_DEBUG_DISPLAY
+</pre>
+
 ### MySQL
 <pre>
 username: root
