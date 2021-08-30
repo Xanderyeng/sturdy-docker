@@ -6,8 +6,7 @@ Sturdy Docker is a local development environment focuses on ClassicPress and Wor
 1. [Overview](https://github.com/benlumia007/docker-for-wordpress#overview)
 2. [Requirements](https://github.com/benlumia007/docker-for-wordpress#requirements)
 3. [Getting Started](https://github.com/benlumia007/docker-for-wordpress#getting-started)
-4. [MySQL](https://github.com/benlumia007/docker-for-wordpress#mysql)
-5. [MailHog](https://github.com/benlumia007/docker-for-wordpress#mailhog)
+4. [How to Begin](https://github.com/benlumia007/sturdy-docker#how-to-begin)
 
 ## Overview
 Sturdy Docker is an easy and automate local development environment for ClassicPress, WordPress and PHP applications that works on Linux, macOS, and Windows 10 with Windows Subsystem Linux 2.
