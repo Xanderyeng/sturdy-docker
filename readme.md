@@ -130,7 +130,7 @@ When you look at the docker-compose.yml file in the .global folder, you will see
 5. MailHog
 </pre>
 ### Apache2
-I decided to use apache2 rather than nginx just because is a lot easier to maintain and easier to configure. At this moment. Sturdy Docker is using Apache v2.4.41.
+I decided to use apache2 rather than nginx just because is a lot easier to maintain and easier to configure. At this moment. Sturdy Docker is using Apache v2.4.41. Also please note that https is enabled by default so this means that when you create a new site for any project. HTTP will get redirected to HTTPS automatically so make sure to setup your certificates after doing a provision which is located in the certificates folder. Please use ca.crt (root certificate) and install.
 
 ### MySQL Server 8.0
 The latest version of MySQL server.
@@ -145,3 +145,6 @@ custom:
   type: WordPress
   php: 8.0
 </pre>
+
+### MailHog
+Sturdy Docker supports MailHog which can be use under localhost:8025 or http://dashboard.test:8025
