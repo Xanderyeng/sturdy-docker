@@ -99,7 +99,7 @@ logs        Fetch the logs of a container
 
 Run 'sturdydocker [command] help' for more information on a command.
 </pre>
-especially the following `sturdydocker up, sturdydocker start, sturdydocker restart, sturdydocker stop, and sturdydocker down`. Let's go ahead and do a `sturdydocker up`, this will bring up the docker up, if you haven't pull the images, it will do that first and it will create server container which has all the features needed.
+The first thing you want to do is `sturdydocker pull` to pull the main image `benlumia007/sturdy-docker` or you can just do a `sturdydocker up` to automatically pull down the image needed.
 
 Before you begin, you should always wait for between 5 to 10 seconds everytime when you either start, restart, or up due to mysql container needs to finished initializing or else the the included provision will fail. After you have waited, let's begin, 
 <pre>
