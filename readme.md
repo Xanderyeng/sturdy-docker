@@ -81,7 +81,25 @@ At this point, since all the volumes has been set already in the `docker-compose
 sudo npm install
 sudo npm link
 </pre>
-You should now have some few options especially the following `sturdydocker up, sturdydocker start, sturdydocker restart, sturdydocker stop, and sturdydocker down`. Let's go ahead and do a `sturdydocker up`, this will bring up the docker up, if you haven't pull the images, it will do that first and it will create server container which has all the features needed.
+You should now have some few options by typing `sturdydocker -v` or `sturdydocker --version` and you will see the following options
+<pre>
+Usage: sturdydocker [command]
+
+Commands:
+
+provision   Creae new WordPress site or sites
+restart     Restarts one or more container
+shell       Opens a shell for a specific container
+start       Starts one or more container
+stop        Stops one or more container
+up          Starts one or more container
+down        Destroys one or more container
+pull        Pull image or images
+logs        Fetch the logs of a container
+
+Run 'sturdydocker [command] help' for more information on a command.
+</pre>
+especially the following `sturdydocker up, sturdydocker start, sturdydocker restart, sturdydocker stop, and sturdydocker down`. Let's go ahead and do a `sturdydocker up`, this will bring up the docker up, if you haven't pull the images, it will do that first and it will create server container which has all the features needed.
 
 Before you begin, you should always wait for between 5 to 10 seconds everytime when you either start, restart, or up due to mysql container needs to finished initializing or else the the included provision will fail. After you have waited, let's begin, 
 <pre>
