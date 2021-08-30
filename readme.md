@@ -101,7 +101,7 @@ Run 'sturdydocker [command] help' for more information on a command.
 </pre>
 The first thing you want to do is `sturdydocker pull` to pull the main image `benlumia007/sturdy-docker` or you can just do a `sturdydocker up` to automatically pull down the image needed.
 
-## Provision
+### Provision
 Let's begin provisioning by using the command `sturdydocker provision`. This will provision the following
 <pre>
 - dashboard
