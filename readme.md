@@ -18,7 +18,7 @@ Sturdy Docker is an easy and automate local development environment for ClassicP
 * Ubuntu 18.04 or 20.04 from Microsoft Store within Windows 10 Home ( Version: 2004 )
 
 ## Getting Started
-Before you begin, I would like to point out one of the file that gets used often, and that file is <code>custom.yml</code> and when you docker up for the first time, it will then duplicate <code>default.yml</code> to <code>custom.yml</code> inside of the global folder and it will use that to generate any sites you want. By default, the only sites that gets create is the dashboard, ClassicPress, and WordPress.
+Before you begin, I would like to point out one of the file that gets used often, and that file is <code>custom.yml</code> and when you docker up for the first time, it will then duplicate <code>default.yml</code> to <code>custom.yml</code> inside of the global folder and it will use that to generate any sites you want. By default, the only sites that gets create is the ClassicPress and WordPress.
 <pre>
 sites:
   classicpress:
