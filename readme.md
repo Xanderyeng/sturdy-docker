@@ -159,12 +159,14 @@ When working with ClassicPress, the username and password is
 username: admin
 password: password
 </pre>
+
+To add a new ClassicPress, copy and paste this to custom.yml, and make sure the spacing is correct due to yaml rules
 <pre>
-  classicpress:
+  example:
     provision: true
     repo: https://github.com/benlumia007/sturdy-docker-sites.git
     host:
-      - classicpress.test
+      - example.test
     custom:
       type: ClassicPress
       plugins:
@@ -181,12 +183,14 @@ When working with WordPress, the username and password is
 username: admin
 password: password
 </pre>
+
+To add a new WordPress, copy and paste this to custom.yml, and make sure the spacing is correct due to yaml rules
 <pre>
-  wordpress:
+  example:
     provision: true
     repo: https://github.com/benlumia007/sturdy-docker-sites.git
     host:
-      - wordpress.test
+      - example.test
     custom:
       type: WordPress
       plugins:
