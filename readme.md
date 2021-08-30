@@ -50,7 +50,8 @@ sites:
         - WP_DEBUG
         - WP_DEBUG_DISPLAY
 </pre>
-## Supressing prompts for elevating privileges
+
+### Supressing prompts for elevating privileges
 To allow docker and wsl2 to automatically update the hosts file without asking for a sudo password, add one of the following snippets to a new sudoers file.
 
 For Ubuntu and most Linux environments:
