@@ -14,7 +14,7 @@ Sturdy Docker is a local development environment focuses on ClassicPress and Wor
 Sturdy Docker is an easy and automate local development environment for ClassicPress, WordPress and PHP applications that works on Linux, macOS, and Windows 10 with Windows Subsystem Linux 2.
 
 ## Requirements
-* [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install), [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/), or [Linux](https://docs.docker.com/engine/install/)
+* [Docker Desktop for Windows](https://docs.docker.com/desktop/windows/install), [Docker Desktop for Mac](https://docs.docker.com/desktop/mac/install), or [Linux](https://docs.docker.com/engine/install)
 * [WSL2](https://docs.microsoft.com/en-us/windows/wsl/), if you are on Windows 10 Home ( Version: 2004 )
 * Ubuntu 18.04 or 20.04 from Microsoft Store within Windows 10 Home ( Version: 2004 )
 
