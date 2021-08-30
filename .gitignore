@@ -1,5 +1,5 @@
 .global/custom.yml
-certificates
+certificates/*
 databases
 logs/apache2
 !logs/apache2/.gitkeep
