@@ -66,7 +66,7 @@ You can use cacls or icacls to grant your user account permanent write permissio
 cacls %SYSTEMROOT%\system32\drivers\etc\hosts /E /G username:W 
 </pre>
 
-### How to Begin
+## How to Begin
 To begin, use git to clone the repository to anywhere
 <pre>
 git clone git@github.com:benlumia007/sturdy-docker.git WordPress
@@ -110,10 +110,6 @@ Let's begin provisioning by using the command `sturdydocker provision`. This wil
   - phpmyadmin
   - tls-ca 
 </pre>
-
-Please note for the sake of containers, you should not do `sturdydocker up` or `sturdydocker down` often, you should only use these if you need to change to a different container or something fail or screws up the containers. Mostly you should only use `sturdydocker start`, `sturdydocker restart`, or `sturdydocker stop` as much as possible.
-
-When you add new sites if necessary, just follow copy and paste one of the sites and modify it. Then you should do a `sturdydocker provision` and `sturdydocker restart server`.
 
 ## Certificates and phpMyAdmin
 In the <code>custom.yml</code> file, there is a section where you will see phpMyAdmin and TLS-CA, this is where any resources will go so that it will generated any resources that comes with. At this time, only phpMyAdmin and TLS-CA is included since the project itself will be using https rather than http for connection.
