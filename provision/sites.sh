@@ -4,7 +4,7 @@ config="/srv/.global/custom.yml"
 
 # noroot
 #
-# noroot allows provision scripts to be run as the default user "www-data" rather than the root
+# allows provision scripts to be run as the default user "www-data" rather than the root
 # since provision scripts are run with root privileges.
 noroot() {
     sudo -EH -u "www-data" "$@";
@@ -40,14 +40,14 @@ for domain in `get_sites`; do
 
         if [[ ! -f "/etc/apache2/sites-available/${domain}.conf" ]]; then
 
-            cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/${domain}.conf"
-            sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.conf"
+            sudo cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/${domain}.conf"
+            sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.conf"
 
             if [[ "laravel" == ${domain} ]]; then
-                sed -i -e "s/public_html/public_html\/public/g" "/etc/apache2/sites-available/${domain}.conf"
+                sudo sed -i -e "s/public_html/public_html\/public/g" "/etc/apache2/sites-available/${domain}.conf"
             fi
             
-            a2ensite "${domain}" > /dev/null 2>&1
+            sudo a2ensite "${domain}" > /dev/null 2>&1
         fi
 
         if [[ ! -z "${php}" ]]; then
@@ -64,10 +64,10 @@ for domain in `get_sites`; do
 
         dir="/srv/www/${domain}"
         if [[ ! -d "${dir}/provision/.git" ]]; then
-            noroot git clone ${repo} ${dir}/provision -q
+            git clone --branch user-docker ${repo} ${dir}/provision -q
         else
             cd ${dir}/provision
-            noroot git pull -q
+            git pull -q
             cd /app
         fi
 

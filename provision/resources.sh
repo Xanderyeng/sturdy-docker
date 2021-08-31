@@ -4,7 +4,7 @@ config="/srv/.global/custom.yml"
 
 # noroot
 #
-# noroot allows provision scripts to be run as the default user "www-data" rather than the root
+# allows provision scripts to be run as the default user "www-data" rather than the root
 # since provision scripts are run with root privileges.
 noroot() {
     sudo -EH -u "www-data" "$@";
@@ -23,10 +23,10 @@ resources=`get_resources`
 for name in ${resources//- /$'\n'}; do
     if [[ false != ${name} && false != ${repo} ]]; then
         if [[ ! -d ${dir}/.git ]]; then
-            noroot git clone ${repo} ${dir} -q
+            git clone --branch new ${repo} ${dir} -q
         else
             cd ${dir}
-            noroot git pull  -q
+            git pull  -q
             cd /app
         fi
     fi
