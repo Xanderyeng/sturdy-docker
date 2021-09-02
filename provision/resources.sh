@@ -2,14 +2,6 @@
 
 config="/srv/.global/custom.yml"
 
-# noroot
-#
-# allows provision scripts to be run as the default user "www-data" rather than the root
-# since provision scripts are run with root privileges.
-noroot() {
-    sudo -EH -u "www-data" "$@";
-}
-
 get_resources() {
     local value=`cat ${config} | shyaml get-value resources`
     echo ${value:$@}

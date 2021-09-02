@@ -52,7 +52,7 @@ const ps = async function() {
 
 const shell = async function() {
     try {
-        execSync( `docker-compose -f ${getComposeFile} exec server su docker`, { stdio: 'inherit' } );
+        execSync( `docker-compose -f ${getComposeFile} exec server bash`, { stdio: 'inherit' } );
     } catch ( ex ) {}
 }
 

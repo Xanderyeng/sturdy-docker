@@ -2,15 +2,6 @@
 
 config="/srv/.global/custom.yml"
 
-# noroot
-#
-# allows provision scripts to be run as the default user "www-data" rather than the root
-# since provision scripts are run with root privileges.
-noroot() {
-    sudo -EH -u "www-data" "$@";
-}
-
-
 get_sites() {
     local value=`cat ${config} | shyaml keys sites 2> /dev/null`
     echo ${value:-$@}
@@ -53,12 +44,12 @@ for domain in `get_sites`; do
         if [[ ! -z "${php}" ]]; then
             if [[ ${php} == "8.0" ]]; then
                 if grep -q "7.4" "/etc/apache2/sites-available/${domain}.conf"; then
-                    sed -i -e "s/7.4/${php}/g" "/etc/apache2/sites-available/${domain}.conf"
+                    sudo sed -i -e "s/7.4/${php}/g" "/etc/apache2/sites-available/${domain}.conf"
                 fi
             fi
         else 
             if grep -q "8.0" "/etc/apache2/sites-available/${domain}.conf"; then
-                sed -i -e "s/8.0/7.4/g" "/etc/apache2/sites-available/${domain}.conf"
+                sudo sed -i -e "s/8.0/7.4/g" "/etc/apache2/sites-available/${domain}.conf"
             fi
         fi
 
