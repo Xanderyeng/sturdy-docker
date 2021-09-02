@@ -1,8 +1,8 @@
-.PHONY: all docker-setup docker-restore docker-dashboard docker-sites docker-resources docker-backup
+.PHONY: all docker-setup docker-restore docker-dashboard docker-sites docker-resources docker-backup docker-services
 
 default: all
 
-all: docker-setup docker-restore docker-dashboard docker-sites docker-resources
+all: docker-setup docker-restore docker-dashboard docker-sites docker-resources docker-services
 
 docker-setup: setup.sh
 	/bin/bash setup.sh
