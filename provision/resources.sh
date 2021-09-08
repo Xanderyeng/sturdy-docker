@@ -5,9 +5,9 @@ repo=$2
 config="/srv/.global/custom.yml"
 dir="resources"
 
-if [[ false != ${name} && false != ${repo} ]]; then
+if [[ ! -z ${name} && ! -z ${repo} ]]; then
     if [[ ! -d ${dir}/.git ]]; then
-        git clone --branch new ${repo} ${dir} -q
+        git clone --branch main ${repo} ${dir} -q
     else
         cd ${dir}
         git pull  -q
