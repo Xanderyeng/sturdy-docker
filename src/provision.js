@@ -50,9 +50,14 @@ for ( const [ name, value ] of sites_defaults ) {
 }
 
 for ( const [ name, value ] of resources_defaults ) {
-    const repo = "https://github.com/benlumia007/sturdy-docker-resources.git"
-    execSync( `docker-compose -f ${getComposeFile} exec server bash resources.sh ` + value + ' ' + repo, { stdio: 'inherit' } );
+    const utilities = Object.entries( value.utilities );
+    const repo = value.repo;
+
+    for ( const [ utility, key ] of utilities ) {
+        execSync( `docker-compose -f ${getComposeFile} exec server bash resources.sh ` + key + ' ' + repo, { stdio: 'inherit' } );
+    }
 }
+
 
 execSync( `docker-compose -f ${getComposeFile} exec server sudo service apache2 restart > /dev/null 2>&1`, { stdio: 'inherit' } );
 
