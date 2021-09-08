@@ -18,6 +18,7 @@ const yaml = require( "js-yaml" );
 const { execSync } = require( 'child_process' );
 const getComposeFile = path.setComposeFile();
 const getCustomFile = path.setCustomFile();
+const getWSL = require( '../src/wsl' );
 
 
 const config = yaml.safeLoad( fs.readFileSync( `${getCustomFile}`, 'utf8' ) );
@@ -53,5 +54,6 @@ for ( const [ name, value ] of resources_defaults ) {
     execSync( `docker-compose -f ${getComposeFile} exec server bash resources.sh ` + value + ' ' + repo, { stdio: 'inherit' } );
 }
 
-
 execSync( `docker-compose -f ${getComposeFile} exec server sudo service apache2 restart > /dev/null 2>&1`, { stdio: 'inherit' } );
+
+getWSL.wsl_host();
