@@ -3,7 +3,7 @@
 name=$1
 repo=$2
 config="/srv/.global/custom.yml"
-dir="resources"
+dir="/app/resources"
 
 if [[ ! -z ${name} && ! -z ${repo} ]]; then
     if [[ ! -d ${dir}/.git ]]; then

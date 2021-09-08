@@ -29,13 +29,13 @@ for ( const [ name, value ] of dashboard_defaults ) {
     const provision = value.provision;
     const repo = value.repo;
 
-    execSync( `docker-compose -f ${getComposeFile} exec server bash dashboard.sh ` + name + ' ' + provision + ' ' + repo, { stdio: 'inherit' } );
+    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/dashboard.sh ` + name + ' ' + provision + ' ' + repo, { stdio: 'inherit' } );
 }
 
 for ( const [ name, value ] of options_defaults ) {
     
     if ( name == 'db_restores' ) {
-        execSync( `docker-compose -f ${getComposeFile} exec server bash databases.sh ` + name + ' ' + value, { stdio: 'inherit' } );
+        execSync( `docker-compose -f ${getComposeFile} exec server bash /app/databases.sh ` + name + ' ' + value, { stdio: 'inherit' } );
     }
 }
 
@@ -43,7 +43,7 @@ for ( const [ name, value ] of sites_defaults ) {
     const provision = value.provision;
     const repo = value.repo;
 
-    execSync( `docker-compose -f ${getComposeFile} exec server bash sites.sh ` + name + ' ' + provision + ' ' + repo, { stdio: 'inherit' } );
+    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/sites.sh ` + name + ' ' + provision + ' ' + repo, { stdio: 'inherit' } );
 }
 
 for ( const [ name, value ] of resources_defaults ) {
@@ -51,7 +51,7 @@ for ( const [ name, value ] of resources_defaults ) {
     const repo = value.repo;
 
     for ( const [ utility, key ] of utilities ) {
-        execSync( `docker-compose -f ${getComposeFile} exec server bash resources.sh ` + key + ' ' + repo, { stdio: 'inherit' } );
+        execSync( `docker-compose -f ${getComposeFile} exec server bash /app/resources.sh ` + key + ' ' + repo, { stdio: 'inherit' } );
     }
 }
 
