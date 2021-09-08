@@ -4,14 +4,8 @@
 // reconfigured, just extended if necessary. Some of these may not needed will
 // be taken out later once this project is complete.
 const path = require( "../src/configure" );
-const getRootPath = path.setRootPath();
-const getCertsPath = path.setCertsPath();
 const getConfigPath = path.setConfigPath();
-const getDatabasesPath = path.setDatabasesPath();
 const getGlobalPath = path.setGlobalPath();
-const getLogsPath = path.setLogsPath();
-const getSitesPath = path.setSitesPath();
-const getSrcPath = path.setSrcPath();
 
 // Here, we will be using the require the js-yaml and fs file and read the .global/docker-custom.yml
 const fs = require( "fs-extra" );
