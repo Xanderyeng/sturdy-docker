@@ -1,23 +1,26 @@
 #!/usr/bin/env bash
 
-repo="https://github.com/benlumia007/sturdy-docker-dashboard.git"
-dir="/srv/www/dashboard/public_html"
+domain=$1
+provision=$2
+repo=$3
+dir="/srv/www/${domain}"
 
-if [[ ! -d "/etc/apache2/sites-available/dashboard.conf" ]]; then
-  sudo cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/dashboard.conf"
-  sudo sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/apache2/sites-available/dashboard.conf"
-  sudo a2ensite "dashboard" > /dev/null 2>&1
+
+if [[ ! -d "/etc/apache2/sites-available/${domain}.conf" ]]; then
+  sudo cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/${domain}.conf"
+  sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.conf"
+  sudo a2ensite "${domain}" > /dev/null 2>&1
 fi
 
 if [[ false != "${repo}" ]]; then
-    if [[ ! -d ${dir}/.git ]]; then
-        git clone --branch main ${repo} ${dir} -q
-        cd ${dir}
+    if [[ ! -d "${dir}/public_html/.git" ]]; then
+        git clone --branch main ${repo} "${dir}/public_html" -q
+        cd "${dir}/public_html"
         composer install -q
-        cd /app
+        cd "/app"
     else
-        cd ${dir}
+        cd "${dir}/public_html"
         git pull origin main -q
-        cd /app
+        cd "/app"
     fi
 fi
