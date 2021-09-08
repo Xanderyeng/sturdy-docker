@@ -7,6 +7,13 @@
 #
 # If you need to add a new site, copy the example and uncomment the lines and enter the site name.
 # You wil then need to run when you use make.
+default:
+  dashboard:
+    provision: true
+    repo: https://github.com/benlumia007/sturdy-docker-dashboard.git
+    host:
+      - dashboard.test
+
 sites:
   classicpress:
     provision: true
@@ -53,8 +60,11 @@ sites:
 
 
 resources:
-  - phpmyadmin
-  - tls-ca
+  cores:
+    repo: https://github.com/benlumia007/sturdy-docker-resources.git
+    utilities:
+      - phpmyadmin
+      - tls-ca
 
 options:
   db_backups: true

@@ -8,6 +8,7 @@ const getRootPath = path.setRootPath();
 const getCertsPath = path.setCertsPath();
 const getConfigPath = path.setConfigPath();
 const getDatabasesPath = path.setDatabasesPath();
+const getGlobalPath = path.setGlobalPath();
 const getLogsPath = path.setLogsPath();
 const getSitesPath = path.setSitesPath();
 const getSrcPath = path.setSrcPath();
@@ -18,8 +19,10 @@ const yaml = require( "js-yaml" );
 const { execSync } = require( 'child_process' );
 const getComposeFile = path.setComposeFile();
 const getCustomFile = path.setCustomFile();
-const getWSL = require( '../src/wsl' );
 
+if ( ! fs.existsSync( `${getCustomFile}` ) ) {
+    fs.copyFileSync( `${getConfigPath}/default.yml`, `${getGlobalPath}/custom.yml` );
+}
 
 const config = yaml.safeLoad( fs.readFileSync( `${getCustomFile}`, 'utf8' ) );
 
@@ -61,4 +64,5 @@ for ( const [ name, value ] of resources_defaults ) {
 
 execSync( `docker-compose -f ${getComposeFile} exec server sudo service apache2 restart > /dev/null 2>&1`, { stdio: 'inherit' } );
 
+const getWSL = require( '../src/wsl' );
 getWSL.wsl_host();
