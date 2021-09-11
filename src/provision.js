@@ -56,7 +56,7 @@ for ( const [ name, value ] of resources_defaults ) {
 }
 
 
-execSync( `docker-compose -f ${getComposeFile} exec server sudo service apache2 restart > /dev/null 2>&1`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec server sudo service nginx restart > /dev/null 2>&1`, { stdio: 'inherit' } );
 
 const getWSL = require( '../src/wsl' );
 getWSL.wsl_host();

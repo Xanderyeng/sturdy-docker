@@ -18,12 +18,12 @@ constants=`get_custom_value 'constants' ''`
 php=`get_custom_value 'php' ''`
 
 if [[ ${provision} == 'true' ]]; then
-    if [[ ! -f "/etc/apache2/sites-available/${domain}.conf" ]]; then
-        sudo cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/${domain}.conf"
-        sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.conf"
+    if [[ ! -f "/etc/nginx/conf.d/${domain}.conf" ]]; then
+        sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.conf"
+        sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.conf"
 
         if [[ "laravel" == ${domain} ]]; then
-            sudo sed -i -e "s/public_html/public_html\/public/g" "/etc/apache2/sites-available/${domain}.conf"
+            sudo sed -i -e "s/public_html/public_html\/public/g" "/etc/nginx/conf.d/${domain}.conf"
         fi
 
         sudo a2ensite "${domain}" > /dev/null 2>&1
@@ -31,13 +31,13 @@ if [[ ${provision} == 'true' ]]; then
 
     if [[ ! -z "${php}" ]]; then
         if [[ ${php} == "8.0" ]]; then
-            if grep -q "7.4" "/etc/apache2/sites-available/${domain}.conf"; then
-                sudo sed -i -e "s/7.4/${php}/g" "/etc/apache2/sites-available/${domain}.conf"
+            if grep -q "7.4" "/etc/nginx/conf.d/${domain}.conf"; then
+                sudo sed -i -e "s/7.4/${php}/g" "/etc/nginx/conf.d/${domain}.conf"
             fi
         fi
     else 
-        if grep -q "8.0" "/etc/apache2/sites-available/${domain}.conf"; then
-            sudo sed -i -e "s/8.0/7.4/g" "/etc/apache2/sites-available/${domain}.conf"
+        if grep -q "8.0" "/etc/nginx/conf.d/${domain}.conf"; then
+            sudo sed -i -e "s/8.0/7.4/g" "/etc/nginx/conf.d/${domain}.conf"
         fi
     fi
 

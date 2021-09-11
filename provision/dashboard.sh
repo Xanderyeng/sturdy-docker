@@ -6,9 +6,9 @@ repo=$3
 dir="/srv/www/${domain}"
 
 
-if [[ ! -d "/etc/apache2/sites-available/${domain}.conf" ]]; then
-  sudo cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/${domain}.conf"
-  sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.conf"
+if [[ ! -d "/etc/nginx/conf.d/${domain}.conf" ]]; then
+  sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.conf"
+  sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.conf"
   sudo a2ensite "${domain}" > /dev/null 2>&1
 fi
 
