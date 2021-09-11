@@ -1,8 +1,7 @@
 .global/custom.yml
 certificates/*
 databases
-logs/nginx
-logs/php
+logs
 node_modules
 provision/resources
 sites/*
