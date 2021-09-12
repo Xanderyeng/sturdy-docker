@@ -58,7 +58,6 @@ sites:
         - WP_DEBUG
         - WP_DEBUG_DISPLAY
 
-
 resources:
   cores:
     repo: https://github.com/benlumia007/sturdy-docker-resources.git
