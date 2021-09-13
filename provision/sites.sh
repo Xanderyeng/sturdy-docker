@@ -12,6 +12,7 @@ get_custom_value() {
 }
 
 type=`get_custom_value 'type' ''`
+ms=`get_custom_value 'multisite' ''`
 plugins=`get_custom_value 'plugins' ''`
 themes=`get_custom_value 'themes' ''`
 constants=`get_custom_value 'constants' ''`
@@ -19,8 +20,17 @@ php=`get_custom_value 'php' ''`
 
 if [[ ${provision} == 'true' ]]; then
     if [[ ! -f "/etc/nginx/conf.d/${domain}.conf" ]]; then
-        sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.conf"
-        sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.conf"
+
+        if [[ "${ms}" == 'sub-domain' ]]; then
+            sudo cp "/srv/config/nginx/ms-domain.conf" "/etc/nginx/conf.d/${domain}.conf"
+            sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.conf"
+        elif [[ "${ms}" == 'sub-directory' ]]; then
+            sudo cp "/srv/config/nginx/ms-directory.conf" "/etc/nginx/conf.d/${domain}.conf"
+            sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.conf"
+        else 
+            sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.conf"
+            sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.conf"
+        fi
 
         if [[ "laravel" == ${domain} ]]; then
             sudo sed -i -e "s/public_html/public_html\/public/g" "/etc/nginx/conf.d/${domain}.conf"
