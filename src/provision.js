@@ -51,7 +51,7 @@ for ( const [ name, value ] of resources_defaults ) {
     const repo = value.repo;
 
     for ( const [ utility, key ] of utilities ) {
-        execSync( `docker-compose -f ${getComposeFile} exec server bash /app/resources.sh ` + key + ' ' + repo, { stdio: 'inherit' } );
+        execSync( `docker-compose -f ${getComposeFile} exec server bash /app/resources.sh ` + key + ' ' + repo + ' ' + name + ' ' + utility, { stdio: 'inherit' } );
     }
 }
 
