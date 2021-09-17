@@ -5,7 +5,7 @@ const commands = require( '../src/commands' );
 const split = require('split');
 
 const add = function( host ) {
-    hostile.set( `127.0.0.1`, `${host}`, function( error) {
+    hostile.set( `127.0.0.1`, `${host}`, function( error ) {
         if ( error ) {
             throw error;
         }
@@ -13,7 +13,7 @@ const add = function( host ) {
 }
 
 const remove = function( host ) {
-    hostile.remove( `127.0.0.1`, `${host}`, function( error) {
+    hostile.remove( `127.0.0.1`, `${host}`, function( error ) {
         if ( error ) {
             throw error;
         }
