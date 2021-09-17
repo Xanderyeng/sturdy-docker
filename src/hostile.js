@@ -10,7 +10,7 @@ const EOL = windows
   ? '\r\n'
   : '\n'
 
-exports.HOSTS = windows
+const exportHosts = windows
   ? '/mnt/c/Windows/System32/drivers/etc/hosts'
   : '/etc/hosts'
 
@@ -53,12 +53,48 @@ const getFile = function( filePath, preserveFormatting, cb ) {
   }
 };
 
+const writeFile = function( lines, cb ) {
+  lines = lines.map( function( line, lineNum ) {
+    if ( Array.isArray( line ) ) {
+      line = line[0] + ' ' + line[1];
+    }
+    return line + ( lineNum === lines.length -1 ? '' : EOL )
+  } );
+
+  if ( typeof cb !== 'function' ) {
+    const stat = fs.statSync( exportHosts );
+
+    fs.writeFileSync( exportHosts, lines.join( '' ), { mode: stat.mode } );
+
+    return true;
+  }
+
+  cb = once( cb );
+
+  fs.stat( exportHosts, function ( err, stat ) {
+    if ( err ) {
+      return cb( err );
+    }
+
+    const s = fs.createWriteStream( exportHosts, { mode: stat.mode } );
+    s.on( 'close', cb );
+    s.on('error', cb);
+
+    lines.forEach( function( data ) {
+      s.write( data )
+    } );
+
+    s.end();
+  })
+
+};
+
 const get = function( preserveFormatting, cb ) {
-  return getFile( exports.HOSTS, preserveFormatting, cb );
+  return getFile( exportHosts, preserveFormatting, cb );
 };
 
 const set = function( ip, host, cb ) {
-  let update = false;
+  const update = false;
 
   if ( typeof cb !== 'function' ) {
     return _set( exports.get( true ) );
@@ -120,42 +156,6 @@ const remove = function( ip, host, cb ) {
   function filterFunc( line ) {
     return ! ( Array.isArray( line ) && line[0] === ip && line[1] === host );
   }
-};
-
-const writeFile = function( lines, cb ) {
-  lines = lines.map( function( line, lineNum ) {
-    if ( Array.isArray( line ) ) {
-      line = line[0] + ' ' + line[1];
-    }
-    return line + ( lineNum === lines.length -1 ? '' : EOL )
-  } );
-
-  if ( typeof cb !== 'function' ) {
-    const stat = fs.statSync( exports.HOSTS );
-
-    fs.writeFileSync( exports.HOSTS, lines.join( '' ), { mode: stat.mode } );
-
-    return true;
-  }
-
-  cb = once( cb );
-
-  fs.stat( exports.HOSTS, function ( err, stat ) {
-    if ( err ) {
-      return cb( err );
-    }
-
-    const s = fs.createWriteStream( exports.HOSTS, { mode: stat.mode } );
-    s.on( 'close', cb );
-    s.on('error', cb);
-
-    lines.forEach( function( data ) {
-      s.write( data )
-    } );
-
-    s.end();
-  })
-
 };
 
 module.exports = { get, remove, set, writeFile };
