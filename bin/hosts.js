@@ -2,8 +2,9 @@
 
 const hostile = require( '../src/hostile' );
 const commands = require( '../src/commands' );
+const split = require('split');
 
-const add = function( host) {
+const add = function( host ) {
     hostile.set( `127.0.0.1`, `${host}`, function( error) {
         if ( error ) {
             throw error;
@@ -11,10 +12,20 @@ const add = function( host) {
     } );
 }
 
-const remove = function( host) {
+const remove = function( host ) {
     hostile.remove( `127.0.0.1`, `${host}`, function( error) {
         if ( error ) {
             throw error;
+        }
+    } );
+}
+
+const list = function() {
+    const lines = hostile.get( false );
+
+    lines.forEach( function( items ) {
+        if ( items.length > 1 ) {
+            console.log( items[0], items[1] )
         }
     } );
 }
@@ -30,9 +41,11 @@ const command = function() {
         case 'remove':
             remove( args );
             break;
+        case 'list':
+            list();
+            break;
         default:
             console.error( "Invalid hosts command" );
-            process.exit(1);
             break;
     }
 };

@@ -18,9 +18,9 @@ const getFile = function( filePath, preserveFormatting, cb ) {
   const lines = [];
   if ( typeof cb !== 'function' ) {
     
-    fs.readFileSync( filePath, { encoding: 'utf8' }).split(/\r?\n/).forEach( online );
-    
+    fs.readFileSync( filePath, { encoding: 'utf8' }).split(/\r?\n/).forEach( online );   
     return lines;
+
   }
 
   cb = once( cb );
@@ -94,7 +94,7 @@ const get = function( preserveFormatting, cb ) {
 };
 
 const set = function( ip, host, cb ) {
-  const update = false;
+  let update = false;
 
   if ( typeof cb !== 'function' ) {
     return _set( exports.get( true ) );
@@ -149,7 +149,7 @@ const remove = function( ip, host, cb ) {
   } );
 
   function _remove( lines ) {
-    lines = lines.filter( filterFunc );
+    lines = lines.filter( filterFunc() );
     return writeFile( lines, cb );
   }
 
@@ -158,4 +158,4 @@ const remove = function( ip, host, cb ) {
   }
 };
 
-module.exports = { get, remove, set, writeFile };
+module.exports = { get, remove, set };
