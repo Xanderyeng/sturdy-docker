@@ -1,8 +1,8 @@
-const fs = require('fs');
-const once = require('once');
-const split = require('split');
-const through = require('through');
-const isWSL = require( "is-wsl" );
+const fs = require( 'fs-extra' );
+const once = require( 'once' );
+const split = require( 'split' );
+const through = require( 'through' );
+const isWSL = require( 'is-wsl' );
 
 const windows = isWSL;
 const EOL = windows
