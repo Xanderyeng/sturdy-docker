@@ -24,13 +24,9 @@ const getHosts = function( filePath, preserveFormatting, callback ) {
 
   callback = once( callback );
 
-  fs.createReadStream( filePath, { encoding: 'utf8' } )
-    .pipe( split() )
-    .pipe( through( online ) )
-    .on( 'close', function() {
+  fs.createReadStream( filePath, { encoding: 'utf8' } ).pipe( split() ).pipe( through( online ) ).on( 'close', function() {
       callback( null, lines )
-    } )
-    .on( 'error', callback );
+  } ).on( 'error', callback );
 
   function online( line ) {
     
