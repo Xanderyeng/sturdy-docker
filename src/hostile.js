@@ -2,7 +2,6 @@ const fs = require('fs');
 const once = require('once');
 const split = require('split');
 const through = require('through');
-const net = require('net');
 const isWSL = require( "is-wsl" );
 
 const windows = isWSL;
@@ -127,7 +126,7 @@ const set = function( ip, host, cb ) {
 
   function mapFunc( line ) {
     
-    if ( Array.isArray( line ) && line[1] === host && net.isIP( line[0] ) === net.isIP( ip ) ) {
+    if ( Array.isArray( line ) && line[1] === host ) {
       line[0] = ip;
       update = true;
     }
@@ -149,7 +148,7 @@ const remove = function( ip, host, cb ) {
   } );
 
   function _remove( lines ) {
-    lines = lines.filter( filterFunc() );
+    lines = lines.filter( filterFunc );
     return writeFile( lines, cb );
   }
 
