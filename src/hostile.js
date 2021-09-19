@@ -26,11 +26,13 @@ const getHosts = function( filePath, preserveFormatting, callback ) {
 
   fs.createReadStream( filePath, { encoding: 'utf8' } ).pipe( split() ).pipe( through( online ) ).on( 'close', function() {
       callback( null, lines )
-  } );
+  } ).on( 'error', callback );
 
   function online( line ) {
-        
-    const matches = /^\s*?(.+?)\s+(.+?)\s*$/;
+    
+    const lineSansComments = line.replace( /#.*/, '' );
+    
+    const matches = /^\s*?(.+?)\s+(.+?)\s*$/.exec( lineSansComments );
 
     if ( matches && matches.length === 3 ) {
 
@@ -112,7 +114,7 @@ const set = function( ip, host, callback ) {
       if ( typeof lastLine === 'string' && /\s*/.test( lastLine ) ) {
         lines.splice( lines.length - 1, 0, [ ip, host ] );
       } else {
-        lines.push( [ ip, host ] );
+        lines.push([ ip, host ] );
       }
     }
 
