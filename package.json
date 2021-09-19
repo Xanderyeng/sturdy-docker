@@ -4,7 +4,7 @@
   "description": "A WordPress Development",
   "author": "Benjamin Lu",
   "license": "GPL-2.0+",
-  "type": "module",
+  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/benlumia007/sturdy-docker/issues"
   },
