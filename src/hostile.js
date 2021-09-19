@@ -112,7 +112,7 @@ const set = function( ip, host, callback ) {
       if ( typeof lastLine === 'string' && /\s*/.test( lastLine ) ) {
         lines.splice( lines.length - 1, 0, [ ip, host ] );
       } else {
-        lines.push([ ip, host ] );
+        lines.push( [ ip, host ] );
       }
     }
 
