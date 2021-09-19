@@ -20,16 +20,6 @@ const remove = function( host ) {
     } );
 }
 
-const list = function() {
-    const lines = hostile.get( false );
-
-    lines.forEach( function( items ) {
-        if ( items.length > 1 ) {
-            console.log( items[0], items[1] )
-        }
-    } );
-}
-
 const command = function() {
     let mode = commands.command();
     let args = commands.commandArgs( false );
@@ -40,9 +30,6 @@ const command = function() {
             break;
         case 'remove':
             remove( args );
-            break;
-        case 'list':
-            list();
             break;
         default:
             console.error( "Invalid hosts command" );

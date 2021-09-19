@@ -26,13 +26,11 @@ const getHosts = function( filePath, preserveFormatting, callback ) {
 
   fs.createReadStream( filePath, { encoding: 'utf8' } ).pipe( split() ).pipe( through( online ) ).on( 'close', function() {
       callback( null, lines )
-  } ).on( 'error', callback );
+  } );
 
   function online( line ) {
-    
-    const lineSansComments = line.replace( /#.*/, '' );
-    
-    const matches = /^\s*?(.+?)\s+(.+?)\s*$/.exec( lineSansComments );
+        
+    const matches = /^\s*?(.+?)\s+(.+?)\s*$/;
 
     if ( matches && matches.length === 3 ) {
 
