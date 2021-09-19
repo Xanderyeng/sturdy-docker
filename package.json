@@ -4,6 +4,7 @@
   "description": "A WordPress Development",
   "author": "Benjamin Lu",
   "license": "GPL-2.0+",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/benlumia007/sturdy-docker/issues"
   },
@@ -18,8 +19,9 @@
     "url": "git+https://github.com/benlumia007/sturdy-docker.git"
   },
   "keywords": [
-    "WordPress",
+    "ClassicPress",
     "Docker",
+    "WordPress",
     "WSL2"
   ],
   "publishConfig": {
