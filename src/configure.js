@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const path = require( "path" );
+const path = require( 'path' );
 const rootPath = path.dirname( __dirname );
 const globalPath = path.join( `${rootPath}/.global` );
 const certsPath = path.join( `${rootPath}/certificates` );
