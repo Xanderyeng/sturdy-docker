@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   server:
-    image: benlumia007/sturdy-docker:lemp
+    image: benlumia007/lemp
     container_name: server
     restart: always
     ports:
