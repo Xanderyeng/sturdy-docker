@@ -2,17 +2,18 @@
 
 const hostile = require( '../src/hostile' );
 const commands = require( '../src/commands' );
+const split = require('split');
 
-const add = function( host) {
-    hostile.set( `127.0.0.1`, `${host}`, function( error) {
+const add = function( host ) {
+    hostile.set( `127.0.0.1`, `${host}`, function( error ) {
         if ( error ) {
             throw error;
         }
     } );
 }
 
-const remove = function( host) {
-    hostile.remove( `127.0.0.1`, `${host}`, function( error) {
+const remove = function( host ) {
+    hostile.remove( `127.0.0.1`, `${host}`, function( error ) {
         if ( error ) {
             throw error;
         }
@@ -32,7 +33,6 @@ const command = function() {
             break;
         default:
             console.error( "Invalid hosts command" );
-            process.exit(1);
             break;
     }
 };

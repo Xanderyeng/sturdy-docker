@@ -1,3 +1,4 @@
 # Changelog
 
-## 1.0.0 - TBD
+## 1.0.0 - October 14, 2021
+- initital release

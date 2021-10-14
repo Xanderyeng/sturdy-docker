@@ -2,7 +2,8 @@
 config="/srv/.global/custom.yml"
 compose="/srv/.global/docker-compose.yml"
 
-db_restores=`cat ${config} | shyaml get-value options.db_restores 2> /dev/null`
+db_restores=$2
+
 
 get_sites() {
     local value=`cat ${config} | shyaml keys sites 2> /dev/null`
@@ -30,7 +31,7 @@ for domain in `get_sites`; do
     fi
 done
 
-if [[ ${db_restores} != "False" ]]; then
+if [[ ${db_restores} != "false" ]]; then
     cd /srv/databases
     count=$(ls -1 *.sql 2>/dev/null | wc -l)
 

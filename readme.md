@@ -8,13 +8,13 @@ Sturdy Docker is a local development environment focuses on ClassicPress and Wor
 3. [Getting Started](https://github.com/benlumia007/docker-for-wordpress#getting-started)
 4. [How to Begin](https://github.com/benlumia007/sturdy-docker#how-to-begin)
 5. [Resources](https://github.com/benlumia007/sturdy-docker#resources)
-6. [Important Information]()
+6. [Important Information](https://github.com/benlumia007/sturdy-docker#important-information)
 
 ## Overview
 Sturdy Docker is an easy and automate local development environment for ClassicPress, WordPress and PHP applications that works on Linux, macOS, and Windows 10 with Windows Subsystem Linux 2.
 
 ## Requirements
-* [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install), [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/), or [Linux](https://docs.docker.com/engine/install/)
+* [Docker Desktop for Windows](https://docs.docker.com/desktop/windows/install), [Docker Desktop for Mac](https://docs.docker.com/desktop/mac/install), or [Linux](https://docs.docker.com/engine/install)
 * [WSL2](https://docs.microsoft.com/en-us/windows/wsl/), if you are on Windows 10 Home ( Version: 2004 )
 * Ubuntu 18.04 or 20.04 from Microsoft Store within Windows 10 Home ( Version: 2004 )
 
@@ -50,7 +50,8 @@ sites:
         - WP_DEBUG
         - WP_DEBUG_DISPLAY
 </pre>
-## Supressing prompts for elevating privileges
+
+### Supressing prompts for elevating privileges
 To allow docker and wsl2 to automatically update the hosts file without asking for a sudo password, add one of the following snippets to a new sudoers file.
 
 For Ubuntu and most Linux environments:
@@ -130,8 +131,8 @@ When you look at the docker-compose.yml file in the .global folder, you will see
 4. PHP 8.0
 5. MailHog
 </pre>
-### Apache2
-I decided to use apache2 rather than nginx just because is a lot easier to maintain and easier to configure. At this moment. Sturdy Docker is using Apache v2.4.41. Also please note that https is enabled by default so this means that when you create a new site for any project. HTTP will get redirected to HTTPS automatically so make sure to setup your certificates after doing a provision which is located in the certificates folder. Please use ca.crt (root certificate) and install.
+### Nginx
+I decided to use Nginx rather than Apache2 just because is a lot easier to maintain and easier to configure. At this moment. Sturdy Docker is using Nginx 1.18.0. Also please note that https is enabled by default so this means that when you create a new site for any project. HTTP will get redirected to HTTPS automatically so make sure to setup your certificates after doing a provision which is located in the certificates folder. Please use ca.crt (root certificate) and install.
 
 ### MySQL Server 8.0
 The latest version of MySQL server.

@@ -1,7 +1,7 @@
-version: '3.5'
+version: '3.7'
 services:
   server:
-    image: benlumia007/sturdy-docker
+    image: benlumia007/lemp
     container_name: server
     restart: always
     ports:
@@ -14,8 +14,7 @@ services:
       - ../.global:/srv/.global
       - ../certificates:/srv/certificates
       - ../config:/srv/config
-      - ../logs/apache2:/var/log/apache2
-      - ../logs/php:/var/log/php
+      - ../logs:/srv/log
       - ../provision:/app
       - ../databases:/srv/databases
       - ../sites:/srv/www

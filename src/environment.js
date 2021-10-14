@@ -23,7 +23,7 @@ const start = async function() {
 }
 
 const stop = async function() {
-    execSync( `docker-compose -f ${getComposeFile} exec server make docker-backup`, { stdio: 'inherit' } );
+    execSync( `docker-compose -f ${getComposeFile} exec server bash /srv/config/bin/db_backup.sh`, { stdio: 'inherit' } );
     execSync( `docker-compose -f ${getComposeFile} stop`, { stdio: 'inherit' } );
 };
 
@@ -32,7 +32,7 @@ const restart = async function() {
 };
 
 const down = async function() {
-    execSync( `docker-compose -f ${getComposeFile} exec server make docker-backup`, { stdio: 'inherit' } );
+    execSync( `docker-compose -f ${getComposeFile} exec server bash /srv/config/bin/db_backup.sh`, { stdio: 'inherit' } );
     execSync( `docker-compose -f ${getComposeFile} down` );
 };
 
