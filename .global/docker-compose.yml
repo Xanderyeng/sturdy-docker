@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   server:
-    image: benlumia007/lemp
+    image: benlumia007/lemp:php7.4-fpm
     container_name: server
     restart: always
     ports:
