@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-sudo service apache2 reload > /dev/null 2>&1
+sudo service nginx reload > /dev/null 2>&1

@@ -62,7 +62,7 @@ for ( const [ name, value ] of resources_defaults ) {
 }
 
 // Here, we are going to restart nginx so that all generated sites are loaded properly.
-execSync( `docker-compose -f ${getComposeFile} exec server sudo service nginx restart > /dev/null 2>&1`, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec server bash /app/services.sh`, { stdio: 'inherit' } );
 
 // Here, we are going to make sure that the hosts file are setup properly.
 const getWSL = require( '../src/wsl' );
