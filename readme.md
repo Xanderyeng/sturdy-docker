@@ -139,8 +139,6 @@ The latest version of MySQL server.
 ### PHP 7.4
 At this momemet, php 7.4 is set by default for all sites that gets created and it is using php7.4-fpm with fgcid. 
 
-### PHP 8.0
-On top of PHP 7.4. PHP 8.0 is also included and enabled by default so that you can switch back and forth by adding a new environment variable in the custom.yml in the custom section. 
 <pre>
 custom:
   type: WordPress
