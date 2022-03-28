@@ -32,6 +32,9 @@ const init = async function() {
     let command = commands.command();
 
     switch ( command ) {
+        case 'init':
+            require( '../src/init' );
+            break;
         case 'provision':
             require( "../src/provision" );
             break;

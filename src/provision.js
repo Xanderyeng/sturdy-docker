@@ -14,11 +14,6 @@ const fs = require( "fs-extra" );
 const yaml = require( "js-yaml" );
 const { execSync } = require( 'child_process' );
 
-// If custom.yml doesn't exist in the .global folder, then copy from default.yml to custom.yml.
-if ( ! fs.existsSync( `${getCustomFile}` ) ) {
-    fs.copyFileSync( `${getConfigPath}/default.yml`, `${getGlobalPath}/custom.yml` );
-}
-
 // Here, we are going to load the custom.yml file so that we can begin automation.
 const config = yaml.safeLoad( fs.readFileSync( `${getCustomFile}`, 'utf8' ) );
 
@@ -32,8 +27,9 @@ const resources_defaults = Object.entries( config.resources );
 for ( const [ name, value ] of dashboard_defaults ) {
     const provision = value.provision;
     const repo = value.repo;
+    const server = config.server;
 
-    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/dashboard.sh ` + name + ' ' + provision + ' ' + repo, { stdio: 'inherit' } );
+    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/dashboard.sh ` + server  + ' '  + name + ' ' + provision + ' ' + repo, { stdio: 'inherit' } );
 }
 
 // Here, we are going to setup options such s db_backups and db_restores.
@@ -47,8 +43,9 @@ for ( const [ name, value ] of options_defaults ) {
 for ( const [ name, value ] of sites_defaults ) {
     const provision = value.provision;
     const repo = value.repo;
+    const server = config.server;
 
-    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/sites.sh ` + name + ' ' + provision + ' ' + repo, { stdio: 'inherit' } );
+    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/sites.sh ` + server + ' ' + name + ' ' + provision + ' ' + repo, { stdio: 'inherit' } );
 }
 
 // Here, we are going to setup resources.
@@ -62,7 +59,8 @@ for ( const [ name, value ] of resources_defaults ) {
 }
 
 // Here, we are going to restart nginx so that all generated sites are loaded properly.
-execSync( `docker-compose -f ${getComposeFile} exec server bash /app/services.sh`, { stdio: 'inherit' } );
+const server = config.server;
+execSync( `docker-compose -f ${getComposeFile} exec server bash /app/services.sh ` + server, { stdio: 'inherit' } );
 
 // Here, we are going to make sure that the hosts file are setup properly.
 const getWSL = require( '../src/wsl' );

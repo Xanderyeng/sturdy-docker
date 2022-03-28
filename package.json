@@ -33,6 +33,7 @@
     "js-yaml": "^3.14.0",
     "minimist": "^1.2.5",
     "once": "^1.4.0",
+    "replace-in-file": "^6.3.2",
     "split": "^1.0.1"
   }
 }
