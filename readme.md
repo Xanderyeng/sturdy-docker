@@ -71,11 +71,11 @@ cacls %SYSTEMROOT%\system32\drivers\etc\hosts /E /G username:W
 ## How to Begin
 To begin, use git to clone the repository to anywhere
 <pre>
-git clone git@github.com:benlumia007/sturdy-docker.git WordPress
+git clone git@github.com:benlumia007/sturdy-docker.git .dev
 </pre>
 I would like to keep this simple so I'm going to clone the repository to a folder called WordPress and navigate to the folder
 <pre>
-cd WordPress
+cd .dev
 </pre>
 
 At this point, since all the volumes has been set already in the `docker-compose.yml` file, you don't need to do anything from here so to get started, please use the following command
