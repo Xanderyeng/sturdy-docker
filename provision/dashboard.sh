@@ -1,15 +1,22 @@
 #!/usr/bin/env bash
 
-domain=$1
-provision=$2
-repo=$3
+server=$1
+domain=$2
+provision=$3
+repo=$4
 dir="/srv/www/${domain}"
 
-
-if [[ ! -d "/etc/apache2/sites-available/dashboard.conf" ]]; then
-  sudo cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/dashboard.conf"
-  sudo sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/apache2/sites-available/dashboard.conf"
-  sudo a2ensite "dashboard" > /dev/null 2>&1
+if [[ ${server} == 'nginx' ]]; then
+    if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
+        sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
+        sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
+    fi
+else 
+    if [[ ! -d "/etc/apache2/sites-available/dashboard.conf" ]]; then
+    sudo cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/dashboard.conf"
+    sudo sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/apache2/sites-available/dashboard.conf"
+    sudo a2ensite "dashboard" > /dev/null 2>&1
+    fi
 fi
 
 if [[ false != "${repo}" ]]; then
