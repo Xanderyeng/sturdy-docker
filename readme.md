@@ -89,6 +89,7 @@ Usage: sturdydocker [command]
 
 Commands:
 
+init        Choose Apache2 or Nginx
 provision   Creae new WordPress site or sites
 restart     Restarts one or more container
 shell       Opens a shell for a specific container
