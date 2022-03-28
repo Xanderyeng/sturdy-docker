@@ -125,14 +125,13 @@ This is where any resources will go so that it will generated any resources that
 ## So What's Included
 When you look at the docker-compose.yml file in the .global folder, you will see only one image that takes care of all of your needs when doing development. Rather than setting up multiple services. I have managed to setup one image for all. This includes the following.
 <pre>
-1. Apache
+1. Apache2 or Nginx
 2. MySQL Server 8.0
 3. PHP 7.4
-4. PHP 8.0
-5. MailHog
+45. MailHog
 </pre>
 ### Nginx
-I decided to use Nginx rather than Apache2 just because is a lot easier to maintain and easier to configure. At this moment. Sturdy Docker is using Nginx 1.18.0. Also please note that https is enabled by default so this means that when you create a new site for any project. HTTP will get redirected to HTTPS automatically so make sure to setup your certificates after doing a provision which is located in the certificates folder. Please use ca.crt (root certificate) and install.
+I decided to use Nginx as default than Apache2 just because is a lot easier to maintain and easier to configure. At this moment. Sturdy Docker is using Nginx 1.18.0. Also please note that https is enabled by default so this means that when you create a new site for any project. HTTP will get redirected to HTTPS automatically so make sure to setup your certificates after doing a provision which is located in the certificates folder. Please use ca.crt (root certificate) and install.
 
 ### MySQL Server 8.0
 The latest version of MySQL server.
