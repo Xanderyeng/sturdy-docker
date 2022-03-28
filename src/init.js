@@ -3,7 +3,7 @@
 // Here, we have the basic paths to different directory without the need to
 // reconfigured, just extended if necessary. Some of these may not needed will
 // be taken out later once this project is complete.
-const path = require( "../src/configure" );
+const path = require( "./configure" );
 const getConfigPath = path.setConfigPath();
 const getGlobalPath = path.setGlobalPath();
 const getComposeFile = path.setComposeFile();
@@ -18,6 +18,7 @@ const { exec, spawn } = require( 'child_process' );
 // If custom.yml doesn't exist in the .global folder, then copy from default.yml to custom.yml.
 if ( ! fs.existsSync( `${getCustomFile}` ) ) {
     fs.copyFileSync( `${getConfigPath}/default.yml`, `${getGlobalPath}/custom.yml` );
+    fs.copyFileSync( `${getConfigPath}/compose.yml`, `${getGlobalPath}/docker-compose.yml` );
 };
 
 // Here, we are going to load the custom.yml file so that we can begin automation.

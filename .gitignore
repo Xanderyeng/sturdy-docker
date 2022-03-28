@@ -1,4 +1,4 @@
-.global/custom.yml
+.global/*
 certificates/*
 databases
 logs

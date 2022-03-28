@@ -11,11 +11,11 @@ if [[ ${server} == 'nginx' ]]; then
         sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
         sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
     fi
-else 
-    if [[ ! -d "/etc/apache2/sites-available/dashboard.conf" ]]; then
-    sudo cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/dashboard.conf"
-    sudo sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/apache2/sites-available/dashboard.conf"
-    sudo a2ensite "dashboard" > /dev/null 2>&1
+elif [[ ${server} == 'apache2' ]]; then 
+    if [[ ! -d "/etc/apache2/sites-available/${domain}.test.conf" ]]; then
+    sudo cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/${domain}.test.conf"
+    sudo sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/apache2/sites-available/${domain}.test.conf"
+    sudo a2ensite "${domain}.test" > /dev/null 2>&1
     fi
 fi
 
