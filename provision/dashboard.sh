@@ -13,9 +13,9 @@ if [[ ${server} == 'nginx' ]]; then
     fi
 elif [[ ${server} == 'apache2' ]]; then 
     if [[ ! -d "/etc/apache2/sites-available/${domain}.test.conf" ]]; then
-    sudo cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/${domain}.test.conf"
-    sudo sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/apache2/sites-available/${domain}.test.conf"
-    sudo a2ensite "${domain}.test" > /dev/null 2>&1
+        sudo cp "/srv/config/apache2/apache2.conf" "/etc/apache2/sites-available/${domain}.test.conf"
+        sudo sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/apache2/sites-available/${domain}.test.conf"
+        sudo a2ensite "${domain}.test" > /dev/null 2>&1
     fi
 fi
 
