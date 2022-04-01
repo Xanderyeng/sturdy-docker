@@ -31,20 +31,6 @@ sites:
         - WP_DEBUG
         - WP_DEBUG_DISPLAY
 
-  sandbox:
-    provision: true
-    repo: https://github.com/benlumia007/sturdy-docker-sites.git
-    host:
-      - sandbox.test
-    custom:
-      type: WordPress
-      plugins:
-        - query-monitor
-      constants:
-        - DISALLOW_FILE_EDIT
-        - WP_DEBUG
-        - WP_DEBUG_DISPLAY
-
   wordpress:
     provision: true
     repo: https://github.com/benlumia007/sturdy-docker-sites.git
