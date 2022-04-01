@@ -25,32 +25,91 @@ if ( ! fs.existsSync( `${getCustomFile}` ) ) {
 const config = yaml.safeLoad( fs.readFileSync( `${getCustomFile}`, 'utf8' ) );
 
 // Let's create some main variables for each components from the custom.yml.
-const server_defaults = config.server;
+const server = config.server;
+const php = config.php;
 
-if ( server_defaults === 'nginx' ) {
-    if ( exec( `grep -q sturdy-docker:lamp7.4-fpm ${getComposeFile}` ) ) {
-        const options = {
-            files: `${getComposeFile}`,
-            from: /sturdy-docker:lamp7.4-fpm/g,
-            to: 'sturdy-docker:lemp7.4-fpm'
-        };
-
-        try {
-            const results = replace.sync( options );
-          }
-          catch {}
+if ( server == 'nginx' ) {
+    if ( php == '7.4' ) {
+        if ( exec( `grep -q sturdy-docker:lemp8.0-fpm ${getComposeFile}` ) ) {
+            const options = {
+                files: `${getComposeFile}`,
+                from: /sturdy-docker:lemp8.0-fpm/g,
+                to: 'sturdy-docker:lemp7.4-fpm'
+            };
+        
+            try {
+                const results = replace.sync( options );
+              }
+            catch {}
+        }
+        
+        if ( exec( `grep -q sturdy-docker:lemp8.1-fpm ${getComposeFile}` ) ) {
+            const options = {
+                files: `${getComposeFile}`,
+                from: /sturdy-docker:lemp8.1-fpm/g,
+                to: 'sturdy-docker:lemp7.4-fpm'
+            };
+        
+            try {
+                const results = replace.sync( options );
+              }
+            catch {}
+        }
     }
-} else {
-    if ( exec( `grep -q sturdy-docker:lemp7.4-fpm ${getComposeFile}` ) ) {
-        const options = {
-            files: `${getComposeFile}`,
-            from: /sturdy-docker:lemp7.4-fpm/g,
-            to: 'sturdy-docker:lamp7.4-fpm'
-        };
 
-        try {
-            const results = replace.sync( options );
-          }
-          catch {}
+    if ( php == '8.0' ) {
+        if ( exec( `grep -q sturdy-docker:lemp7.4-fpm ${getComposeFile}` ) ) {
+            const options = {
+                files: `${getComposeFile}`,
+                from: /sturdy-docker:lemp7.4-fpm/g,
+                to: 'sturdy-docker:lemp8.0-fpm'
+            };
+        
+            try {
+                const results = replace.sync( options );
+              }
+            catch {}
+        }
+
+        if ( exec( `grep -q sturdy-docker:lemp8.1-fpm ${getComposeFile}` ) ) {
+            const options = {
+                files: `${getComposeFile}`,
+                from: /sturdy-docker:lemp8.1-fpm/g,
+                to: 'sturdy-docker:lemp8.0-fpm'
+            };
+        
+            try {
+                const results = replace.sync( options );
+              }
+            catch {}
+        }
+    }
+
+    if ( php == '8.1' ) {
+        if ( exec( `grep -q sturdy-docker:lemp7.4-fpm ${getComposeFile}` ) ) {
+            const options = {
+                files: `${getComposeFile}`,
+                from: /sturdy-docker:lemp7.4-fpm/g,
+                to: 'sturdy-docker:lemp8.1-fpm'
+            };
+        
+            try {
+                const results = replace.sync( options );
+              }
+            catch {}
+        }
+
+        if ( exec( `grep -q sturdy-docker:lemp8.0-fpm ${getComposeFile}` ) ) {
+            const options = {
+                files: `${getComposeFile}`,
+                from: /sturdy-docker:lemp8.0-fpm/g,
+                to: 'sturdy-docker:lemp8.1-fpm'
+            };
+        
+            try {
+                const results = replace.sync( options );
+              }
+            catch {}
+        }
     }
 }
