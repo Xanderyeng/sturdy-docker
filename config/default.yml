@@ -8,6 +8,7 @@
 # If you need to add a new site, copy the example and uncomment the lines and enter the site name.
 # You wil then need to run when you use make.
 server: nginx
+php: 7.4
 
 default:
   dashboard:
