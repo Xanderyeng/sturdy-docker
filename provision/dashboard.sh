@@ -11,6 +11,10 @@ if [[ ${server} == 'nginx' ]]; then
     if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
         sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
         sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
+
+        if [[ ! -d "${dir}/logs" ]]; then
+            mkdir -p "${dir}/logs"
+        fi
     fi
 
     if [[ ! -z "${php}" ]]; then
@@ -31,6 +35,16 @@ if [[ ${server} == 'nginx' ]]; then
 
             if grep -q "8.1" "/etc/nginx/conf.d/${domain}.test.conf"; then
                 sudo sed -i -e "s/8.1/8.0/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            fi
+        fi
+
+        if [[ "${php}" == "8.1" ]]; then
+            if grep -q "7.4" "/etc/nginx/conf.d/${domain}.test.conf"; then
+                sudo sed -i -e "s/7.4/8.1/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            fi
+
+            if grep -q "8.0" "/etc/nginx/conf.d/${domain}.test.conf"; then
+                sudo sed -i -e "s/8.0/8.1/g" "/etc/nginx/conf.d/${domain}.test.conf"
             fi
         fi
     fi
