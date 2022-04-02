@@ -46,8 +46,11 @@ for ( const [ name, value ] of sites_defaults ) {
     const provision = value.provision;
     const repo = value.repo;
     const server = config.server;
+    const php = config.php;
+    const dir = `/srv/www/${name}`;
+    const custom = `/srv/.global/custom.yml`;
 
-    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/sites.sh ` + server + ' ' + name + ' ' + provision + ' ' + repo, { stdio: 'inherit' } );
+    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/sites.sh ` + server + ' ' + name + ' ' + provision + ' ' + repo + ' ' + php + ' ' + dir + ' ' + custom, { stdio: 'inherit' } );
 }
 
 // Here, we are going to setup resources.
