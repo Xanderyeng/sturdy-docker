@@ -16,7 +16,7 @@ ms=`get_custom_value 'multisite' ''`
 plugins=`get_custom_value 'plugins' ''`
 themes=`get_custom_value 'themes' ''`
 constants=`get_custom_value 'constants' ''`
-php=`get_custom_value 'constants' ''`
+php=`get_custom_value 'php' ''`
 
 if [[ ${provision} == 'true' ]]; then
 
