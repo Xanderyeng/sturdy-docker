@@ -27,10 +27,10 @@ const resources_defaults = Object.entries( config.resources );
 for ( const [ name, value ] of dashboard_defaults ) {
     const provision = value.provision;
     const repo = value.repo;
-    const php = config.php;
     const dir = `/srv/www/${name}`
+    const custom = `/srv/.global/custom.yml`;
 
-    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/dashboard.sh ` + name + ' ' + provision + ' ' + repo + ' ' + php + ' ' + dir, { stdio: 'inherit' } );
+    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/dashboard.sh ` + name + ' ' + provision + ' ' + repo + ' ' + dir + ' ' + custom, { stdio: 'inherit' } );
 }
 
 // Here, we are going to setup options such s db_backups and db_restores.
