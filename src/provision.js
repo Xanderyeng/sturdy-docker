@@ -27,11 +27,10 @@ const resources_defaults = Object.entries( config.resources );
 for ( const [ name, value ] of dashboard_defaults ) {
     const provision = value.provision;
     const repo = value.repo;
-    const server = config.server;
     const php = config.php;
     const dir = `/srv/www/${name}`
 
-    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/dashboard.sh ` + server  + ' '  + name + ' ' + provision + ' ' + repo + ' ' + php + ' ' + dir, { stdio: 'inherit' } );
+    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/dashboard.sh ` + name + ' ' + provision + ' ' + repo + ' ' + php + ' ' + dir, { stdio: 'inherit' } );
 }
 
 // Here, we are going to setup options such s db_backups and db_restores.
@@ -45,12 +44,10 @@ for ( const [ name, value ] of options_defaults ) {
 for ( const [ name, value ] of sites_defaults ) {
     const provision = value.provision;
     const repo = value.repo;
-    const server = config.server;
-    const php = config.php;
     const dir = `/srv/www/${name}`;
     const custom = `/srv/.global/custom.yml`;
 
-    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/sites.sh ` + server + ' ' + name + ' ' + provision + ' ' + repo + ' ' + php + ' ' + dir + ' ' + custom, { stdio: 'inherit' } );
+    execSync( `docker-compose -f ${getComposeFile} exec server bash /app/sites.sh ` + name + ' ' + provision + ' ' + repo + ' ' + dir + ' ' + custom, { stdio: 'inherit' } );
 }
 
 // Here, we are going to setup resources.
@@ -64,8 +61,7 @@ for ( const [ name, value ] of resources_defaults ) {
 }
 
 // Here, we are going to restart nginx so that all generated sites are loaded properly.
-const server = config.server;
-execSync( `docker-compose -f ${getComposeFile} exec server bash /app/services.sh ` + server, { stdio: 'inherit' } );
+execSync( `docker-compose -f ${getComposeFile} exec server bash /app/services.sh`, { stdio: 'inherit' } );
 
 // Here, we are going to make sure that the hosts file are setup properly.
 const getWSL = require( '../src/wsl' );
