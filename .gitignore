@@ -1,5 +1,4 @@
-.global/*
-!.global/.gitkeep
+.global/custom.yml
 certificates/*
 databases
 logs
