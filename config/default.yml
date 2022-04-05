@@ -7,9 +7,6 @@
 #
 # If you need to add a new site, copy the example and uncomment the lines and enter the site name.
 # You wil then need to run when you use make.
-server: nginx
-php: 7.4
-
 default:
   dashboard:
     provision: true
@@ -19,11 +16,12 @@ default:
 
 sites:
   classicpress:
-    provision: true
+    provision: false
     repo: https://github.com/benlumia007/sturdy-docker-sites.git
     host:
       - classicpress.test
     custom:
+      php: 7.4
       type: ClassicPress
       plugins:
         - query-monitor
@@ -33,11 +31,12 @@ sites:
         - WP_DEBUG_DISPLAY
 
   wordpress:
-    provision: true
+    provision: false
     repo: https://github.com/benlumia007/sturdy-docker-sites.git
     host:
       - wordpress.test
     custom:
+      php: 7.4
       type: WordPress
       plugins:
         - gutenberg
