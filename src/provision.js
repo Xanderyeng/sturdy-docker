@@ -54,9 +54,11 @@ for ( const [ name, value ] of sites_defaults ) {
 for ( const [ name, value ] of resources_defaults ) {
     const utilities = Object.entries( value.utilities );
     const repo = value.repo;
+    const custom = `/srv/.global/custom.yml`;
+    const dir = `/app/resources`;
 
     for ( const [ utility, key ] of utilities ) {
-        execSync( `docker-compose -f ${getComposeFile} exec server bash /app/resources.sh ` + key + ' ' + repo + ' ' + name + ' ' + utility, { stdio: 'inherit' } );
+        execSync( `docker-compose -f ${getComposeFile} exec server bash /app/resources.sh ` + key + ' ' + repo + ' ' + custom + ' ' + dir, { stdio: 'inherit' } );
     }
 }
 

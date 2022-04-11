@@ -20,7 +20,7 @@ php=`get_custom_value 'php' ''`
 
 if [[ ${provision} == 'true' ]]; then
 
-    if [[ "${type}" == 'jigsaw' ]]; then
+    if [[ "${type}" == 'jigsaw' ]] || [[ "${type}" == 'Jigsaw' ]]; then
         if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
             sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
             sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
