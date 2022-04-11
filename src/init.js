@@ -18,7 +18,6 @@ const { exec, spawn } = require( 'child_process' );
 // If custom.yml doesn't exist in the .global folder, then copy from default.yml to custom.yml.
 if ( ! fs.existsSync( `${getCustomFile}` ) ) {
     fs.copyFileSync( `${getConfigPath}/default.yml`, `${getGlobalPath}/custom.yml` );
-    fs.copyFileSync( `${getConfigPath}/compose.yml`, `${getGlobalPath}/docker-compose.yml` );
 };
 
 // Here, we are going to load the custom.yml file so that we can begin automation.
