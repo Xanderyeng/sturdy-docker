@@ -19,28 +19,55 @@ constants=`get_custom_value 'constants' ''`
 php=`get_custom_value 'php' ''`
 
 if [[ ${provision} == 'true' ]]; then
+    if [[ ! -z "${type}" ]]; then
+        if [[ "${type}" == 'jigsaw' ]] || [[ "${type}" == 'Jigsaw' ]]; then
+            if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/nginx/jigsaw/default.conf" "/etc/nginx/conf.d/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            fi
+        elif [[ "${type}" == 'laravel' ]] || [[ "${type}" == 'Laravel' ]]; then
+            if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
+                sudo sed -i -e "s/public_html/public_html\/public/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            fi
+        elif [[ "${type}" == 'WordPress' ]] || [[ "${type}" == 'wordpress' ]]; then
+            if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            fi
+        elif [[ "${type}" == 'ClassicPress' ]] || [[ "${type}" == 'classicpress' ]]; then
+            if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            fi
+        else 
+            if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            fi
+        fi
+    fi
 
-    if [[ "${type}" == 'jigsaw' ]] || [[ "${type}" == 'Jigsaw' ]]; then
-        if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
-            sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
-            sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
-            sudo sed -i -e "s/public_html/public_html\/build_local/g" "/etc/nginx/conf.d/${domain}.test.conf"
-        fi
-    elif [[ "${type}" == 'laravel' ]]; then
-        if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
-            sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
-            sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
-            sudo sed -i -e "s/public_html/public_html\/public/g" "/etc/nginx/conf.d/${domain}.test.conf"
-        fi
-    else 
-        if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
-            sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
-            sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
-        fi
+    if [[ ! -d "/srv/www/${domain}/logs/nginx" ]]; then
+        mkdir -p "/srv/www/${domain}/logs/nginx"
+    fi
+
+    if [[ ! -d "/srv/www/${domain}/logs/php" ]]; then
+        mkdir -p "/srv/www/${domain}/logs/php"
     fi
 
     if [[ ! -z "${php}" ]]; then
         if [[ "${php}" == "7.4" ]]; then
+            if [[ ! -f "/etc/nginx/upstream/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/php/upstream/upstream.conf" "/etc/nginx/upstream/${domain}.test.conf"
+                sudo cp "/srv/config/php/fpm/fpm.conf" "/etc/php/7.4/fpm/pool.d/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/upstream/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/php/7.4/fpm/pool.d/${domain}.test.conf"
+                sudo sed -i -e "s/8.1/7.4/g" "/etc/nginx/upstream/${domain}.test.conf"
+                sudo sed -i -e "s/8.1/7.4/g" "/etc/php/7.4/fpm/pool.d/${domain}.test.conf"
+            fi
+
             if grep -q "8.0" "/etc/nginx/conf.d/${domain}.test.conf"; then
                 sudo sed -i -e "s/8.0/7.4/g" "/etc/nginx/conf.d/${domain}.test.conf"
             fi
@@ -88,4 +115,6 @@ if [[ ${provision} == 'true' ]]; then
             source ${dir}/provision/setup.sh
         fi
     fi
+else 
+    sudo rm -rf "/etc/nginx/conf.d/${domain}.test.conf"
 fi
