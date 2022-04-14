@@ -27,6 +27,7 @@ sites:
     host:
       - classicpress.test
     custom:
+      php: 7.4
       type: ClassicPress
       plugins:
         - query-monitor
@@ -41,6 +42,7 @@ sites:
     host:
       - wordpress.test
     custom:
+      php: 7.4
       type: WordPress
       plugins:
         - query-monitor
