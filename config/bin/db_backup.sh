@@ -3,6 +3,9 @@ config="/srv/.global/custom.yml"
 
 db_backups=`cat ${config} | shyaml get-value options.db_backups 2> /dev/null`
 
+echo ${db_backups}
+exit 1
+
 if [[ ${db_backups} != "False" ]]; then
     mysql --user="root" -e 'show databases' | \
     grep -v -F "information_schema" | \
