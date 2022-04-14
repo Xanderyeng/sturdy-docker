@@ -167,6 +167,7 @@ To add a new ClassicPress, copy and paste this to custom.yml, and make sure the 
     host:
       - example.test
     custom:
+      php: 7.4
       type: ClassicPress
       plugins:
         - query-monitor
@@ -191,6 +192,7 @@ To add a new WordPress, copy and paste this to custom.yml, and make sure the spa
     host:
       - example.test
     custom:
+      php: 7.4
       type: WordPress
       plugins:
         - query-monitor
