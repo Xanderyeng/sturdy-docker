@@ -15,16 +15,16 @@ php=`get_default_value 'php' ''`
 
 if [[ "${provision}" == 'true' ]]; then
     if [[ ! -f "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
-        sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
+        sudo cp "/srv/config/nginx/default/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
         sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
+    fi
 
-        if [[ ! -d "/srv/www/${domain}/logs/nginx" ]]; then
-            mkdir -p "/srv/www/${domain}/logs/nginx"
-        fi
+    if [[ ! -d "/srv/www/${domain}/logs/nginx" ]]; then
+        mkdir -p "/srv/www/${domain}/logs/nginx"
+    fi
 
-        if [[ ! -d "/srv/www/${domain}/logs/php" ]]; then
-            mkdir -p "/srv/www/${domain}/logs/php"
-        fi
+    if [[ ! -d "/srv/www/${domain}/logs/php" ]]; then
+        mkdir -p "/srv/www/${domain}/logs/php"
     fi
 
     if [[ ! -z "${php}" ]]; then
