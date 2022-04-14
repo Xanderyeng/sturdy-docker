@@ -143,7 +143,7 @@ At this momemet, php 8.1 is set by default for all sites that gets created. As f
 <pre>
 custom:
   type: WordPress
-  php: 8.0
+  php: 7.4
 </pre>
 
 ### MailHog
