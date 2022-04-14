@@ -21,47 +21,40 @@ if [[ "${provision}" == 'true' ]]; then
         if [[ ! -d "/srv/www/${domain}/logs/nginx" ]]; then
             mkdir -p "/srv/www/${domain}/logs/nginx"
         fi
+
+        if [[ ! -d "/srv/www/${domain}/logs/php" ]]; then
+            mkdir -p "/srv/www/${domain}/logs/php"
+        fi
     fi
 
     if [[ ! -z "${php}" ]]; then
-        if [[ "${php}" == "7.4" ]]; then
-            if grep -q "8.0" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/8.0/7.4/g" "/etc/nginx/conf.d/${domain}.test.conf"
-            fi
-
-            if grep -q "8.1" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/8.1/7.4/g" "/etc/nginx/conf.d/${domain}.test.conf"
-            fi
-        elif [[ "${php}" == "8" ]]; then
-            if grep -q "7.4" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/7.4/8.0/g" "/etc/nginx/conf.d/${domain}.test.conf"
+        if [[ "${php}" == '8' ]] || [[ "${php}" == '8.0' ]]; then
+            if [[ ! -f "/etc/php/8.0/fpm/pool.d/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/php/fpm/fpm.conf" "/etc/php/8.0/fpm/pool.d/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/php/8.0/fpm/pool.d/${domain}.test.conf"
+                sudo sed -i -e "s/8.1/8.0/g" "/etc/php/8.0/fpm/pool.d/${domain}.test.conf"
             fi
 
             if grep -q "8.1" "/etc/nginx/conf.d/${domain}.test.conf"; then
                 sudo sed -i -e "s/8.1/8.0/g" "/etc/nginx/conf.d/${domain}.test.conf"
             fi
         elif [[ "${php}" == "8.1" ]]; then
-            if grep -q "7.4" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/7.4/8.1/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            if [[ ! -f "/etc/php/8.1/fpm/pool.d/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/php/fpm/fpm.conf" "/etc/php/8.1/fpm/pool.d/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/php/8.1/fpm/pool.d/${domain}.test.conf"
             fi
-
+            
             if grep -q "8.0" "/etc/nginx/conf.d/${domain}.test.conf"; then
                 sudo sed -i -e "s/8.0/8.1/g" "/etc/nginx/conf.d/${domain}.test.conf"
             fi
         else
-            if [[ ! -f "/etc/nginx/upstream/${domain}.test.conf" ]]; then
-                sudo cp "/srv/config/php/upstream/upstream.conf" "/etc/nginx/upstream/${domain}.test.conf"
+            if [[ ! -f "/etc/php/8.1/fpm/pool.d/${domain}.test.conf" ]]; then
                 sudo cp "/srv/config/php/fpm/fpm.conf" "/etc/php/8.1/fpm/pool.d/${domain}.test.conf"
-                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/upstream/${domain}.test.conf"
                 sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/php/8.1/fpm/pool.d/${domain}.test.conf"
             fi
             
-            if grep -q "7.4" "/etc/nginx/upstream/${domain}.test.conf"; then
-                sudo sed -i -e "s/7.4/8.1/g" "/etc/nginx/upstream/${domain}.test.conf"
-            fi
-
             if grep -q "8.0" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/8.0/8.1/g" "/etc/nginx/upstream/${domain}.test.conf"
+                sudo sed -i -e "s/8.0/8.1/g" "/etc/nginx/conf.d/${domain}.test.conf"
             fi
         fi
     fi
