@@ -1,15 +1,13 @@
 version: '3.8'
 services:
   server:
-    image: benlumia007/lamp:v100
+    image: benlumia007/lamp:v1.0.0
     container_name: server
     restart: always
     ports:
       - "80:80"
       - "443:443"
       - "3306:3306"
-      - "1025:1025"
-      - "8025:8025"
     volumes:
       - ../.global:/srv/.global
       - ../certificates:/srv/certificates
