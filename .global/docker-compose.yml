@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   server:
-    image: benlumia007/sturdy-docker:v1.0.0
+    image: benlumia007/lamp:v100
     container_name: server
     restart: always
     ports:

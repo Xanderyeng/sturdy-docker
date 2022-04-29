@@ -14,13 +14,14 @@ get_default_value() {
 php=`get_default_value 'php' ''`
 
 if [[ "${provision}" == 'true' ]]; then
-    if [[ ! -f "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
-        sudo cp "/srv/config/nginx/default/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
-        sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
+    if [[ ! -d "/etc/apache2/sites-available/${domain}.test.conf" ]]; then
+        sudo cp "/srv/config/apache2/default.conf" "/etc/apache2/sites-available/${domain}.test.conf"
+        sudo sed -i -e "s/{{DOMAIN}}/dashboard/g" "/etc/apache2/sites-available/${domain}.test.conf"
+        sudo a2ensite "${domain}.test" > /dev/null 2>&1
     fi
 
-    if [[ ! -d "/srv/www/${domain}/logs/nginx" ]]; then
-        mkdir -p "/srv/www/${domain}/logs/nginx"
+    if [[ ! -d "/srv/www/${domain}/logs/apache2" ]]; then
+        mkdir -p "/srv/www/${domain}/logs/apache2"
     fi
 
     if [[ ! -d "/srv/www/${domain}/logs/php" ]]; then
@@ -53,7 +54,7 @@ if [[ "${provision}" == 'true' ]]; then
                 sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/php/8.1/fpm/pool.d/${domain}.test.conf"
             fi
             
-            if grep -q "8.0" "/etc/nginx/conf.d/${domain}.test.conf"; then
+            if grep -q "8.0" "/etc/apache2/sites-available/${domain}.test.conf"; then
                 sudo sed -i -e "s/8.0/8.1/g" "/etc/nginx/conf.d/${domain}.test.conf"
             fi
         fi

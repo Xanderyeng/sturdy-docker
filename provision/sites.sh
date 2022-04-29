@@ -18,40 +18,47 @@ themes=`get_custom_value 'themes' ''`
 constants=`get_custom_value 'constants' ''`
 php=`get_custom_value 'php' ''`
 
+
+
 if [[ ${provision} == 'true' ]]; then
     if [[ ! -z "${type}" ]]; then
-        if [[ "${type}" == 'jigsaw' ]] || [[ "${type}" == 'Jigsaw' ]]; then
-            if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
-                sudo cp "/srv/config/nginx/jigsaw/default.conf" "/etc/nginx/conf.d/${domain}.test.conf"
-                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
-                sudo sed -i -e "s/public_html/public_html\/build_local/g" "/etc/nginx/conf.d/${domain}.test.conf"
+        if [[ "${type}" == 'blush' ]] || [[ "${type}" == 'Blush' ]]; then
+            if [[ ! -d "/etc/apache2/sites-available/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/apache2/default.conf" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo a2ensite "${domain}.test" > /dev/null 2>&1
+            fi
+        elif [[ "${type}" == 'classicpress' ]] || [[ "${type}" == 'ClassicPress' ]]; then
+            if [[ ! -d "/etc/apache2/sites-available/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/apache2/default.conf" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo a2ensite "${domain}.test" > /dev/null 2>&1
+            fi
+        elif [[ "${type}" == 'jigsaw' ]] || [[ "${type}" == 'Jigsaw' ]]; then
+            if [[ ! -d "/etc/apache2/sites-available/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/apache2/default.conf" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/public_html/public_html\/build_local/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo a2ensite "${domain}.test" > /dev/null 2>&1
             fi
         elif [[ "${type}" == 'laravel' ]] || [[ "${type}" == 'Laravel' ]]; then
-            if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
-                sudo cp "/srv/config/nginx/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
-                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
-                sudo sed -i -e "s/public_html/public_html\/public/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            if [[ ! -d "/etc/apache2/sites-available/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/apache2/default.conf" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/public_html/public_html\/public/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo a2ensite "${domain}.test" > /dev/null 2>&1
             fi
         elif [[ "${type}" == 'WordPress' ]] || [[ "${type}" == 'wordpress' ]]; then
-            if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
-                sudo cp "/srv/config/nginx/wordpress/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
-                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
-            fi
-        elif [[ "${type}" == 'ClassicPress' ]] || [[ "${type}" == 'classicpress' ]]; then
-            if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
-                sudo cp "/srv/config/nginx/classicpress/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
-                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
-            fi
-        else 
-            if [[ ! -d "/etc/nginx/conf.d/${domain}.test.conf" ]]; then
-                sudo cp "/srv/config/nginx/default/nginx.conf" "/etc/nginx/conf.d/${domain}.test.conf"
-                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            if [[ ! -d "/etc/apache2/sites-available/${domain}.test.conf" ]]; then
+                sudo cp "/srv/config/apache2/default.conf" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo a2ensite "${domain}.test" > /dev/null 2>&1
             fi
         fi
     fi
 
-    if [[ ! -d "/srv/www/${domain}/logs/nginx" ]]; then
-        mkdir -p "/srv/www/${domain}/logs/nginx"
+    if [[ ! -d "/srv/www/${domain}/logs/apache2" ]]; then
+        mkdir -p "/srv/www/${domain}/logs/apache2"
     fi
 
     if [[ ! -d "/srv/www/${domain}/logs/php" ]]; then
@@ -66,12 +73,12 @@ if [[ ${provision} == 'true' ]]; then
                 sudo sed -i -e "s/8.1/7.4/g" "/etc/php/7.4/fpm/pool.d/${domain}.test.conf"
             fi
 
-            if grep -q "8.0" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/8.0/7.4/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            if grep -q "8.0" "/etc/apache2/sites-available/${domain}.test.conf"; then
+                sudo sed -i -e "s/8.0/7.4/g" "/etc/apache2/sites-available/${domain}.test.conf"
             fi
 
-            if grep -q "8.1" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/8.1/7.4/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            if grep -q "8.1" "/etc/apache2/sites-available/${domain}.test.conf"; then
+                sudo sed -i -e "s/8.1/7.4/g" "/etc/apache2/sites-available/${domain}.test.conf"
             fi
         elif [[ "${php}" == '8' ]] || [[ "${php}" == '8.0' ]]; then
             if [[ ! -f "/etc/php/8.0/fpm/pool.d/${domain}.test.conf" ]]; then
@@ -80,12 +87,12 @@ if [[ ${provision} == 'true' ]]; then
                 sudo sed -i -e "s/8.1/8.0/g" "/etc/php/8.0/fpm/pool.d/${domain}.test.conf"
             fi
 
-            if grep -q "7.4" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/7.4/8.0/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            if grep -q "7.4" "/etc/apache2/sites-available/${domain}.test.conf"; then
+                sudo sed -i -e "s/7.4/8.0/g" "/etc/apache2/sites-available/${domain}.test.conf"
             fi
 
-            if grep -q "8.1" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/8.1/8.0/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            if grep -q "8.1" "/etc/apache2/sites-available/${domain}.test.conf"; then
+                sudo sed -i -e "s/8.1/8.0/g" "/etc/apache2/sites-available/${domain}.test.conf"
             fi
         elif [[ "${php}" == "8.1" ]]; then
             if [[ ! -f "/etc/php/8.1/fpm/pool.d/${domain}.test.conf" ]]; then
@@ -93,12 +100,12 @@ if [[ ${provision} == 'true' ]]; then
                 sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/php/8.1/fpm/pool.d/${domain}.test.conf"
             fi
             
-            if grep -q "7.4" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/7.4/8.1/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            if grep -q "7.4" "/etc/apache2/sites-available/${domain}.test.conf"; then
+                sudo sed -i -e "s/7.4/8.1/g" "/etc/apache2/sites-available/${domain}.test.conf"
             fi
 
-            if grep -q "8.0" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/8.0/8.1/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            if grep -q "8.0" "/etc/apache2/sites-available/${domain}.test.conf"; then
+                sudo sed -i -e "s/8.0/8.1/g" "/etc/apache2/sites-available/${domain}.test.conf"
             fi
         else
             if [[ ! -f "/etc/php/8.1/fpm/pool.d/${domain}.test.conf" ]]; then
@@ -106,12 +113,12 @@ if [[ ${provision} == 'true' ]]; then
                 sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/php/8.1/fpm/pool.d/${domain}.test.conf"
             fi
 
-            if grep -q "7.4" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/7.4/8.1/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            if grep -q "7.4" "/etc/apache2/sites-available/${domain}.test.conf"; then
+                sudo sed -i -e "s/7.4/8.1/g" "/etc/apache2/sites-available/${domain}.test.conf"
             fi
 
-            if grep -q "8.0" "/etc/nginx/conf.d/${domain}.test.conf"; then
-                sudo sed -i -e "s/8.0/8.1/g" "/etc/nginx/conf.d/${domain}.test.conf"
+            if grep -q "8.0" "/etc/apache2/sites-available/${domain}.test.conf"; then
+                sudo sed -i -e "s/8.0/8.1/g" "/etc/apache2/sites-available/${domain}.test.conf"
             fi
         fi
     fi
@@ -130,5 +137,5 @@ if [[ ${provision} == 'true' ]]; then
         fi
     fi
 else 
-    sudo rm -rf "/etc/nginx/conf.d/${domain}.test.conf"
+    sudo rm -rf "/etc/apache2/sites-available/${domain}.test.conf"
 fi
