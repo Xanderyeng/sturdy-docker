@@ -15,15 +15,17 @@ const sites = config.sites;
 
 const wsl_host = function() {
     if ( isWSL ) {
-    
+
         execSync( `sturdydocker-hosts add dashboard.test` );
-    
+		execSync( `sturdydocker-hosts add phpmyadmin.dashboard.test` );
+
         for ( const domain of Object.keys( sites ) ) {
             execSync( `sturdydocker-hosts add ${domain}.test` );
         }
     } else {
         execSync( `sudo sturdydocker-hosts add dashboard.test` );
-    
+		execSync( `sudo sturdydocker-hosts add phpmyadmin.dashboard.test` );
+
         for ( const domain of Object.keys( sites ) ) {
             execSync( `sudo sturdydocker-hosts add ${domain}.test` );
         }
