@@ -69,5 +69,5 @@ for ( const [ name, value ] of resources_defaults ) {
 execSync( `docker-compose -f ${getComposeFile} exec server bash /app/services.sh`, { stdio: 'inherit' } );
 
 // Here, we are going to make sure that the hosts file are setup properly.
-const getWSL = require( '../src/wsl' );
+const getWSL = require( './addHost' );
 getWSL.wsl_host();
