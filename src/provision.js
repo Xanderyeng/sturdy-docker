@@ -23,6 +23,9 @@ const options_defaults = Object.entries( config.options );
 const sites_defaults = Object.entries( config.sites );
 const resources_defaults = Object.entries( config.resources );
 
+const delHost = require( './delHost' );
+delHost.wsl_host();
+
 // Here, we are going to setup dashboard.
 for ( const [ name, value ] of dashboard_defaults ) {
     const provision = value.provision;

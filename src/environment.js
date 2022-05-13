@@ -19,11 +19,15 @@ const up = async function() {
 };
 
 const start = async function() {
+	const addHost = require( './addHost' );
+	addHost.wsl_host();
     execSync( `docker-compose -f ${getComposeFile} start`, { stdio: 'inherit' } );
 }
 
 const stop = async function() {
     execSync( `docker-compose -f ${getComposeFile} exec server bash /srv/config/bin/db_backup.sh`, { stdio: 'inherit' } );
+	const delHost = require( './delHost' );
+	delHost.wsl_host();
     execSync( `docker-compose -f ${getComposeFile} stop`, { stdio: 'inherit' } );
 };
 
