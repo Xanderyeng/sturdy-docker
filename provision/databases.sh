@@ -16,13 +16,13 @@ for domain in `get_sites`; do
         echo ${value:-$@}
     }
 
-    get_custom_value() {
+    get_provision() {
       local value=`cat ${config} | shyaml get-value sites.${domain}.provision 2> /dev/null`
       echo ${value:-$@}
     }
 
     type=`get_custom_value 'type' ''`
-    provision=`get_custom_value 'provision' ''`
+    provision=`get_provision 'provision' ''`
 
     if [[ ${provision} != "False" ]]; then
         if [[ "${type}" == "ClassicPress" || "${type}" == "classicpress" ]]; then
