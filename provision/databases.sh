@@ -25,12 +25,12 @@ for domain in `get_sites`; do
     provision=`get_custom_value 'provision' ''`
 
     if [[ ${provision} != "False" ]]; then
-        if [[ "ClassicPress" == ${type} ]]; then
+        if [[ "${type}" == "ClassicPress" || "${type}" == "classicpress" ]]; then
             mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"
             mysql -u root -e "CREATE USER IF NOT EXISTS 'classicpress'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'classicpress';"
             mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'classicpress'@'localhost' WITH GRANT OPTION;"
             mysql -u root -e "FLUSH PRIVILEGES;"
-        elif [[ ${type} == "WordPress" ]]; then
+        elif [[ ${type} == "WordPress" || "${type}" == "wordpress" ]]; then
             mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"
             mysql -u root -e "CREATE USER IF NOT EXISTS 'wordpress'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'wordpress';"
             mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'localhost' WITH GRANT OPTION;"
