@@ -17,6 +17,7 @@ plugins=`get_custom_value 'plugins' ''`
 themes=`get_custom_value 'themes' ''`
 constants=`get_custom_value 'constants' ''`
 php=`get_custom_value 'php' ''`
+subdomains=`get_custom_value 'subdomains' ''`
 
 if [[ ${provision} == 'true' ]]; then
     if [[ ! -z "${type}" ]]; then
@@ -26,12 +27,44 @@ if [[ ${provision} == 'true' ]]; then
                 sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.test.conf"
                 sudo a2ensite "${domain}.test" > /dev/null 2>&1
             fi
+
+            for sub in ${subdomains//- /$'\n'}; do
+                if [[ "${sub}" != "subdomains" ]]; then
+                    if [[ ! -f "/etc/apache2/sites-available/${sub}.${domain}.test.conf" ]]; then
+                        sudo cp "/srv/config/apache2/subdomains.conf" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
+                        sudo sed -i -e "s/{{SUBDOMAIN}}.{{DOMAIN}}/${sub}.${domain}/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
+                        sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
+                        sudo sed -i -e "s/{{SUBDOMAIN}}/${sub}/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
+                        sudo a2ensite "${sub}.${domain}.test" > /dev/null 2>&1
+                    fi
+
+                    if [[ ! -d "/srv/www/${domain}/domains/${sub}/public_html" ]]; then
+                        mkdir -p "/srv/www/${domain}/domains/${sub}/public_html"
+                    fi
+                fi
+            done
         elif [[ "${type}" == 'classicpress' ]] || [[ "${type}" == 'ClassicPress' ]]; then
             if [[ ! -d "/etc/apache2/sites-available/${domain}.test.conf" ]]; then
                 sudo cp "/srv/config/apache2/default.conf" "/etc/apache2/sites-available/${domain}.test.conf"
                 sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${domain}.test.conf"
                 sudo a2ensite "${domain}.test" > /dev/null 2>&1
             fi
+
+            for sub in ${subdomains//- /$'\n'}; do
+                if [[ "${sub}" != "subdomains" ]]; then
+                    if [[ ! -f "/etc/apache2/sites-available/${sub}.${domain}.test.conf" ]]; then
+                        sudo cp "/srv/config/apache2/subdomains.conf" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
+                        sudo sed -i -e "s/{{SUBDOMAIN}}.{{DOMAIN}}/${sub}.${domain}/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
+                        sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
+                        sudo sed -i -e "s/{{SUBDOMAIN}}/${sub}/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
+                        sudo a2ensite "${sub}.${domain}.test" > /dev/null 2>&1
+                    fi
+
+                    if [[ ! -d "/srv/www/${domain}/domains/${sub}/public_html" ]]; then
+                        mkdir -p "/srv/www/${domain}/domains/${sub}/public_html"
+                    fi
+                fi
+            done
         elif [[ "${type}" == 'jigsaw' ]] || [[ "${type}" == 'Jigsaw' ]]; then
             if [[ ! -d "/etc/apache2/sites-available/${domain}.test.conf" ]]; then
                 sudo cp "/srv/config/apache2/default.conf" "/etc/apache2/sites-available/${domain}.test.conf"

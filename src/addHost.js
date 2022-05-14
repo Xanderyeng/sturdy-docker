@@ -11,24 +11,35 @@ const getCustomFile = path.setCustomFile();
 const isWSL = require( 'is-wsl' );
 
 const config = yaml.safeLoad( fs.readFileSync( `${getCustomFile}`, 'utf8' ) );
-const sites = config.sites;
+const default_dashboard = Object.entries( config.default );
+const sites_defaults = Object.entries( config.sites );
 
 const wsl_host = function() {
     if ( isWSL ) {
 
         execSync( `sturdydocker-hosts add dashboard.test` );
-		execSync( `sturdydocker-hosts add phpmyadmin.dashboard.test` );
+
+		for ( const [ name, value ] of sites_defaults ) {
+			const host = value.host;
+
+			console.log( host );
+		}
 
         for ( const domain of Object.keys( sites ) ) {
             execSync( `sturdydocker-hosts add ${domain}.test` );
         }
     } else {
-        execSync( `sudo sturdydocker-hosts add dashboard.test` );
-		execSync( `sudo sturdydocker-hosts add phpmyadmin.dashboard.test` );
+		for ( const [ name, value ] of default_dashboard ) {
+			const host = value.host;
 
-        for ( const domain of Object.keys( sites ) ) {
-            execSync( `sudo sturdydocker-hosts add ${domain}.test` );
-        }
+			execSync( `sudo sturdydocker-hosts add ${host}` );
+		}
+
+		for ( const [ name, value ] of sites_defaults ) {
+			const host = value.host;
+
+			execSync( `sudo sturdydocker-hosts add ${host}` );
+		}
     }
 };
 
