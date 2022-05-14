@@ -84,6 +84,7 @@ if [[ ${provision} == 'true' ]]; then
                         sudo sed -i -e "s/{{SUBDOMAIN}}.{{DOMAIN}}/${sub}.${domain}/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
                         sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
                         sudo sed -i -e "s/{{SUBDOMAIN}}/${sub}/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
+                        sudo sed -i -e "s/public_html/public_html\/build_local/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
                         sudo a2ensite "${sub}.${domain}.test" > /dev/null 2>&1
                     fi
 
@@ -158,10 +159,12 @@ if [[ ${provision} == 'true' ]]; then
 
             if grep -q "8.0" "/etc/apache2/sites-available/${domain}.test.conf"; then
                 sudo sed -i -e "s/8.0/7.4/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/8.0/7.4/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
             fi
 
             if grep -q "8.1" "/etc/apache2/sites-available/${domain}.test.conf"; then
                 sudo sed -i -e "s/8.1/7.4/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/8.1/7.4/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
             fi
         elif [[ "${php}" == '8' ]] || [[ "${php}" == '8.0' ]]; then
             if [[ ! -f "/etc/php/8.0/fpm/pool.d/${domain}.test.conf" ]]; then
@@ -172,10 +175,12 @@ if [[ ${provision} == 'true' ]]; then
 
             if grep -q "7.4" "/etc/apache2/sites-available/${domain}.test.conf"; then
                 sudo sed -i -e "s/7.4/8.0/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/7.4/8.0/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
             fi
 
             if grep -q "8.1" "/etc/apache2/sites-available/${domain}.test.conf"; then
                 sudo sed -i -e "s/8.1/8.0/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/8.1/8.0/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
             fi
         elif [[ "${php}" == "8.1" ]]; then
             if [[ ! -f "/etc/php/8.1/fpm/pool.d/${domain}.test.conf" ]]; then
@@ -185,10 +190,12 @@ if [[ ${provision} == 'true' ]]; then
 
             if grep -q "7.4" "/etc/apache2/sites-available/${domain}.test.conf"; then
                 sudo sed -i -e "s/7.4/8.1/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/7.4/8.1/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
             fi
 
             if grep -q "8.0" "/etc/apache2/sites-available/${domain}.test.conf"; then
                 sudo sed -i -e "s/8.0/8.1/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/8.0/8.1/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
             fi
         else
             if [[ ! -f "/etc/php/8.1/fpm/pool.d/${domain}.test.conf" ]]; then
@@ -198,10 +205,12 @@ if [[ ${provision} == 'true' ]]; then
 
             if grep -q "7.4" "/etc/apache2/sites-available/${domain}.test.conf"; then
                 sudo sed -i -e "s/7.4/8.1/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/7.4/8.1/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
             fi
 
             if grep -q "8.0" "/etc/apache2/sites-available/${domain}.test.conf"; then
                 sudo sed -i -e "s/8.0/8.1/g" "/etc/apache2/sites-available/${domain}.test.conf"
+                sudo sed -i -e "s/8.0/8.1/g" "/etc/apache2/sites-available/${sub}.${domain}.test.conf"
             fi
         fi
     fi
