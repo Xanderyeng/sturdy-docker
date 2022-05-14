@@ -16,18 +16,17 @@ const sites_defaults = Object.entries( config.sites );
 
 const wsl_host = function() {
     if ( isWSL ) {
+		for ( const [ name, value ] of default_dashboard ) {
+			const host = value.host;
 
-        execSync( `sturdydocker-hosts add dashboard.test` );
+			execSync( `sturdydocker-hosts add ${host}` );
+		}
 
 		for ( const [ name, value ] of sites_defaults ) {
 			const host = value.host;
 
-			console.log( host );
+			execSync( `sturdydocker-hosts add ${host}` );
 		}
-
-        for ( const domain of Object.keys( sites ) ) {
-            execSync( `sturdydocker-hosts add ${domain}.test` );
-        }
     } else {
 		for ( const [ name, value ] of default_dashboard ) {
 			const host = value.host;

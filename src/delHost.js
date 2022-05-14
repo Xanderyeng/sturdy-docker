@@ -16,13 +16,17 @@ const sites_defaults = Object.entries( config.sites );
 
 const wsl_host = function() {
     if ( isWSL ) {
+		for ( const [ name, value ] of default_dashboard ) {
+			const host = value.host;
 
-        execSync( `sturdydocker-hosts remove dashboard.test` );
-		execSync( `sturdydocker-hosts remove phpmyadmin.dashboard.test` );
+			execSync( `sturdydocker-hosts remove ${host}` );
+		}
 
-        for ( const domain of Object.keys( sites ) ) {
-            execSync( `sturdydocker-hosts remove ${domain}.test` );
-        }
+		for ( const [ name, value ] of sites_defaults ) {
+			const host = value.host;
+
+			execSync( `sturdydocker-hosts remove ${host}` );
+		}
     } else {
 		for ( const [ name, value ] of default_dashboard ) {
 			const host = value.host;
