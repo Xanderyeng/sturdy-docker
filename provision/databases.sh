@@ -11,23 +11,31 @@ get_sites() {
 }
 
 for domain in `get_sites`; do
-    get_site_cms_type() {
-        local value=`cat ${config} | shyaml get-value sites.${domain}.custom.type 2> /dev/null`
+    get_custom_value() {
+        local value=`cat ${config} | shyaml get-value sites.${domain}.custom.${1} 2> /dev/null`
         echo ${value:-$@}
     }
 
-    type=`get_site_cms_type`
+    get_custom_value() {
+      local value=`cat ${config} | shyaml get-value sites.${domain}.provision 2> /dev/null`
+      echo ${value:-$@}
+    }
 
-    if [[ "ClassicPress" == ${type} ]]; then
-        mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"
-        mysql -u root -e "CREATE USER IF NOT EXISTS 'classicpress'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'classicpress';"
-        mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'classicpress'@'localhost' WITH GRANT OPTION;"
-        mysql -u root -e "FLUSH PRIVILEGES;"
-    elif [[ ${type} == "WordPress" ]]; then
-        mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"
-        mysql -u root -e "CREATE USER IF NOT EXISTS 'wordpress'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'wordpress';"
-        mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'localhost' WITH GRANT OPTION;"
-        mysql -u root -e "FLUSH PRIVILEGES;"
+    type=`get_custom_value 'type' ''`
+    provision=`get_custom_value 'provision' ''`
+
+    if [[ ${provision} != "False" ]]; then
+        if [[ "ClassicPress" == ${type} ]]; then
+            mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"
+            mysql -u root -e "CREATE USER IF NOT EXISTS 'classicpress'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'classicpress';"
+            mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'classicpress'@'localhost' WITH GRANT OPTION;"
+            mysql -u root -e "FLUSH PRIVILEGES;"
+        elif [[ ${type} == "WordPress" ]]; then
+            mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${domain};"
+            mysql -u root -e "CREATE USER IF NOT EXISTS 'wordpress'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'wordpress';"
+            mysql -u root -e "GRANT ALL PRIVILEGES ON ${domain}.* to 'wordpress'@'localhost' WITH GRANT OPTION;"
+            mysql -u root -e "FLUSH PRIVILEGES;"
+        fi
     fi
 done
 

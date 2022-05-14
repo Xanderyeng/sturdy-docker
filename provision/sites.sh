@@ -18,8 +18,6 @@ themes=`get_custom_value 'themes' ''`
 constants=`get_custom_value 'constants' ''`
 php=`get_custom_value 'php' ''`
 
-
-
 if [[ ${provision} == 'true' ]]; then
     if [[ ! -z "${type}" ]]; then
         if [[ "${type}" == 'blush' ]] || [[ "${type}" == 'Blush' ]]; then
@@ -99,7 +97,7 @@ if [[ ${provision} == 'true' ]]; then
                 sudo cp "/srv/config/php/fpm/fpm.conf" "/etc/php/8.1/fpm/pool.d/${domain}.test.conf"
                 sudo sed -i -e "s/{{DOMAIN}}/${domain}/g" "/etc/php/8.1/fpm/pool.d/${domain}.test.conf"
             fi
-            
+
             if grep -q "7.4" "/etc/apache2/sites-available/${domain}.test.conf"; then
                 sudo sed -i -e "s/7.4/8.1/g" "/etc/apache2/sites-available/${domain}.test.conf"
             fi
@@ -136,6 +134,6 @@ if [[ ${provision} == 'true' ]]; then
             source ${dir}/provision/setup.sh
         fi
     fi
-else 
+else
     sudo rm -rf "/etc/apache2/sites-available/${domain}.test.conf"
 fi
