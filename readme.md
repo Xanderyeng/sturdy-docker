@@ -88,16 +88,16 @@ Usage: sturdydocker [command]
 
 Commands:
 
-init        Choose Apache2 or Nginx
-provision   Creae new WordPress site or sites
-restart     Restarts one or more container
-shell       Opens a shell for a specific container
-start       Starts one or more container
-stop        Stops one or more container
-up          Starts one or more container
-down        Destroys one or more container
-pull        Pull image or images
-logs        Fetch the logs of a container
+init        Create intial custom file
+provision   Creae new site or sites
+restart     Restart server container
+shell       Bash shell for server container
+start       Start server container
+stop        Stop server container
+up          Start server container
+down        Destroy server container
+pull        Pull image for server container
+logs        Fetch log for server container
 
 Run 'sturdydocker [command] help' for more information on a command.
 </pre>
