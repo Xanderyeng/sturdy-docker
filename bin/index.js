@@ -7,9 +7,10 @@ Usage: sturdydocker [command]
 
 Commands:
 
+init        Create intial custom file
 provision   Creae new site or sites
 restart     Restart server container
-shell       Bash Shell for server container
+shell       Bash shell for server container
 start       Start server container
 stop        Stop server container
 up          Start server container
@@ -23,7 +24,7 @@ Run 'sturdydocker [command] help' for more information on a command.
 };
 
 const version = function() {
-    var pjson = require('./package.json');
+    var pjson = require( '../package.json' );
     console.log( 'Sturdy Docker' );
     console.log( `Version: ${pjson.version}` );
 };
