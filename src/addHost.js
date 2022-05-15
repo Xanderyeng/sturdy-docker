@@ -17,27 +17,36 @@ const sites_defaults = Object.entries( config.sites );
 const wsl_host = function() {
     if ( isWSL ) {
 		for ( const [ name, value ] of default_dashboard ) {
-			const host = value.host;
+			const hosts = value.host;
 
-			execSync( `sturdydocker-hosts add ${host}` );
+			for ( const host of hosts ) {
+				execSync( `sturdydocker-hosts add ${host}` );
+			}
 		}
 
 		for ( const [ name, value ] of sites_defaults ) {
-			const host = value.host;
+			const hosts = value.host;
 
-			execSync( `sturdydocker-hosts add ${host}` );
+			for ( const host of hosts ) {
+				execSync( `sturdydocker-hosts add ${host}` );
+			}
 		}
     } else {
 		for ( const [ name, value ] of default_dashboard ) {
-			const host = value.host;
+			const hosts = value.host;
 
-			execSync( `sudo sturdydocker-hosts add ${host}` );
+			for ( const host of hosts ) {
+				execSync( `sudo sturdydocker-hosts add ${host}` );
+			}
 		}
 
-		for ( const [ name, value ] of sites_defaults ) {
-			const host = value.host;
 
-			execSync( `sudo sturdydocker-hosts add ${host}` );
+		for ( const [ name, value ] of sites_defaults ) {
+			const hosts = value.host;
+
+			for ( const host of hosts ) {
+				execSync( `sudo sturdydocker-hosts add ${host}` );
+			}
 		}
     }
 };
