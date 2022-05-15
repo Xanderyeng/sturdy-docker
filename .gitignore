@@ -1,7 +1,4 @@
 .global/custom.yml
-certificates/*
-databases
 logs
 node_modules
 provision/resources
-sites/*
