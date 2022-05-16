@@ -45,6 +45,8 @@ if [[ ${provision} == 'true' ]]; then
                     if [[ ! -d "/srv/www/${domain}/domains/${sub}/public_html" ]]; then
                         mkdir -p "/srv/www/${domain}/domains/${sub}/public_html"
                     fi
+                elif  [[ "${sub}" == 'subdomains' ]]; then
+                  exit 0
                 fi
             done
         elif [[ "${type}" == 'classicpress' ]] || [[ "${type}" == 'ClassicPress' ]]; then
@@ -67,6 +69,8 @@ if [[ ${provision} == 'true' ]]; then
                     if [[ ! -d "/srv/www/${domain}/domains/${sub}/public_html" ]]; then
                         mkdir -p "/srv/www/${domain}/domains/${sub}/public_html"
                     fi
+                elif  [[ "${sub}" == 'subdomains' ]]; then
+                  exit 0
                 fi
             done
         elif [[ "${type}" == 'jigsaw' ]] || [[ "${type}" == 'Jigsaw' ]]; then
@@ -91,6 +95,8 @@ if [[ ${provision} == 'true' ]]; then
                     if [[ ! -d "/srv/www/${domain}/domains/${sub}/public_html" ]]; then
                         mkdir -p "/srv/www/${domain}/domains/${sub}/public_html"
                     fi
+                elif  [[ "${sub}" == 'subdomains' ]]; then
+                  exit 0
                 fi
             done
         elif [[ "${type}" == 'laravel' ]] || [[ "${type}" == 'Laravel' ]]; then
@@ -114,6 +120,8 @@ if [[ ${provision} == 'true' ]]; then
                     if [[ ! -d "/srv/www/${domain}/domains/${sub}/public_html" ]]; then
                         mkdir -p "/srv/www/${domain}/domains/${sub}/public_html"
                     fi
+                elif  [[ "${sub}" == 'subdomains' ]]; then
+                  exit 0
                 fi
             done
         elif [[ "${type}" == 'WordPress' ]] || [[ "${type}" == 'wordpress' ]]; then
@@ -136,6 +144,8 @@ if [[ ${provision} == 'true' ]]; then
                     if [[ ! -d "/srv/www/${domain}/domains/${sub}/public_html" ]]; then
                         mkdir -p "/srv/www/${domain}/domains/${sub}/public_html"
                     fi
+                elif  [[ "${sub}" == 'subdomains' ]]; then
+                  exit 0
                 fi
             done
         fi
