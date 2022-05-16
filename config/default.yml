@@ -20,6 +20,7 @@ sites:
     repo: https://github.com/benlumia007/sturdy-docker-sites.git
     host:
       - classicpress.test
+      - dev.classicpress.test
     custom:
       php: 7.4
       type: ClassicPress
@@ -29,12 +30,15 @@ sites:
         - DISALLOW_FILE_EDIT
         - WP_DEBUG
         - WP_DEBUG_DISPLAY
+      subdomains:
+        - dev
 
   wordpress:
     provision: false
     repo: https://github.com/benlumia007/sturdy-docker-sites.git
     host:
       - wordpress.test
+      - dev.wordpress.test
     custom:
       php: 7.4
       type: WordPress
@@ -45,6 +49,8 @@ sites:
         - DISALLOW_FILE_EDIT
         - WP_DEBUG
         - WP_DEBUG_DISPLAY
+      subdomains:
+        - dev
 
 resources:
   cores:
