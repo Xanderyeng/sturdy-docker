@@ -131,11 +131,11 @@ When you look at the docker-compose.yml file in the .global folder, you will see
 45. MailHog
 </pre>
 
-### Nginx
-I decided to use Nginx as default than Apache2 just because is a lot easier to maintain and easier to configure. At this moment. Sturdy Docker is using Nginx 1.18.0. Also please note that https is enabled by default so this means that when you create a new site for any project. HTTP will get redirected to HTTPS automatically so make sure to setup your certificates after doing a provision which is located in the certificates folder. Please use ca.crt (root certificate) and install.
+### Apache2
+I decided to use Apache2 as default just because is a lot easier to maintain and easier to configure. At this moment. Sturdy Docker is using Apache 2.4.41. Please note that https is enabled by default so this means that when you create a new site for any project. HTTP will get redirected to HTTPS automatically so make sure to setup your certificates after doing a provision which is located in the certificates folder. Please use ca.crt (root certificate) and install.
 
-### MySQL Server 8.0
-The latest version of MySQL server.
+### MariaDB
+I have decided to move from MySQL to MariaDB just because.
 
 ### PHP 8.1
 At this momemet, php 8.1 is set by default for all sites that gets created. As for ClassicPress and WordPress is defaulted to PHP 7.4 since they are not fully compatiible.
