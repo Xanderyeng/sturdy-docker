@@ -13,6 +13,7 @@ default:
     repo: https://github.com/benlumia007/sturdy-docker-dashboard.git
     host:
       - dashboard.test
+      - phpmyadmin.dashboard.test
 
 sites:
   classicpress:
