@@ -125,10 +125,11 @@ This is where any resources will go so that it will generated any resources that
 ## So What's Included
 When you look at the docker-compose.yml file in the .global folder, you will see only one image that takes care of all of your needs when doing development. Rather than setting up multiple services. I have managed to setup one image for all. This includes the following.
 <pre>
-1. Nginx
-2. MySQL Server 8.0
-3. PHP 7.4, 8.0, and 8.1
-45. MailHog
+1. Apache (2.4.41)
+2. MariaDB 10.5
+3. PHP 7.4 and 8.1
+4. MailCatcher
+5. phpMyadmin
 </pre>
 
 ### Apache2
